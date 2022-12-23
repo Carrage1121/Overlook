@@ -17,6 +17,7 @@ IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
 IncludeDir["Glad"] = "Hazel/vendor/Glad/include"
 IncludeDir["ImGui"] = "Hazel/vendor/imgui"
 IncludeDir["glm"] = "Hazel/vendor/glm"
+IncludeDir["assimp"] = "Hazel/vendor/assimp/include"
 
 include "Hazel/vendor/GLFW"
 include "Hazel/vendor/Glad"
@@ -39,8 +40,13 @@ project "Hazel"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/src/Hazel/Shader/**.vert",
+		"%{prj.name}/src/Hazel/Shader/**.frag",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl",
+		"%{prj.name}/vendor/assimp/include/assimp/**.hpp",
+		"%{prj.name}/vendor/assimp/include/assimp/**.h",
+		"%{prj.name}/vendor/assimp/include/assimp/**.inl",
 	}
 
 	defines
@@ -55,7 +61,8 @@ project "Hazel"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.assimp}"
 	}
 
 	links 

@@ -10,6 +10,7 @@
 namespace Hazel {
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
+#define ShaderFilePath "D:\\GameDevelop\\GameEngine\\Overlook\\Hazel\\src\\Hazel\\Shader\\"
 
 	Application* Application::s_Instance = nullptr;
 
@@ -98,8 +99,9 @@ namespace Hazel {
 			}
 		)";
 
-		m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
+		m_Shader.reset(new Shader("D:\\GameDevelop\\GameEngine\\Overlook\\Hazel\\src\\Hazel\\Shader\\VertexShader.vert", "D:\\GameDevelop\\GameEngine\\Overlook\\Hazel\\src\\Hazel\\Shader\\FragShader.frag"));
 
+		//m_Shader.reset(new Shader("VertexShader.vert","FragShader.frag"));
 		std::string blueShaderVertexSrc = R"(
 			#version 330 core
 			
@@ -125,7 +127,8 @@ namespace Hazel {
 			}
 		)";
 
-		m_BlueShader.reset(new Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
+		m_BlueShader.reset(new Shader("D:\\GameDevelop\\GameEngine\\Overlook\\Hazel\\src\\Hazel\\Shader\\VertexShader_sq.vert", "D:\\GameDevelop\\GameEngine\\Overlook\\Hazel\\src\\Hazel\\Shader\\FragShader_sq.frag"));
+		//m_BlueShader.reset(new Shader("VertexShader_sq.vert", "FragShader_sq.frag"));
 	}
 
 	Application::~Application()

@@ -6,14 +6,16 @@
 
 namespace Hazel {
 
-	Shader::Shader(const std::string& vertexSrc, const std::string& fragmentSrc)
+	Shader::Shader(const char* vertexSrc, const char* fragmentSrc)
 	{
+		std::string vertexFile = RShaderFile(vertexSrc);
+		std::string fragmentFile = RShaderFile(fragmentSrc);
 		// Create an empty vertex shader handle
 		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
 		// Send the vertex shader source code to GL
 		// Note that std::string's .c_str is NULL character terminated.
-		const GLchar* source = vertexSrc.c_str();
+		const GLchar* source = vertexFile.c_str();
 		glShaderSource(vertexShader, 1, &source, 0);
 
 		// Compile the vertex shader
@@ -43,7 +45,7 @@ namespace Hazel {
 
 		// Send the fragment shader source code to GL
 		// Note that std::string's .c_str is NULL character terminated.
-		source = fragmentSrc.c_str();
+		source = fragmentFile.c_str();
 		glShaderSource(fragmentShader, 1, &source, 0);
 
 		// Compile the fragment shader
@@ -129,5 +131,31 @@ namespace Hazel {
 	{
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+	}
+
+	std::string Shader::RShaderFile(const char* filePath)
+	{
+		std::string shaderCode;
+		std::ifstream shaderFile;
+
+		// ensure ifstream objects can throw exceptions:
+		shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+		HZ_CORE_ASSERT(!shaderFile.is_open(),"shader file is open !");
+
+		try
+		{
+			shaderFile.open(filePath);
+			std::stringstream shaderStream;
+			shaderStream << shaderFile.rdbuf();
+
+			shaderFile.close();
+			return shaderStream.str();
+		}
+		catch (std::ifstream::failure& e)
+		{
+			std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ: " << std::endl;
+			HZ_CORE_ERROR(e.what());
+		}
 	}
 }
