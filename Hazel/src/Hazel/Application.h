@@ -13,6 +13,9 @@
 #include "Hazel/Renderer/Buffer.h"
 #include "Hazel/Renderer/VertexArray.h"
 #include "Hazel/Renderer/OrthographicCamera.h"
+#include "Platform/OpenGL/OpenGLShader.h"
+#include <glm/gtc/type_ptr.hpp>
+
 namespace Hazel {
 
 	class HAZEL_API Application
