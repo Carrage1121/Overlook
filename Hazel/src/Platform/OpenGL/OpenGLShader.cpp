@@ -7,10 +7,14 @@
 
 namespace Hazel {
 
-	OpenGLShader::OpenGLShader(const char* vertexSrc, const char* fragmentSrc)
+	OpenGLShader::OpenGLShader(const char* vertexSrc, const char* fragmentSrc, const char* geometryPath)
 	{
 		std::string vertexFile = RShaderFile(vertexSrc);
 		std::string fragmentFile = RShaderFile(fragmentSrc);
+		std::string geometryFile;
+
+		if (geometryPath != nullptr)
+			geometryFile = RShaderFile(geometryPath);
 		// Create an empty vertex shader handle
 		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
@@ -53,6 +57,41 @@ namespace Hazel {
 		glCompileShader(fragmentShader);
 
 		glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &isCompiled);
+
+		GLuint geometry;
+		if (geometryPath != nullptr)
+		{
+			// Create an empty fragment shader handle
+			geometry = glCreateShader(GL_FRAGMENT_SHADER);
+
+			// Send the fragment shader source code to GL
+			// Note that std::string's .c_str is NULL character terminated.
+			source = geometryFile.c_str();
+			glShaderSource(geometry, 1, &source, 0);
+
+			// Compile the fragment shader
+			glCompileShader(geometry);
+
+			glGetShaderiv(geometry, GL_COMPILE_STATUS, &isCompiled);
+
+			if (isCompiled == GL_FALSE)
+			{
+				GLint maxLength = 0;
+				glGetShaderiv(geometry, GL_INFO_LOG_LENGTH, &maxLength);
+
+				// The maxLength includes the NULL character
+				std::vector<GLchar> infoLog(maxLength);
+				glGetShaderInfoLog(geometry, maxLength, &maxLength, &infoLog[0]);
+
+				// We don't need the shader anymore.
+				glDeleteShader(geometry);
+
+				HZ_CORE_ERROR("{0}", infoLog.data());
+				HZ_CORE_ASSERT(false, "geometry compilation failure!");
+				return;
+			}
+		}
+
 		if (isCompiled == GL_FALSE)
 		{
 			GLint maxLength = 0;
@@ -81,6 +120,8 @@ namespace Hazel {
 		// Attach our shaders to our program
 		glAttachShader(program, vertexShader);
 		glAttachShader(program, fragmentShader);
+		if (geometryPath != nullptr)
+			glAttachShader(program, geometry);
 
 		// Link our program
 		glLinkProgram(program);
@@ -111,6 +152,8 @@ namespace Hazel {
 		// Always detach shaders after a successful link.
 		glDetachShader(program, vertexShader);
 		glDetachShader(program, fragmentShader);
+		if (geometryPath != nullptr)
+			glDeleteShader(geometry);
 	}
 
 	OpenGLShader::~OpenGLShader()

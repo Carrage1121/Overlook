@@ -8,7 +8,7 @@ namespace Hazel {
 	class OpenGLShader : public Shader
 	{
 	public:
-		OpenGLShader(const char* vertexSrc, const char* fragmentSrc);
+		OpenGLShader(const char* vertexSrc, const char* fragmentSrc, const char* geometryPath = nullptr);
 		virtual ~OpenGLShader();
 
 		virtual void Bind() const override;
