@@ -4,6 +4,7 @@
 #include "Hazel/Log.h"
 
 #include "Hazel/Renderer/Renderer.h"
+#include "Hazel/ModelLoader/stb_image.h"
 
 #include "Input.h"
 
@@ -11,12 +12,17 @@ namespace Hazel {
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 #define ShaderFilePath "D:\\GameDevelop\\GameEngine\\Overlook\\Hazel\\src\\Hazel\\Shader\\"
+#define ModelFilePath "D:\\GameDevelop\\GameEngine\\Overlook\\Hazel\\src\\Resourse\\nanosuit"
 
 	Application* Application::s_Instance = nullptr;
 
-
-	Application::Application() : m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
+	//: mModel(ModelFilePath) , mCamera(glm::vec3(0.0f, 0.0f, 3.0f))
+	// mCamera(-1.6f, 1.6f, -0.9f, 0.9f)
+	Application::Application() : mModel(ModelFilePath), mCamera(glm::vec3(0.0f, 0.0f, 3.0f))
 	{
+		// tell stb_image.h to flip loaded texture's on the y-axis (before loading model).
+		stbi_set_flip_vertically_on_load(true);
+
 		HZ_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
@@ -26,55 +32,58 @@ namespace Hazel {
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
-		float vertices[3 * 7] = {
-			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
-			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
-			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
-		};
+// 		float vertices[3 * 7] = {
+// 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
+// 			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
+// 			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
+// 		};
+// 
+// 		std::shared_ptr<VertexBuffer> vertexBuffer;
+// 		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+// 		BufferLayout layout = {
+// 			{ ShaderDataType::Float3, "a_Position" },
+// 			{ ShaderDataType::Float4, "a_Color" }
+// 		};
+// 		vertexBuffer->SetLayout(layout);
+// 
+// 
+// 		m_VertexArray.reset(VertexArray::Create());
+// 		m_VertexArray->AddVertexBuffer(vertexBuffer);
+// 
+// 		uint32_t indices[3] = { 0, 1, 2 };
+// 		std::shared_ptr<IndexBuffer> indexBuffer;
+// 		indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+// 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
-		std::shared_ptr<VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
-		BufferLayout layout = {
-			{ ShaderDataType::Float3, "a_Position" },
-			{ ShaderDataType::Float4, "a_Color" }
-		};
-		vertexBuffer->SetLayout(layout);
+		//m_SquareVA.reset(VertexArray::Create());
+
+		//float squareVertices[3 * 4] = {
+		//	-0.75f, -0.75f, 0.0f,
+		//	 0.75f, -0.75f, 0.0f,
+		//	 0.75f,  0.75f, 0.0f,
+		//	-0.75f,  0.75f, 0.0f
+		//};
+
+		//std::shared_ptr<VertexBuffer> squareVB;
+		//squareVB.reset(VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		//squareVB->SetLayout({
+		//	{ ShaderDataType::Float3, "a_Position" }
+		//	});
+		//m_SquareVA->AddVertexBuffer(squareVB);
+
+		//uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
+		//std::shared_ptr<IndexBuffer> squareIB;
+		//squareIB.reset(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		//m_SquareVA->SetIndexBuffer(squareIB);
+
+		//mShader.reset(Hazel::Shader::Create("D:\\GameDevelop\\GameEngine\\Overlook\\Hazel\\src\\Hazel\\Shader\\VertexShader.vert", "D:\\GameDevelop\\GameEngine\\Overlook\\Hazel\\src\\Hazel\\Shader\\FragShader.frag"));
+		////m_Shader.reset(new Shader("VertexShader.vert","FragShader.frag"));
+
+		//m_BlueShader.reset(Hazel::Shader::Create("D:\\GameDevelop\\GameEngine\\Overlook\\Hazel\\src\\Hazel\\Shader\\VertexShader_sq.vert", "D:\\GameDevelop\\GameEngine\\Overlook\\Hazel\\src\\Hazel\\Shader\\FragShader_sq.frag"));
+		////m_BlueShader.reset(new Shader("VertexShader_sq.vert", "FragShader_sq.frag"));
 
 
-		m_VertexArray.reset(VertexArray::Create());
-		m_VertexArray->AddVertexBuffer(vertexBuffer);
-
-		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<IndexBuffer> indexBuffer;
-		indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
-		m_VertexArray->SetIndexBuffer(indexBuffer);
-
-		m_SquareVA.reset(VertexArray::Create());
-
-		float squareVertices[3 * 4] = {
-			-0.75f, -0.75f, 0.0f,
-			 0.75f, -0.75f, 0.0f,
-			 0.75f,  0.75f, 0.0f,
-			-0.75f,  0.75f, 0.0f
-		};
-
-		std::shared_ptr<VertexBuffer> squareVB;
-		squareVB.reset(VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
-		squareVB->SetLayout({
-			{ ShaderDataType::Float3, "a_Position" }
-			});
-		m_SquareVA->AddVertexBuffer(squareVB);
-
-		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<IndexBuffer> squareIB;
-		squareIB.reset(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
-		m_SquareVA->SetIndexBuffer(squareIB);
-
-		m_Shader.reset(Hazel::Shader::Create("D:\\GameDevelop\\GameEngine\\Overlook\\Hazel\\src\\Hazel\\Shader\\VertexShader.vert", "D:\\GameDevelop\\GameEngine\\Overlook\\Hazel\\src\\Hazel\\Shader\\FragShader.frag"));
-		//m_Shader.reset(new Shader("VertexShader.vert","FragShader.frag"));
-
-		m_BlueShader.reset(Hazel::Shader::Create("D:\\GameDevelop\\GameEngine\\Overlook\\Hazel\\src\\Hazel\\Shader\\VertexShader_sq.vert", "D:\\GameDevelop\\GameEngine\\Overlook\\Hazel\\src\\Hazel\\Shader\\FragShader_sq.frag"));
-		//m_BlueShader.reset(new Shader("VertexShader_sq.vert", "FragShader_sq.frag"));
+		mShader.reset(Hazel::Shader::Create("D:\\GameDevelop\\GameEngine\\Overlook\\Hazel\\src\\Hazel\\Shader\\model_loading.vert", "D:\\GameDevelop\\GameEngine\\Overlook\\Hazel\\src\\Hazel\\Shader\\model_loading.frag"));
 	}
 
 	Application::~Application()
@@ -113,13 +122,9 @@ namespace Hazel {
 			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 			RenderCommand::Clear();
 
-			m_Camera.SetPosition({ 0.5f, 0.5f, 0.0f });
-			m_Camera.SetRotation(45.0f);
+			Renderer::mBeginScene(mCamera);
 
-			Renderer::BeginScene(m_Camera);
-
-			Renderer::Submit(m_BlueShader, m_SquareVA);
-			Renderer::Submit(m_Shader, m_VertexArray);
+			Renderer::mSubmit(mShader, mModel);
 
 			Renderer::EndScene();
 

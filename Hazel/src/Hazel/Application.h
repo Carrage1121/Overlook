@@ -14,6 +14,10 @@
 #include "Hazel/Renderer/VertexArray.h"
 #include "Hazel/Renderer/OrthographicCamera.h"
 #include "Platform/OpenGL/OpenGLShader.h"
+
+#include "Hazel/ModelLoader/camera.h"
+#include "Hazel/ModelLoader/Model.h"
+
 #include <glm/gtc/type_ptr.hpp>
 
 namespace Hazel {
@@ -42,13 +46,17 @@ namespace Hazel {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
+		//std::shared_ptr<Shader> m_Shader;
+		//std::shared_ptr<VertexArray> m_VertexArray;
 
-		std::shared_ptr<Shader> m_BlueShader;
-		std::shared_ptr<VertexArray> m_SquareVA;
+		//std::shared_ptr<Shader> m_BlueShader;
+		//std::shared_ptr<VertexArray> m_SquareVA;
 
-		OrthographicCamera m_Camera;
+ 		Camera mCamera;
+ 		std::shared_ptr<Shader> mShader;
+ 		Model mModel;
+
+		//OrthographicCamera mCamera;
 	private:
 		static Application* s_Instance;
 	};

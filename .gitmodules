@@ -13,3 +13,6 @@
 [submodule "Hazel/vendor/assimp"]
 	path = Hazel/vendor/assimp
 	url = https://github.com/assimp/assimp
+[submodule "Hazel/vendor/stb"]
+	path = Hazel/vendor/stb
+	url = https://github.com/nothings/stb

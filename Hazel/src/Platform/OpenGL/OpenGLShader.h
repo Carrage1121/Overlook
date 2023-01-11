@@ -25,7 +25,7 @@ namespace Hazel {
 		void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);
 
 		std::string RShaderFile(const char* filePath);
-	private:
+	public:
 		uint32_t m_RendererID;
 	};
 

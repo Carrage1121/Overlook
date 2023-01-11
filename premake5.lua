@@ -22,6 +22,7 @@ IncludeDir["assimp"] = "Hazel/vendor/assimp/include"
 include "Hazel/vendor/GLFW"
 include "Hazel/vendor/Glad"
 include "Hazel/vendor/imgui"
+include "Hazel/vendor/assimp"
 
 project "Hazel"
 	location "Hazel"
@@ -42,11 +43,10 @@ project "Hazel"
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/src/Hazel/Shader/**.vert",
 		"%{prj.name}/src/Hazel/Shader/**.frag",
+		"%{prj.name}/src/Hazel/ModelLoader/**.h",
+		--"%{prj.name}/src/Hazel/ModelLoader/**.h",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl",
-		"%{prj.name}/vendor/assimp/include/assimp/**.hpp",
-		"%{prj.name}/vendor/assimp/include/assimp/**.h",
-		"%{prj.name}/vendor/assimp/include/assimp/**.inl",
 	}
 
 	defines
@@ -58,11 +58,12 @@ project "Hazel"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
+		"%{prj.name}/src/Hazel/ModelLoader",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.assimp}"
+		"%{IncludeDir.assimp}",
 	}
 
 	links 
@@ -70,7 +71,8 @@ project "Hazel"
 		"GLFW",
 		"Glad",
 		"ImGui",
-		"opengl32.lib"
+		"assimp",
+		"opengl32.lib",
 	}
 
 	filter "system:windows"
@@ -119,7 +121,7 @@ project "Sandbox"
 		"Hazel/vendor/spdlog/include",
 		"Hazel/src",
 		"Hazel/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
 	}
 
 	links
