@@ -22,8 +22,7 @@ namespace Hazel {
 	{
 		// tell stb_image.h to flip loaded texture's on the y-axis (before loading model).
 		stbi_set_flip_vertically_on_load(true);
-
-		//mModel = Model(ModelFilePath);
+	
 
 		HZ_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
@@ -39,11 +38,6 @@ namespace Hazel {
 
 	Application::~Application()
 	{
-	}
-
-	Model Application::loadModel()
-	{
-		return Model(ModelFilePath);
 	}
 
 	void Application::PushLayer(Layer* layer)
@@ -73,6 +67,7 @@ namespace Hazel {
 
 	void Application::Run()
 	{
+		mModel = std::make_shared<Model>(ModelFilePath);
 		RenderCommand::Test();
 		while (m_Running)
 		{
@@ -81,7 +76,7 @@ namespace Hazel {
 
 			Renderer::mBeginScene(mCamera);
 
-			Renderer::mSubmit(mShader, loadModel());
+			Renderer::mSubmit(mShader, mModel);
 
 			Renderer::EndScene();
 

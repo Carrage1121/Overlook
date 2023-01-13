@@ -31,12 +31,12 @@ namespace Hazel {
 		RenderCommand::DrawIndexed(vertexArray);
 	}
 
-	void Renderer::mSubmit(const std::shared_ptr<Shader>& shader, Model& model, const glm::mat4& transform)
+	void Renderer::mSubmit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Model>& model, const glm::mat4& transform)
 	{
 		shader->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);
 
-		model.Draw(std::dynamic_pointer_cast<OpenGLShader>(shader));
+		model->Draw(std::dynamic_pointer_cast<OpenGLShader>(shader));
 	}
 }

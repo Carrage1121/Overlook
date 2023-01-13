@@ -46,7 +46,6 @@ namespace Hazel {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		Model loadModel();
 		//std::shared_ptr<Shader> m_Shader;
 		//std::shared_ptr<VertexArray> m_VertexArray;
 
@@ -55,6 +54,8 @@ namespace Hazel {
 
  		Camera mCamera;
 		std::shared_ptr<Shader> mShader;
+		//Model mModel;
+		std::shared_ptr<Model> mModel;
 
 		//OrthographicCamera mCamera;
 	private:
