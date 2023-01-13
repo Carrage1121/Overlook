@@ -43,8 +43,6 @@ project "Hazel"
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/src/Hazel/Shader/**.vert",
 		"%{prj.name}/src/Hazel/Shader/**.frag",
-		"%{prj.name}/src/Hazel/ModelLoader/**.h",
-		--"%{prj.name}/src/Hazel/ModelLoader/**.h",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl",
 	}
@@ -58,12 +56,17 @@ project "Hazel"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{prj.name}/src/Hazel/ModelLoader",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.assimp}",
+		"Hazel/vendor/assimp/contrib",
+	}
+
+	resincludedirs 
+	{
+		"%{prj.name}/src/Resource",
 	}
 
 	links 
@@ -122,11 +125,15 @@ project "Sandbox"
 		"Hazel/src",
 		"Hazel/vendor",
 		"%{IncludeDir.glm}",
+		"%{IncludeDir.assimp}",
+		"%{IncludeDir.Glad}",
+		"Hazel/vendor/assimp/contrib",
 	}
 
 	links
 	{
-		"Hazel"
+		"Hazel",
+		"assimp",
 	}
 
 	filter "system:windows"

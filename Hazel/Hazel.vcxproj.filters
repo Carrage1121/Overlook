@@ -99,13 +99,13 @@
     <ClInclude Include="src\Hazel\ModelLoader\Model.h">
       <Filter>src\Hazel\ModelLoader</Filter>
     </ClInclude>
+    <ClInclude Include="src\Hazel\ModelLoader\ModelLoadBuild.h">
+      <Filter>src\Hazel\ModelLoader</Filter>
+    </ClInclude>
     <ClInclude Include="src\Hazel\ModelLoader\camera.h">
       <Filter>src\Hazel\ModelLoader</Filter>
     </ClInclude>
     <ClInclude Include="src\Hazel\ModelLoader\mesh.h">
-      <Filter>src\Hazel\ModelLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Hazel\ModelLoader\stb_image.h">
       <Filter>src\Hazel\ModelLoader</Filter>
     </ClInclude>
     <ClInclude Include="src\Hazel\MouseButtonCodes.h">
@@ -1429,6 +1429,15 @@
     </ClCompile>
     <ClCompile Include="src\Hazel\Log.cpp">
       <Filter>src\Hazel</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hazel\ModelLoader\Model.cpp">
+      <Filter>src\Hazel\ModelLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hazel\ModelLoader\camera.cpp">
+      <Filter>src\Hazel\ModelLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hazel\ModelLoader\stbBuild.cpp">
+      <Filter>src\Hazel\ModelLoader</Filter>
     </ClCompile>
     <ClCompile Include="src\Hazel\Renderer\Buffer.cpp">
       <Filter>src\Hazel\Renderer</Filter>
