@@ -1,6 +1,39 @@
 #pragma once
 
 // From glfw3.h
+//mouse
+#define HZ_MOUSE_BUTTON_1         0
+#define HZ_MOUSE_BUTTON_2         1
+#define HZ_MOUSE_BUTTON_3         2
+#define HZ_MOUSE_BUTTON_4         3
+#define HZ_MOUSE_BUTTON_5         4
+#define HZ_MOUSE_BUTTON_6         5
+#define HZ_MOUSE_BUTTON_7         6
+#define HZ_MOUSE_BUTTON_8         7
+#define HZ_MOUSE_BUTTON_LAST      HZ_MOUSE_BUTTON_8
+#define HZ_MOUSE_BUTTON_LEFT      HZ_MOUSE_BUTTON_1
+#define HZ_MOUSE_BUTTON_RIGHT     HZ_MOUSE_BUTTON_2
+#define HZ_MOUSE_BUTTON_MIDDLE    HZ_MOUSE_BUTTON_3
+
+//joystick
+#define HZ_JOYSTICK_1             0
+#define HZ_JOYSTICK_2             1
+#define HZ_JOYSTICK_3             2
+#define HZ_JOYSTICK_4             3
+#define HZ_JOYSTICK_5             4
+#define HZ_JOYSTICK_6             5
+#define HZ_JOYSTICK_7             6
+#define HZ_JOYSTICK_8             7
+#define HZ_JOYSTICK_9             8
+#define HZ_JOYSTICK_10            9
+#define HZ_JOYSTICK_11            10
+#define HZ_JOYSTICK_12            11
+#define HZ_JOYSTICK_13            12
+#define HZ_JOYSTICK_14            13
+#define HZ_JOYSTICK_15            14
+#define HZ_JOYSTICK_16            15
+#define HZ_JOYSTICK_LAST          HZ_JOYSTICK_16
+//keyboard
 #define HZ_KEY_SPACE              32
 #define HZ_KEY_APOSTROPHE         39  /* ' */
 #define HZ_KEY_COMMA              44  /* , */

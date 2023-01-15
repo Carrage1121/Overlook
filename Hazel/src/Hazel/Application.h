@@ -31,6 +31,7 @@ namespace Hazel {
 		void Run();
 
 		void OnEvent(Event& e);
+		void OnUpdate();
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
@@ -40,11 +41,13 @@ namespace Hazel {
 		inline static Application& Get() { return *s_Instance; }
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+		bool firstmouse = true;
 
 		//std::shared_ptr<Shader> m_Shader;
 		//std::shared_ptr<VertexArray> m_VertexArray;

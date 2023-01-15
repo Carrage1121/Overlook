@@ -2,6 +2,7 @@
 #include "Application.h"
 
 #include "Hazel/Log.h"
+#include "Hazel/KeyCodes.h"
 
 #include "Hazel/Renderer/Renderer.h"
 #include "stb/stb_image.h"
@@ -52,10 +53,22 @@ namespace Hazel {
 		layer->OnAttach();
 	}
 
+	void Application::OnUpdate()
+	{
+		if (Input::IsMouseButtonPressed(HZ_MOUSE_BUTTON_2))
+		{
+			auto [x, y] = Input::GetMousePosition();
+			mCamera.SetRotation(abs(y - x));
+			//HZ_CORE_TRACE("{0}, {1}", x, y);
+		}
+		
+	}
+
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
@@ -82,7 +95,7 @@ namespace Hazel {
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
-
+			OnUpdate();
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();
@@ -97,5 +110,14 @@ namespace Hazel {
 		m_Running = false;
 		return true;
 	}
+
+  	bool Application::OnWindowResize(WindowResizeEvent& e)
+  	{
+ 
+  		mCamera.WindowsResize(e.GetWidth(), e.GetHeight());
+  
+  		return true;
+  	}
+
 
 }
