@@ -42,12 +42,15 @@ namespace Hazel {
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
+		bool OnMouseButtonResize(MouseButtonReleasedEvent& e);
 
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
-		bool firstmouse = true;
+		bool firstMouse = true;
+		float lastX = 100;
+		float lastY = 100;
 
 		//std::shared_ptr<Shader> m_Shader;
 		//std::shared_ptr<VertexArray> m_VertexArray;
@@ -55,7 +58,7 @@ namespace Hazel {
 		//std::shared_ptr<Shader> m_BlueShader;
 		//std::shared_ptr<VertexArray> m_SquareVA;
 
- 		Camera mCamera;
+		std::unique_ptr <Camera> mCamera;
 		std::shared_ptr<Shader> mShader;
 		//Model mModel;
 		std::shared_ptr<Model> mModel;

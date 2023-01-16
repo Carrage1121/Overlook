@@ -12,9 +12,9 @@ namespace Hazel {
 	{
 		s_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
 	}
-	void Renderer::mBeginScene(Camera& camera)
+	void Renderer::mBeginScene(std::unique_ptr<Camera>& camera)
 	{
-		s_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
+		s_SceneData->ViewProjectionMatrix = camera->GetViewProjectionMatrix();
 	}
 
 	void Renderer::EndScene()

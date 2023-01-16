@@ -4,10 +4,10 @@
 namespace Hazel
 {
 	// constructor with vectors
-	Camera::Camera(glm::vec3 position) : MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
+	Camera::Camera(glm::vec3 position, unsigned int width, unsigned int height) : MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
 	{
 		m_Position = position;
-		RecalculateViewMatrix();
+		WindowsResize(width, height);
 	}
 	// constructor with scalar values
 	Camera::Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
@@ -64,24 +64,21 @@ namespace Hazel
 
 	void Camera::WindowsResize(unsigned int	width, unsigned int	height)
 	{
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_Position) *
-			glm::rotate(glm::mat4(1.0f), glm::radians(m_Rotation), glm::vec3(0, 0, 1));
-
-		m_ViewMatrix = glm::inverse(transform);
-		m_ProjectionMatrix = glm::perspective(glm::radians(this->Zoom), (float)width / (float)height, 0.1f, 100.0f);
-
-		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
+		this->width = width;
+		this->height = height;
+		RecalculateViewMatrix();
 	}
 
 
 	void Camera::RecalculateViewMatrix()
 	{
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_Position) *
-			glm::rotate(glm::mat4(1.0f), glm::radians(m_Rotation), glm::vec3(0, 0, 1));
+			(glm::rotate(glm::mat4(1.0f), glm::radians(m_RotationY), glm::vec3(0, 1, 0)) +
+				glm::rotate(glm::mat4(1.0f), glm::radians(m_RotationX), glm::vec3(1, 0, 0)));
 
 		m_ViewMatrix = glm::inverse(transform);
 
-		m_ProjectionMatrix = glm::perspective(glm::radians(this->Zoom), 1280.0f / 720.0f, 0.1f, 100.0f);
+		m_ProjectionMatrix = glm::perspective(glm::radians(this->Zoom), (float)width / (float)height, 0.1f, 100.0f);
 
 		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
 	}

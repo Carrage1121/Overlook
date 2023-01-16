@@ -28,7 +28,11 @@ namespace Hazel
 		glm::mat4 m_ViewProjectionMatrix;
 
 		glm::vec3 m_Position = { 0.0f, 0.0f, 0.0f };
-		float m_Rotation = 0.0f;
+		float m_RotationY = 0.0f;
+		float m_RotationX = 0.0f;
+
+		unsigned int width;
+		unsigned int height;
 	public:
 		// camera options
 		float MovementSpeed;
@@ -36,7 +40,7 @@ namespace Hazel
 		float Zoom;
 
 		// constructor with vectors
-		Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f));
+		Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), unsigned int width = 1280, unsigned int height = 720);
 		// constructor with scalar values
 		Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch);
 
@@ -56,8 +60,8 @@ namespace Hazel
 		const glm::vec3& GetPosition() const { return m_Position; }
 		void SetPosition(const glm::vec3& position) { m_Position = position; RecalculateViewMatrix(); }
 
-		float GetRotation() const { return m_Rotation; }
-		void SetRotation(float rotation) { m_Rotation = rotation; RecalculateViewMatrix(); }
+		float GetRotation() const { return m_RotationY; }
+		void SetRotation(float rotationY, float rotationX) { m_RotationY = rotationY; m_RotationX = rotationX; RecalculateViewMatrix(); }
 
 		void WindowsResize(unsigned int	width, unsigned int	height);
 	private:

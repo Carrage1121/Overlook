@@ -19,17 +19,19 @@ namespace Hazel {
 
 	//: mModel(ModelFilePath) , mCamera(glm::vec3(0.0f, 0.0f, 3.0f))
 	// mCamera(-1.6f, 1.6f, -0.9f, 0.9f)
-	Application::Application() : mCamera(glm::vec3(0.0f, 0.0f, 3.0f))
+	Application::Application()
 	{
 		// tell stb_image.h to flip loaded texture's on the y-axis (before loading model).
 		stbi_set_flip_vertically_on_load(true);
-	
+
 
 		HZ_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+		mCamera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 3.0f), m_Window->GetWidth(), m_Window->GetHeight()	);
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
@@ -58,10 +60,18 @@ namespace Hazel {
 		if (Input::IsMouseButtonPressed(HZ_MOUSE_BUTTON_2))
 		{
 			auto [x, y] = Input::GetMousePosition();
-			mCamera.SetRotation(abs(y - x));
+			if (firstMouse)
+			{
+				lastX = x;
+				lastY = y;
+				firstMouse = false;
+			}
+			float offsetX = x - lastX;
+			float offsetY = lastY - y;
+
+			mCamera->SetRotation(offsetX * 0.1f, offsetY * 0.1f);
 			//HZ_CORE_TRACE("{0}, {1}", x, y);
 		}
-		
 	}
 
 	void Application::OnEvent(Event& e)
@@ -69,6 +79,7 @@ namespace Hazel {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
+		dispatcher.Dispatch<MouseButtonReleasedEvent>(BIND_EVENT_FN(OnMouseButtonResize));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
@@ -104,6 +115,17 @@ namespace Hazel {
 			m_Window->OnUpdate();
 		}
 	}
+	bool Application::OnMouseButtonResize(MouseButtonReleasedEvent& e)
+	{
+		if (e.GetMouseButton() == HZ_MOUSE_BUTTON_2)
+		{
+//  			lastX = Input::GetMousePosition().first;
+//  			lastY = Input::GetMousePosition().second;
+			firstMouse = true;
+		}
+		
+		return true;
+	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
@@ -111,13 +133,13 @@ namespace Hazel {
 		return true;
 	}
 
-  	bool Application::OnWindowResize(WindowResizeEvent& e)
-  	{
- 
-  		mCamera.WindowsResize(e.GetWidth(), e.GetHeight());
-  
-  		return true;
-  	}
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+
+		mCamera->WindowsResize(e.GetWidth(), e.GetHeight());
+
+		return true;
+	}
 
 
 }
