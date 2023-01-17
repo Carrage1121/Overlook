@@ -59,6 +59,7 @@ namespace Hazel {
 	{
 		if (Input::IsMouseButtonPressed(HZ_MOUSE_BUTTON_2))
 		{
+			//rotation
 			auto [x, y] = Input::GetMousePosition();
 			if (firstMouse)
 			{
@@ -66,11 +67,34 @@ namespace Hazel {
 				lastY = y;
 				firstMouse = false;
 			}
+
 			float offsetX = x - lastX;
 			float offsetY = lastY - y;
 
+			lastX = x;
+			lastY = y;
+
 			mCamera->SetRotation(offsetX * 0.1f, offsetY * 0.1f);
-			//HZ_CORE_TRACE("{0}, {1}", x, y);
+
+
+			//pos move
+			if (Input::IsKeyPressed(HZ_KEY_W))
+			{
+				mCamera->ProcessKeyboard(Camera_Movement::FORWARD);
+				//HZ_CORE_TRACE("W PRESS");
+			}
+			if (Input::IsKeyPressed(HZ_KEY_A))
+			{
+				mCamera->ProcessKeyboard(Camera_Movement::RIGHT);
+			}
+			if (Input::IsKeyPressed(HZ_KEY_S))
+			{
+				mCamera->ProcessKeyboard(Camera_Movement::BACKWARD);
+			}
+			if (Input::IsKeyPressed(HZ_KEY_D))
+			{
+				mCamera->ProcessKeyboard(Camera_Movement::LEFT);
+			}
 		}
 	}
 
@@ -119,8 +143,6 @@ namespace Hazel {
 	{
 		if (e.GetMouseButton() == HZ_MOUSE_BUTTON_2)
 		{
-//  			lastX = Input::GetMousePosition().first;
-//  			lastY = Input::GetMousePosition().second;
 			firstMouse = true;
 		}
 		
