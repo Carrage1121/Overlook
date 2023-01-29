@@ -55,6 +55,11 @@ namespace Hazel {
 		layer->OnAttach();
 	}
 
+	void Application::Close()
+	{
+		m_Running = false;
+	}
+
 	void Application::OnUpdate()
 	{
 		if (Input::IsMouseButtonPressed(HZ_MOUSE_BUTTON_2))
