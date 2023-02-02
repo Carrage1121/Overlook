@@ -13,11 +13,11 @@ namespace Hazel {
 	{
 	public:
 		static void BeginScene(OrthographicCamera& camera);
-		static void mBeginScene(std::unique_ptr<Camera>& camera);
+		static void mBeginScene(Scope<Camera>& camera);
 		static void EndScene();
 
 		static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform = glm::mat4(1.0f));
-		static void mSubmit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Model>& model, const glm::mat4& transform = glm::mat4(1.0f));
+		static void mSubmit(const Ref<Shader>& shader, const Ref<Model>& model, const glm::mat4& transform = glm::mat4(1.0f));
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	private:
@@ -26,7 +26,7 @@ namespace Hazel {
 			glm::mat4 ViewProjectionMatrix;
 		};
 
-		static SceneData* s_SceneData;
+		static Scope<SceneData> s_SceneData;
 	};
 
 

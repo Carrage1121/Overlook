@@ -1,19 +1,16 @@
 #include <Hazel.h>
-
+#include "Hazel/Core/EntryPoint.h"
 #include "imgui/imgui.h"
+#include "Sandbox3D.h"
 
+#include "stb/stb_image.h"
 class ExampleLayer : public Hazel::Layer
 {
 public:
 	ExampleLayer()
 		: Layer("Example")
 	{
-	}
-
-	void OnUpdate() override
-	{
-// 		if (Hazel::Input::IsKeyPressed(HZ_KEY_TAB))
-// 			HZ_TRACE("Tab key is pressed (poll)!");
+		mCamera = Hazel::CreateScope<Camera>(glm::vec3(0.0f, 0.0f, 3.0f), 1280.0f, 720.0f);
 	}
 
 	virtual void OnImGuiRender() override
@@ -83,17 +80,17 @@ public:
 
 			ImGui::Begin("Settings");
 
-// 			auto stats = Hazel::Renderer2D::GetStats();
-// 			ImGui::Text("Renderer2D Stats:");
-// 			ImGui::Text("Draw Calls: %d", stats.DrawCalls);
-// 			ImGui::Text("Quads: %d", stats.QuadCount);
-// 			ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
-// 			ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
-// 
-// 			ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
-// 
-// 			uint32_t textureID = m_CheckerboardTexture->GetRendererID();
-// 			ImGui::Image((void*)textureID, ImVec2{ 256.0f, 256.0f });
+			// 			auto stats = Hazel::Renderer2D::GetStats();
+			// 			ImGui::Text("Renderer2D Stats:");
+			// 			ImGui::Text("Draw Calls: %d", stats.DrawCalls);
+			// 			ImGui::Text("Quads: %d", stats.QuadCount);
+			// 			ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
+			// 			ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
+			// 
+			// 			ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
+			// 
+			// 			uint32_t textureID = m_CheckerboardTexture->GetRendererID();
+			// 			ImGui::Image((void*)textureID, ImVec2{ 256.0f, 256.0f });
 			ImGui::End();
 
 			ImGui::End();
@@ -107,17 +104,92 @@ public:
 		}
 	}
 
+	virtual void OnAttach() override
+	{
+		float vertices[3 * 7] = {
+	-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
+	 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
+	 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
+		};
+
+		std::shared_ptr<VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		BufferLayout layout = {
+			{ ShaderDataType::Float3, "a_Position" },
+			{ ShaderDataType::Float4, "a_Color" }
+		};
+		vertexBuffer->SetLayout(layout);
+
+
+		m_VertexArray.reset(VertexArray::Create());
+		m_VertexArray->AddVertexBuffer(vertexBuffer);
+
+		uint32_t indices[3] = { 0, 1, 2 };
+		std::shared_ptr<IndexBuffer> indexBuffer;
+		indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		m_VertexArray->SetIndexBuffer(indexBuffer);
+
+		m_SquareVA.reset(VertexArray::Create());
+
+		float squareVertices[3 * 4] = {
+			-0.75f, -0.75f, 0.0f,
+			 0.75f, -0.75f, 0.0f,
+			 0.75f,  0.75f, 0.0f,
+			-0.75f,  0.75f, 0.0f
+		};
+
+		std::shared_ptr<VertexBuffer> squareVB;
+		squareVB.reset(VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		squareVB->SetLayout({
+			{ ShaderDataType::Float3, "a_Position" }
+			});
+		m_SquareVA->AddVertexBuffer(squareVB);
+
+		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
+		std::shared_ptr<IndexBuffer> squareIB;
+		squareIB.reset(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		m_SquareVA->SetIndexBuffer(squareIB);
+
+		m_Shader.reset(Hazel::Shader::Create("assets/Shader/VertexShader.vert", "assets/Shader/FragShader.frag"));
+
+		m_BlueShader.reset(Hazel::Shader::Create("assets/Shader/VertexShader_sq.vert", "assets/Shader/FragShader_sq.frag"));
+	}
+
+	virtual void OnUpdate(Timestep ts) override
+	{
+		RenderCommand::SetClearColor({ 0.f, 1.f, 0.f, 1 });
+		RenderCommand::Clear();
+
+// 		m_Camera.SetPosition({ 0.5f, 0.5f, 0.0f });
+// 		m_Camera.SetRotation(45.0f);
+
+		Renderer::mBeginScene(mCamera);
+
+// 		Renderer::Submit(m_BlueShader, m_SquareVA);
+// 		Renderer::Submit(m_Shader, m_VertexArray);
+
+		Renderer::EndScene();
+	}
+
 	void OnEvent(Hazel::Event& event) override
 	{
 		if (event.GetEventType() == Hazel::EventType::KeyPressed)
 		{
 			Hazel::KeyPressedEvent& e = (Hazel::KeyPressedEvent&)event;
-// 			if (e.GetKeyCode() == HZ_KEY_TAB)
-// 				HZ_TRACE("Tab key is pressed (event)!");
-// 			HZ_TRACE("{0}", (char)e.GetKeyCode());
+			// 			if (e.GetKeyCode() == HZ_KEY_TAB)
+			// 				HZ_TRACE("Tab key is pressed (event)!");
+			// 			HZ_TRACE("{0}", (char)e.GetKeyCode());
 		}
 	}
 
+private:
+	std::shared_ptr<Shader> m_Shader;
+	std::shared_ptr<VertexArray> m_VertexArray;
+
+	std::shared_ptr<Shader> m_BlueShader;
+	std::shared_ptr<VertexArray> m_SquareVA;
+
+	Hazel::Scope <Hazel::Camera> mCamera;
 };
 
 class Sandbox : public Hazel::Application
@@ -125,7 +197,8 @@ class Sandbox : public Hazel::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox3D());
+		//PushLayer(new ExampleLayer());
 	}
 
 	~Sandbox()
