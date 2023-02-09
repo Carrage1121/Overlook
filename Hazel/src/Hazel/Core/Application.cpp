@@ -12,13 +12,13 @@ namespace Hazel {
 
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application()
+	Application::Application(const std::string& name)
 	{;
 
 		HZ_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
-		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps(name)));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
 		m_ImGuiLayer = new ImGuiLayer();
@@ -52,7 +52,7 @@ namespace Hazel {
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
+		//dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 /*		dispatcher.Dispatch<MouseButtonReleasedEvent>(BIND_EVENT_FN(OnMouseButtonResize));*/
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
@@ -74,8 +74,8 @@ namespace Hazel {
 				layer->OnUpdate(timestep);
 			OnUpdate();
 			m_ImGuiLayer->Begin();
-// 			for (Layer* layer : m_LayerStack)
-// 				layer->OnImGuiRender();
+			for (Layer* layer : m_LayerStack)
+				layer->OnImGuiRender();
 			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();
@@ -87,14 +87,5 @@ namespace Hazel {
 		m_Running = false;
 		return true;
 	}
-
-	bool Application::OnWindowResize(WindowResizeEvent& e)
-	{
-
-		//mCamera->WindowsResize(e.GetWidth(), e.GetHeight());
-
-		return true;
-	}
-
 
 }

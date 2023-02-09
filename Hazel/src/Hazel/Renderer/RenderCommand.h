@@ -22,6 +22,10 @@ namespace Hazel {
 			s_RendererAPI->Test();
 		}
 
+		inline static void ResizeViewport(uint32_t width, uint32_t height)
+		{
+			s_RendererAPI->SetViewport(0, 0, width, height);
+		}
 		inline static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray)
 		{
 			s_RendererAPI->DrawIndexed(vertexArray);

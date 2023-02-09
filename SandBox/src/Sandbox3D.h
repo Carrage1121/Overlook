@@ -21,8 +21,6 @@ private:
 	float lastX = 100;
 	float lastY = 100;
 
-	Hazel::Ref<Hazel::Framebuffer> m_Framebuffer;
-
 	Hazel::Scope <Hazel::Camera> mCamera;
 
 	Hazel::Ref<Hazel::Shader> mShader;

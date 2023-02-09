@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\ExampleLayer.h" />
     <ClInclude Include="src\Sandbox3D.h" />
   </ItemGroup>
   <ItemGroup>
