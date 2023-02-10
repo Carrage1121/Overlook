@@ -1,6 +1,6 @@
 workspace "Hazel"
 	architecture "x64"
-	startproject "Sandbox"
+	startproject "Overlook-Editor"
 
 	configurations
 	{
@@ -64,11 +64,6 @@ project "Hazel"
 		"Hazel/vendor/assimp/contrib",
 	}
 
-	resincludedirs 
-	{
-		"%{prj.name}/src/Resource",
-	}
-
 	links 
 	{ 
 		"GLFW",
@@ -128,10 +123,14 @@ project "Sandbox"
 		"%{IncludeDir.Glad}"
 	}
 
+	resincludedirs 
+	{
+		"%{prj.name}/assets",
+	}
+
 	links
 	{
 		"Hazel",
-		"assimp",
 	}
 
 	filter "system:windows"
@@ -178,10 +177,14 @@ project "Overlook-Editor"
 		"%{IncludeDir.Glad}"
 	}
 
+	resincludedirs 
+	{
+		"%{prj.name}/assets",
+	}
+
 	links
 	{
 		"Hazel",
-		"assimp",
 	}
 
 	filter "system:windows"

@@ -176,6 +176,8 @@ namespace Hazel
 
 		int width, height, nrComponents;
 		unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
+
+
 		if (data)
 		{
 			GLenum format;
@@ -199,7 +201,8 @@ namespace Hazel
 		}
 		else
 		{
-			std::cout << "Texture failed to load at path: " << path << std::endl;
+
+			std::cout << "Texture failed to load at path: " << stbi_failure_reason() << std::endl;
 			stbi_image_free(data);
 		}
 

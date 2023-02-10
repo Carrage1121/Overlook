@@ -14,7 +14,7 @@ namespace Hazel
 		stbi_set_flip_vertically_on_load(true);
 	}
 	
-	#define ModelFilePath "D:/GameDevelop/GameEngine/Overlook/Sandbox/assets/Model/backpack/backpack.obj"
+	#define ModelFilePath "assets/Model/backpack/backpack.obj"
 	void EditorLayer::OnAttach()
 	{
 		// 	HZ_PROFILE_FUNCTION();
@@ -44,7 +44,6 @@ namespace Hazel
 	{
 	
 		//HZ_INFO("UPDATE");
-		m_Framebuffer->Bind();
 	
 		RenderCommand::SetClearColor({ 0.f, 1.f, 0.f, 1 });
 		RenderCommand::Clear();
@@ -55,8 +54,6 @@ namespace Hazel
 	
 		CameraUpdate();
 		Renderer::EndScene();
-	
-		m_Framebuffer->Unbind();
 	}
 	
 	void EditorLayer::OnImGuiRender()
@@ -64,7 +61,7 @@ namespace Hazel
 		//HZ_PROFILE_FUNCTION();
 	
 		// Note: Switch this to true to enable dockspace
-		static bool dockingEnabled = true;
+		static bool dockingEnabled = false;
 		if (dockingEnabled)
 		{
 			static bool dockspaceOpen = true;
