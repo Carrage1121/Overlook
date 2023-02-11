@@ -18,6 +18,7 @@ IncludeDir["Glad"] = "Hazel/vendor/Glad/include"
 IncludeDir["ImGui"] = "Hazel/vendor/imgui"
 IncludeDir["glm"] = "Hazel/vendor/glm"
 IncludeDir["assimp"] = "Hazel/vendor/assimp/include"
+IncludeDir["entt"] = "Hazel/vendor/entt/include"
 
 include "Hazel/vendor/GLFW"
 include "Hazel/vendor/Glad"
@@ -62,6 +63,7 @@ project "Hazel"
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.assimp}",
 		"Hazel/vendor/assimp/contrib",
+		"%{IncludeDir.entt}"
 	}
 
 	links 
@@ -174,7 +176,8 @@ project "Overlook-Editor"
 		"Hazel/vendor",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.assimp}",
-		"%{IncludeDir.Glad}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.entt}"
 	}
 
 	resincludedirs 
