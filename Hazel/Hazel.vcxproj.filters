@@ -63,7 +63,7 @@
     <ClInclude Include="src\Hazel\Core\Application.h">
       <Filter>src\Hazel\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hazel\Core\Core.h">
+    <ClInclude Include="src\Hazel\Core\Base.h">
       <Filter>src\Hazel\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Hazel\Core\EntryPoint.h">
@@ -117,7 +117,7 @@
     <ClInclude Include="src\Hazel\ModelLoader\ModelLoadBuild.h">
       <Filter>src\Hazel\ModelLoader</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hazel\ModelLoader\camera.h">
+    <ClInclude Include="src\Hazel\ModelLoader\PerspectiveCamera.h">
       <Filter>src\Hazel\ModelLoader</Filter>
     </ClInclude>
     <ClInclude Include="src\Hazel\ModelLoader\mesh.h">
@@ -1428,6 +1428,12 @@
     <ClInclude Include="src\Hazel\Scene\Scene.h" />
     <ClInclude Include="src\Hazel\Scene\Components.h" />
     <ClInclude Include="src\Hazel\Scene\Entity.h" />
+    <ClInclude Include="src\Hazel\Renderer\Renderer2D.h" />
+    <ClInclude Include="src\Hazel\Renderer\Renderer3D.h" />
+    <ClInclude Include="src\Hazel\Scene\SceneCamera.h" />
+    <ClInclude Include="src\Hazel\Renderer\Camera.h" />
+    <ClInclude Include="src\Hazel\Renderer\Texture.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hazel\Core\Application.cpp">
@@ -1451,7 +1457,7 @@
     <ClCompile Include="src\Hazel\ModelLoader\Model.cpp">
       <Filter>src\Hazel\ModelLoader</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hazel\ModelLoader\camera.cpp">
+    <ClCompile Include="src\Hazel\ModelLoader\PerspectiveCamera.cpp">
       <Filter>src\Hazel\ModelLoader</Filter>
     </ClCompile>
     <ClCompile Include="src\Hazel\ModelLoader\stbBuild.cpp">
@@ -1513,5 +1519,10 @@
     </ClCompile>
     <ClCompile Include="src\Hazel\Scene\Scene.cpp" />
     <ClCompile Include="src\Hazel\Scene\Entity.cpp" />
+    <ClCompile Include="src\Hazel\Renderer\Renderer2D.cpp" />
+    <ClCompile Include="src\Hazel\Renderer\Renderer3D.cpp" />
+    <ClCompile Include="src\Hazel\Scene\SceneCamera.cpp" />
+    <ClCompile Include="src\Hazel\Renderer\Texture.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
   </ItemGroup>
 </Project>

@@ -1,10 +1,10 @@
 #include "hzpch.h"
-#include "camera.h"
+#include "PerspectiveCamera.h"
 
 namespace Hazel
 {
 	// constructor with vectors
-	Camera::Camera(glm::vec3 position, unsigned int width, unsigned int height, glm::vec3 up, float yaw, float pitch) : MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM), Front(glm::vec3(0.0f, 0.0f, -1.0f))
+	PerspectiveCamera::PerspectiveCamera(glm::vec3 position, unsigned int width, unsigned int height, glm::vec3 up, float yaw, float pitch) : MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM), Front(glm::vec3(0.0f, 0.0f, -1.0f))
 	{
 		m_Position = position;
 		WorldUp = up;
@@ -13,7 +13,7 @@ namespace Hazel
 		WindowsResize(width, height);
 	}
 	// constructor with scalar values
-	Camera::Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
+	PerspectiveCamera::PerspectiveCamera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
 	{
 		m_Position = glm::vec3(posX, posY, posZ);
 		WorldUp = glm::vec3(upX, upY, upZ);
@@ -22,7 +22,7 @@ namespace Hazel
 		updateCameraVectors();
 	}
 
-	void Camera::ProcessKeyboard(Camera_Movement direction)
+	void PerspectiveCamera::ProcessKeyboard(Camera_Movement direction)
 	{
 		float velocity = 0.1f;
 		if (direction == FORWARD)
@@ -36,7 +36,7 @@ namespace Hazel
 		RecalculateViewMatrix();
 	}
 
-	void Camera::ProcessMouseScroll(float yoffset)
+	void PerspectiveCamera::ProcessMouseScroll(float yoffset)
 	{
 		Zoom -= (float)yoffset;
 		if (Zoom < 1.0f)
@@ -45,14 +45,14 @@ namespace Hazel
 			Zoom = 45.0f;
 	}
 
-	void Camera::WindowsResize(unsigned int	width, unsigned int	height)
+	void PerspectiveCamera::WindowsResize(unsigned int	width, unsigned int	height)
 	{
 		this->width = width;
 		this->height = height;
 		RecalculateViewMatrix();
 	}
 
-	void Camera::SetRotation(float rotationX, float rotationY)
+	void PerspectiveCamera::SetRotation(float rotationX, float rotationY)
 	{
 		Pitch += rotationY;
 		Yaw += rotationX;
@@ -62,13 +62,13 @@ namespace Hazel
 		RecalculateViewMatrix();
 	}
 
-	void Camera::SetPosition(const glm::vec3& position)
+	void PerspectiveCamera::SetPosition(const glm::vec3& position)
 	{
 		m_Position = position;
 		RecalculateViewMatrix();
 	}
 
-	void Camera::RecalculateViewMatrix()
+	void PerspectiveCamera::RecalculateViewMatrix()
 	{
 //  	glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_Position) *
 //  		(glm::rotate(glm::mat4(1.0f), glm::radians(m_RotationY), glm::vec3(0, 1, 0)) *
@@ -84,7 +84,7 @@ namespace Hazel
 	}
 
 	// calculates the front vector from the Camera's (updated) Euler Angles
-	void Camera::updateCameraVectors()
+	void PerspectiveCamera::updateCameraVectors()
 	{
 		// calculate the new Front vector
 		glm::vec3 front;

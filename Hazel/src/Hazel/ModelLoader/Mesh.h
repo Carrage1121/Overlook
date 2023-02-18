@@ -33,7 +33,7 @@ namespace Hazel
 		float m_Weights[MAX_BONE_INFLUENCE];
 	};
 
-	struct Texture {
+	struct _Texture {
 		unsigned int id;
 		string type;
 		string path;
@@ -44,11 +44,11 @@ namespace Hazel
 		// mesh Data
 		vector<Vertex>       vertices;
 		vector<unsigned int> indices;
-		vector<Texture>      textures;
+		vector<_Texture>      textures;
 		unsigned int VAO;
 
 		// constructor
-		Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures)
+		Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<_Texture> textures)
 		{
 			this->vertices = vertices;
 			this->indices = indices;

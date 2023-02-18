@@ -1,34 +1,40 @@
 #pragma once
 
-#include "RendererAPI.h"
+#include "Hazel/Renderer/RendererAPI.h"
 
 namespace Hazel {
 
 	class RenderCommand
 	{
 	public:
-		inline static void SetClearColor(const glm::vec4& color)
+		static void Init()
 		{
-			s_RendererAPI->SetClearColor(color);
+			s_RendererAPI->Init();
 		}
 
-		inline static void Clear()
+		static void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
 		{
-			s_RendererAPI->Clear();
+			s_RendererAPI->SetViewport(x, y, width, height);
 		}
 
-		inline static void Test()
+		static void Test()
 		{
 			s_RendererAPI->Test();
 		}
 
-		inline static void ResizeViewport(uint32_t width, uint32_t height)
+		static void SetClearColor(const glm::vec4& color)
 		{
-			s_RendererAPI->SetViewport(0, 0, width, height);
+			s_RendererAPI->SetClearColor(color);
 		}
-		inline static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray)
+
+		static void Clear()
 		{
-			s_RendererAPI->DrawIndexed(vertexArray);
+			s_RendererAPI->Clear();
+		}
+
+		static void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t count = 0)
+		{
+			s_RendererAPI->DrawIndexed(vertexArray, count);
 		}
 	private:
 		static Scope<RendererAPI> s_RendererAPI;

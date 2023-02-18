@@ -140,12 +140,17 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
+    <ClInclude Include="src\Hazel\Renderer\Camera.h" />
+    <ClInclude Include="src\Hazel\Scene\SceneCamera.h" />
+    <ClInclude Include="src\Hazel\Renderer\Renderer2D.h" />
+    <ClInclude Include="src\Hazel\Renderer\Renderer3D.h" />
     <ClInclude Include="src\Hazel\Scene\Entity.h" />
     <ClInclude Include="src\Hazel\Scene\Components.h" />
     <ClInclude Include="src\Hazel\Scene\Scene.h" />
     <ClInclude Include="src\Hazel.h" />
     <ClInclude Include="src\Hazel\Core\Application.h" />
-    <ClInclude Include="src\Hazel\Core\Core.h" />
+    <ClInclude Include="src\Hazel\Core\Base.h" />
     <ClInclude Include="src\Hazel\Core\EntryPoint.h" />
     <ClInclude Include="src\Hazel\Core\Input.h" />
     <ClInclude Include="src\Hazel\Core\KeyCodes.h" />
@@ -163,7 +168,7 @@
     <ClInclude Include="src\Hazel\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Hazel\ModelLoader\Model.h" />
     <ClInclude Include="src\Hazel\ModelLoader\ModelLoadBuild.h" />
-    <ClInclude Include="src\Hazel\ModelLoader\camera.h" />
+    <ClInclude Include="src\Hazel\ModelLoader\PerspectiveCamera.h" />
     <ClInclude Include="src\Hazel\ModelLoader\mesh.h" />
     <ClInclude Include="src\Hazel\Renderer\Buffer.h" />
     <ClInclude Include="src\Hazel\Renderer\Framebuffer.h" />
@@ -183,6 +188,7 @@
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\hzpch.h" />
+    <ClInclude Include="src\Hazel\Renderer\Texture.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_fixes.hpp" />
@@ -601,6 +607,10 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
+    <ClCompile Include="src\Hazel\Scene\SceneCamera.cpp" />
+    <ClCompile Include="src\Hazel\Renderer\Renderer2D.cpp" />
+    <ClCompile Include="src\Hazel\Renderer\Renderer3D.cpp" />
     <ClCompile Include="src\Hazel\Scene\Entity.cpp" />
     <ClCompile Include="src\Hazel\Scene\Scene.cpp" />
     <ClCompile Include="src\Hazel\Core\Application.cpp" />
@@ -610,7 +620,7 @@
     <ClCompile Include="src\Hazel\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Hazel\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Hazel\ModelLoader\Model.cpp" />
-    <ClCompile Include="src\Hazel\ModelLoader\camera.cpp" />
+    <ClCompile Include="src\Hazel\ModelLoader\PerspectiveCamera.cpp" />
     <ClCompile Include="src\Hazel\ModelLoader\stbBuild.cpp" />
     <ClCompile Include="src\Hazel\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Hazel\Renderer\Framebuffer.cpp" />
@@ -632,6 +642,7 @@
     <ClCompile Include="src\hzpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Hazel\Renderer\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">

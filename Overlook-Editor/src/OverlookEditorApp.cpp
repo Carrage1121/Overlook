@@ -2,6 +2,7 @@
 #include "Hazel/Core/EntryPoint.h"
 
 #include "EditorLayer.h"
+#include "ExampleLayer.h"
 
 namespace Hazel
 {
@@ -10,7 +11,7 @@ namespace Hazel
 	public:
 		OverlookEdit() : Application("Hazel Editor")
 		{
-			PushLayer(new EditorLayer());
+			PushLayer(new ExampleLayer());
 		}
 	
 		~OverlookEdit()

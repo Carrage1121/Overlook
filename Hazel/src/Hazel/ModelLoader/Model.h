@@ -21,7 +21,7 @@ namespace Hazel
 	{
 	public:
 		// model data 
-		std::vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+		std::vector<_Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
 		std::vector<Mesh>    meshes;
 		std::string directory;
 		bool gammaCorrection;
@@ -43,7 +43,7 @@ namespace Hazel
 
 		// checks all material textures of a given type and loads the textures if they're not loaded yet.
 		// the required info is returned as a Texture struct.
-		std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
+		std::vector<_Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 	};
 }
 #endif

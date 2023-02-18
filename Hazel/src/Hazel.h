@@ -2,7 +2,7 @@
 
 // For use by Hazel applications
 
-#include "Hazel/Core/Core.h"
+#include "Hazel/Core/Base.h"
 #include "Hazel/Core/Application.h"
 #include "Hazel/Core/Layer.h"
 #include "Hazel/Core/Log.h"
@@ -27,9 +27,11 @@
 #include "Hazel/Renderer/VertexArray.h"
 #include "Hazel/Renderer/Framebuffer.h"
 #include "Hazel/Renderer/OrthographicCamera.h"
+#include "Hazel/Renderer/Renderer2D.h"
+#include "Hazel/Renderer/Renderer3D.h"
 
 // --ModelLoader
-#include "Hazel/ModelLoader/camera.h"
+#include "Hazel/ModelLoader/PerspectiveCamera.h"
 #include "Hazel/ModelLoader/Model.h"
 #include "Hazel/ModelLoader/mesh.h"
 //-------------------------------
