@@ -3,6 +3,7 @@
 
 #include "Components.h"
 #include "Hazel/Renderer/Renderer2D.h"
+#include "Hazel/Renderer/Renderer3D.h"
 
 #include <glm/glm.hpp>
 
@@ -95,6 +96,42 @@ namespace Hazel {
 			Renderer2D::EndScene();
 		}
 
+	}
+
+	void Scene::OnUpdate3D(Timestep ts)
+	{
+		//Renderer3D
+		Camera* mainCamera = nullptr;
+		glm::mat4* cameraTransform = nullptr;
+		{
+			auto view = m_Registry.view<TransformComponent, CameraComponent>();
+			for (auto entity : view)
+			{
+				auto& [transform, camera] = view.get<TransformComponent, CameraComponent>(entity);
+
+				if (camera.Primary)
+				{
+					mainCamera = &camera.Camera;
+					cameraTransform = &transform.Transform;
+					break;
+				}
+			}
+		}
+
+		if (mainCamera)
+		{
+			Renderer3D::BeginScene(mainCamera->GetProjection(), *cameraTransform);
+
+			auto group = m_Registry.group<TransformComponent>(entt::get<ModelRendererComponent>);
+			for (auto entity : group)
+			{
+				auto& [transform, sprite] = group.get<TransformComponent, ModelRendererComponent>(entity);
+
+				//Renderer2D::DrawQuad(transform, sprite.Color);
+			}
+
+			Renderer3D::EndScene();
+		}
 	}
 
 	void Scene::OnViewportResize(uint32_t width, uint32_t height)

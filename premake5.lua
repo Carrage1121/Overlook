@@ -177,7 +177,8 @@ project "Overlook-Editor"
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.assimp}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"Hazel/vendor/assimp/contrib",
 	}
 
 	resincludedirs 

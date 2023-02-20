@@ -2,8 +2,6 @@
 #include <Hazel.h>
 #include "Hazel/Core/EntryPoint.h"
 #include "imgui/imgui.h"
-
-#include "stb/stb_image.h"
 namespace Hazel
 {
 	class ExampleLayer : public Layer
@@ -92,6 +90,8 @@ namespace Hazel
 					auto& squareColor = m_SquareEntity.GetComponent<SpriteRendererComponent>().Color;
 					ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
 					ImGui::Separator();
+// 					ImGui::3("Camera pos", mCamera->GetPosition());
+// 					ImGui::Separator();
 				}
 				ImGui::End();
 
@@ -149,7 +149,6 @@ namespace Hazel
 				m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 			}
 
-			Renderer2D::ResetStats();
 			m_Framebuffer->Bind();
 			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 			RenderCommand::Clear();

@@ -3,6 +3,7 @@
 #include "Hazel/Renderer/Texture.h"
 
 #include "Hazel/Renderer/Camera.h"
+#include "Hazel/ModelLoader/PerspectiveCamera.h"
 namespace Hazel
 {
 	class Renderer3D

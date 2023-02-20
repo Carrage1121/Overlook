@@ -26,6 +26,7 @@ namespace Hazel
 	
 		Scope <PerspectiveCamera> mCamera;
 	
+		Ref<Scene> m_ActiveScene;
 		Entity m_BagEntity;
 		Entity m_CameraEntity;
 

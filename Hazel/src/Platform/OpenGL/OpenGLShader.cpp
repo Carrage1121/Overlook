@@ -71,8 +71,8 @@ namespace Hazel {
 		HZ_PROFILE_FUNCTION();
 
 		std::unordered_map<GLenum, std::string> sources;
-		sources[GL_VERTEX_SHADER] = vertexSrc;
-		sources[GL_FRAGMENT_SHADER] = fragmentSrc;
+		sources[GL_VERTEX_SHADER] = ReadFile(vertexSrc);
+		sources[GL_FRAGMENT_SHADER] = ReadFile(fragmentSrc);
 		Compile(sources);
 	}
 

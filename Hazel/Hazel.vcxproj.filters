@@ -114,6 +114,9 @@
     <ClInclude Include="src\Hazel\ImGui\ImGuiLayer.h">
       <Filter>src\Hazel\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Hazel\ModelLoader\Mesh.h">
+      <Filter>src\Hazel\ModelLoader</Filter>
+    </ClInclude>
     <ClInclude Include="src\Hazel\ModelLoader\Model.h">
       <Filter>src\Hazel\ModelLoader</Filter>
     </ClInclude>
@@ -121,9 +124,6 @@
       <Filter>src\Hazel\ModelLoader</Filter>
     </ClInclude>
     <ClInclude Include="src\Hazel\ModelLoader\PerspectiveCamera.h">
-      <Filter>src\Hazel\ModelLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Hazel\ModelLoader\mesh.h">
       <Filter>src\Hazel\ModelLoader</Filter>
     </ClInclude>
     <ClInclude Include="src\Hazel\Renderer\Buffer.h">

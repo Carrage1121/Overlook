@@ -2,6 +2,7 @@
 #include "Model.h"
 
 #include <glad/glad.h> 
+#include "stb/stb_image.h"
 namespace Hazel
 {
 	Model::Model(std::string const& path, bool gamma) : gammaCorrection(gamma)

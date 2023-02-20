@@ -158,10 +158,10 @@
     <ClInclude Include="src\Hazel\Events\KeyEvent.h" />
     <ClInclude Include="src\Hazel\Events\MouseEvent.h" />
     <ClInclude Include="src\Hazel\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Hazel\ModelLoader\Mesh.h" />
     <ClInclude Include="src\Hazel\ModelLoader\Model.h" />
     <ClInclude Include="src\Hazel\ModelLoader\ModelLoadBuild.h" />
     <ClInclude Include="src\Hazel\ModelLoader\PerspectiveCamera.h" />
-    <ClInclude Include="src\Hazel\ModelLoader\mesh.h" />
     <ClInclude Include="src\Hazel\Renderer\Buffer.h" />
     <ClInclude Include="src\Hazel\Renderer\Camera.h" />
     <ClInclude Include="src\Hazel\Renderer\Framebuffer.h" />

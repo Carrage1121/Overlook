@@ -11,7 +11,8 @@ namespace Hazel
 	public:
 		OverlookEdit() : Application("Hazel Editor")
 		{
-			PushLayer(new ExampleLayer());
+			//PushLayer(new ExampleLayer());
+			PushLayer(new EditorLayer());
 		}
 	
 		~OverlookEdit()

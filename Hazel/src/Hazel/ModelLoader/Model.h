@@ -12,7 +12,7 @@
 
 #include "Hazel/ModelLoader/mesh.h"
 #include "Platform/OpenGL/OpenGLShader.h"
-#include "stb/stb_image.h"
+
 namespace Hazel
 {
 	unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma = false);

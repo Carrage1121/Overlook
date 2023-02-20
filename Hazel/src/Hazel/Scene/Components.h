@@ -39,6 +39,17 @@ namespace Hazel {
 			: Color(color) {}
 	};
 
+	struct ModelRendererComponent
+	{
+		glm::vec3 Transform{ 0.0f, 0.0f, 0.0f };
+
+		ModelRendererComponent() = default;
+		ModelRendererComponent(const ModelRendererComponent&) = default;
+		ModelRendererComponent(const glm::vec3& transform)
+			: Transform(transform) {}
+
+	};
+
 	struct CameraComponent
 	{
 		SceneCamera Camera;
