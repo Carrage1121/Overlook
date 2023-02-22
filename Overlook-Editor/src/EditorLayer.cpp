@@ -28,6 +28,37 @@ namespace Hazel
 
 		m_CameraEntity = m_ActiveScene->CreateEntity("Camera Entity");
 		m_CameraEntity.AddComponent<CameraComponent>();
+
+		class CameraController : public ScriptableEntity
+		{
+		public:
+			void OnCreate()
+			{
+			}
+
+			void OnDestroy()
+			{
+			}
+
+			void OnUpdate(Timestep ts)
+			{
+				auto& transform = GetComponent<TransformComponent>().Transform;
+				float speed = 0.05f;
+
+				if (Input::IsKeyPressed(HZ_KEY_D))
+					transform[3][0] -= speed * ts;
+				if (Input::IsKeyPressed(HZ_KEY_A))
+					transform[3][0] += speed * ts;
+				if (Input::IsKeyPressed(HZ_KEY_S))
+					transform[3][1] += speed * ts;
+				if (Input::IsKeyPressed(HZ_KEY_W))
+					transform[3][1] -= speed * ts;
+			}
+		};
+
+		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+
+
 	}
 
 	void EditorLayer::OnDetach()
@@ -117,6 +148,13 @@ namespace Hazel
 				}
 				ImGui::EndMenuBar();
 			}
+			ImGui::Begin("Setting");
+
+			m_CameraEntity.GetComponent<CameraComponent>().Primary = true;
+			ImGui::DragFloat3("Camera Transform", glm::value_ptr(m_CameraEntity.GetComponent<TransformComponent>().Transform[3]));
+
+			ImGui::End();
+
 
 			ImGui::Begin("Viewport");
 

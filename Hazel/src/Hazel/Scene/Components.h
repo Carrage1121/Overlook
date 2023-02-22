@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 
+#include "ScriptableEntity.h"
 #include "SceneCamera.h"
 
 namespace Hazel {
@@ -28,6 +29,20 @@ namespace Hazel {
 		operator glm::mat4& () { return Transform; }
 		operator const glm::mat4& () const { return Transform; }
 	};
+	struct NativeScriptComponent
+	{
+		ScriptableEntity* Instance = nullptr;
+
+		ScriptableEntity* (*InstantiateScript)();
+		void (*DestroyScript)(NativeScriptComponent*);
+
+		template<typename T>
+		void Bind()
+		{
+			InstantiateScript = []() { return static_cast<ScriptableEntity*>(new T()); };
+			DestroyScript = [](NativeScriptComponent* nsc) { delete nsc->Instance; nsc->Instance = nullptr; };
+		}
+	};
 
 	struct SpriteRendererComponent
 	{
@@ -41,12 +56,12 @@ namespace Hazel {
 
 	struct ModelRendererComponent
 	{
-		glm::vec3 Transform{ 0.0f, 0.0f, 0.0f };
+		glm::vec3 Scale{ 0.0f, 0.0f, 0.0f };
 
 		ModelRendererComponent() = default;
 		ModelRendererComponent(const ModelRendererComponent&) = default;
-		ModelRendererComponent(const glm::vec3& transform)
-			: Transform(transform) {}
+		ModelRendererComponent(const glm::vec3& scale)
+			: Scale(scale) {}
 
 	};
 
