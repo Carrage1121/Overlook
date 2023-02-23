@@ -1,6 +1,7 @@
 #pragma once
 #include <Hazel.h>
 #include "Hazel/Core/EntryPoint.h"
+#include "Panels/SceneHierarchyPanel.h"
 #include "imgui/imgui.h"
 namespace Hazel
 {
@@ -78,6 +79,9 @@ namespace Hazel
 					ImGui::EndMenuBar();
 				}
 
+				//panels render
+				m_SceneHierarchyPanel.OnImGuiRender();
+
 				ImGui::Begin("Settings");
 				ImGui::Text("m_ViewportSizeX: %d", m_ViewportSize.x);
 				ImGui::Text("m_ViewportSizey: %d", m_ViewportSize.y);
@@ -133,6 +137,39 @@ namespace Hazel
 
 			m_CameraEntity = m_ActiveScene->CreateEntity("Camera Entity");
 			m_CameraEntity.AddComponent<CameraComponent>();
+			class CameraController : public ScriptableEntity
+			{
+			public:
+				virtual void OnCreate() override
+				{
+					auto& translation = GetComponent<TransformComponent>().Translation;
+					translation.x = rand() % 10 - 5.0f;
+				}
+
+				virtual void OnDestroy() override
+				{
+				}
+
+				virtual void OnUpdate(Timestep ts) override
+				{
+					auto& translation = GetComponent<TransformComponent>().Translation;
+
+					float speed = 5.0f;
+
+					if (Input::IsKeyPressed(HZ_KEY_A))
+						translation.x -= speed * ts;
+					if (Input::IsKeyPressed(HZ_KEY_D))
+						translation.x += speed * ts;
+					if (Input::IsKeyPressed(HZ_KEY_W))
+						translation.y += speed * ts;
+					if (Input::IsKeyPressed(HZ_KEY_S))
+						translation.y -= speed * ts;
+				}
+			};
+
+			m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+
+			m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 
 		}
 
@@ -177,6 +214,9 @@ namespace Hazel
 
 		Ref<Texture2D> m_CheckerboardTexture;
 		Scope <OrthographicCamera> mCamera;
+
+		// Panels
+		SceneHierarchyPanel m_SceneHierarchyPanel;
 
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
 		glm::vec2 m_ViewportSize = { 0.0f, 0.0f };

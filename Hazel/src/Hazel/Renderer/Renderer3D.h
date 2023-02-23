@@ -17,7 +17,7 @@ namespace Hazel
 		static void EndScene();
 		static void Flush();
 	
-		static void ShowModel();
+		static void ShowModel(const glm::mat4& transform, const glm::vec3& scale);
 	
 	private:
 		static void FlushAndReset();

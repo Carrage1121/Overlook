@@ -59,7 +59,7 @@ namespace Hazel
 		m3_data.mModel->Draw(std::dynamic_pointer_cast<OpenGLShader>(m3_data.mShader));
 	}
 
-	void Renderer3D::ShowModel()
+	void Renderer3D::ShowModel(const glm::mat4& transform, const glm::vec3& scale)
 	{
 
 	}

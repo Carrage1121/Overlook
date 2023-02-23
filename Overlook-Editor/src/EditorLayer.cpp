@@ -32,33 +32,34 @@ namespace Hazel
 		class CameraController : public ScriptableEntity
 		{
 		public:
-			void OnCreate()
+			virtual void OnCreate() override
 			{
+				auto& translation = GetComponent<TransformComponent>().Translation;
 			}
 
-			void OnDestroy()
+			virtual void OnDestroy()override
 			{
 			}
-
-			void OnUpdate(Timestep ts)
+			virtual void OnUpdate(Timestep ts) override
 			{
-				auto& transform = GetComponent<TransformComponent>().Transform;
-				float speed = 0.05f;
+				auto& translation = GetComponent<TransformComponent>().Translation;
 
-				if (Input::IsKeyPressed(HZ_KEY_D))
-					transform[3][0] -= speed * ts;
+				float speed = 5.0f;
+
 				if (Input::IsKeyPressed(HZ_KEY_A))
-					transform[3][0] += speed * ts;
-				if (Input::IsKeyPressed(HZ_KEY_S))
-					transform[3][1] += speed * ts;
+					translation.x -= speed * ts;
+				if (Input::IsKeyPressed(HZ_KEY_D))
+					translation.x += speed * ts;
 				if (Input::IsKeyPressed(HZ_KEY_W))
-					transform[3][1] -= speed * ts;
+					translation.y += speed * ts;
+				if (Input::IsKeyPressed(HZ_KEY_S))
+					translation.y -= speed * ts;
 			}
 		};
 
 		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 
-
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 	}
 
 	void EditorLayer::OnDetach()
@@ -81,7 +82,7 @@ namespace Hazel
 		}
 
 		m_Framebuffer->Bind();
-		RenderCommand::SetClearColor({ 0.f, 1.f, 0.f, 1 });
+		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		RenderCommand::Clear();
 
 		m_ActiveScene->OnUpdate3D(ts);
@@ -92,7 +93,7 @@ namespace Hazel
 
 	void EditorLayer::OnImGuiRender()
 	{
-		//HZ_PROFILE_FUNCTION();
+		HZ_PROFILE_FUNCTION();
 
 		// Note: Switch this to true to enable dockspace
 		static bool dockingEnabled = true;
@@ -148,10 +149,12 @@ namespace Hazel
 				}
 				ImGui::EndMenuBar();
 			}
+
+			//panels render
+			m_SceneHierarchyPanel.OnImGuiRender();
+
 			ImGui::Begin("Setting");
 
-			m_CameraEntity.GetComponent<CameraComponent>().Primary = true;
-			ImGui::DragFloat3("Camera Transform", glm::value_ptr(m_CameraEntity.GetComponent<TransformComponent>().Transform[3]));
 
 			ImGui::End();
 
