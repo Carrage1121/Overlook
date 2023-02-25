@@ -106,7 +106,7 @@ namespace Hazel {
 	void Renderer2D::Shutdown()
 	{
 		HZ_PROFILE_FUNCTION();
-
+		HZ_CORE_INFO("ON SHUTDOWN");
 		delete[] s_Data.QuadVertexBufferBase;
 	}
 
@@ -144,6 +144,7 @@ namespace Hazel {
 
 		uint32_t dataSize = (uint32_t)((uint8_t*)s_Data.QuadVertexBufferPtr - (uint8_t*)s_Data.QuadVertexBufferBase);
 		s_Data.QuadVertexBuffer->SetData(s_Data.QuadVertexBufferBase, dataSize);
+
 
 		Flush();
 	}

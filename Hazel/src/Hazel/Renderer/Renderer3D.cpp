@@ -8,7 +8,7 @@
 
 namespace Hazel
 {
-	struct Renderer3DData 
+	struct Renderer3DData
 	{
 		Ref<Shader> mShader;
 		Ref<Model> mModel;
@@ -28,7 +28,9 @@ namespace Hazel
 
 	void Renderer3D::Shutdown()
 	{
-
+		HZ_PROFILE_FUNCTION();
+		
+		HZ_CORE_INFO("on shutdown");
 	}
 
 	void Renderer3D::BeginScene(const Camera& camera, const glm::mat4& transform)
@@ -61,7 +63,7 @@ namespace Hazel
 
 	void Renderer3D::ShowModel(const glm::mat4& transform, const glm::vec3& scale)
 	{
-
+		m3_data.mShader->SetMat4("u_Transform", transform);
 	}
 
 	void Renderer3D::FlushAndReset()

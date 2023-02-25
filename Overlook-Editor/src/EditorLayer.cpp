@@ -44,7 +44,7 @@ namespace Hazel
 			{
 				auto& translation = GetComponent<TransformComponent>().Translation;
 
-				float speed = 5.0f;
+				float speed = 0.01f;
 
 				if (Input::IsKeyPressed(HZ_KEY_A))
 					translation.x -= speed * ts;
@@ -86,7 +86,7 @@ namespace Hazel
 		RenderCommand::Clear();
 
 		m_ActiveScene->OnUpdate3D(ts);
-		CameraUpdate();
+
 		Renderer::EndScene();
 		m_Framebuffer->Unbind();
 	}
