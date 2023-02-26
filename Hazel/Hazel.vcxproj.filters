@@ -40,6 +40,9 @@
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vendor\assimp">
+      <UniqueIdentifier>{6F57A1F8-DB17-1D2F-A452-66AC10D2610B}</UniqueIdentifier>
+    </Filter>
     <Filter Include="vendor\glm">
       <UniqueIdentifier>{829FC5A8-6E57-07F6-D75E-E051C335A2E6}</UniqueIdentifier>
     </Filter>
@@ -58,12 +61,18 @@
     <Filter Include="vendor\glm\glm\gtx">
       <UniqueIdentifier>{B3A6A76B-9F8A-68C1-08EB-6214F4ED5243}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vendor\stb">
+      <UniqueIdentifier>{8BD3C5A8-778B-07F6-E092-E051CC69A2E6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Hazel.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\Hazel\Core\Application.h">
+      <Filter>src\Hazel\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hazel\Core\Assert.h">
       <Filter>src\Hazel\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Hazel\Core\Base.h">
@@ -88,6 +97,9 @@
       <Filter>src\Hazel\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Hazel\Core\MouseButtonCodes.h">
+      <Filter>src\Hazel\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hazel\Core\PlatformDetection.h">
       <Filter>src\Hazel\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Hazel\Core\Timestep.h">
@@ -175,6 +187,12 @@
       <Filter>src\Hazel\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Hazel\Scene\SceneCamera.h">
+      <Filter>src\Hazel\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hazel\Scene\SceneSerializer.h">
+      <Filter>src\Hazel\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hazel\Scene\ScriptableEntity.h">
       <Filter>src\Hazel\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
@@ -1455,7 +1473,9 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hazel\Scene\ScriptableEntity.h" />
+    <ClInclude Include="vendor\stb\stb_image.h">
+      <Filter>vendor\stb</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hazel\Core\Application.cpp">
@@ -1530,6 +1550,9 @@
     <ClCompile Include="src\Hazel\Scene\SceneCamera.cpp">
       <Filter>src\Hazel\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Hazel\Scene\SceneSerializer.cpp">
+      <Filter>src\Hazel\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -1560,5 +1583,10 @@
     <ClCompile Include="src\hzpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vendor\assimp\include">
+      <Filter>vendor\assimp</Filter>
+    </None>
   </ItemGroup>
 </Project>

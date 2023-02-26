@@ -127,7 +127,7 @@ project "assimp"
 		"contrib/unzip", 
 		"contrib/rapidjson/include",
 		"contrib/pugixml/src",
-		"contrib/stb",
+		"contrib/stb"
 	}
 
 	defines

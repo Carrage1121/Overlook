@@ -13,3 +13,6 @@
 [submodule "Hazel/vendor/stb"]
 	path = Hazel/vendor/stb
 	url = https://github.com/nothings/stb
+[submodule "Hazel/vendor/yaml-cpp"]
+	path = Hazel/vendor/yaml-cpp
+	url = https://github.com/TheCherno/yaml-cpp.git

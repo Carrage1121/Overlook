@@ -24,6 +24,5 @@ namespace Hazel
 	
 	Application* CreateApplication()
 	{
-		return new OverlookEdit();
-	}
+		return new OverlookEdit();	}
 }

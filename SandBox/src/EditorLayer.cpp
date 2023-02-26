@@ -115,16 +115,7 @@ namespace Hazel
 				ImGui::EndMenuBar();
 			}
 			ImGui::Begin("Settings");
-			// 		auto stats = Renderer3D::GetStats();
-			// 		ImGui::Text("Renderer3D Stats:");
-			// 		ImGui::Text("Draw Calls: %d", stats.DrawCalls);
-			// 		ImGui::Text("Quads: %d", stats.QuadCount);
-			// 		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
-			// 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
-			// 
-			// 		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
-	// 		uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
-	// 		ImGui::Image((void*)textureID, ImVec2{ 1280, 720 });
+
 			ImGui::End();
 	
 			ImGui::End();

@@ -4,6 +4,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Hazel/Scene/SceneSerializer.h"
+
 namespace Hazel
 {
 	EditorLayer::EditorLayer()
@@ -22,6 +24,8 @@ namespace Hazel
 		m_Framebuffer = Framebuffer::Create(fbSpec);
 
 		m_ActiveScene = CreateRef<Scene>();
+
+#if 0
 		//entity
 		m_BagEntity = m_ActiveScene->CreateEntity("BACKPACK");
 		m_BagEntity.AddComponent<ModelRendererComponent>();
@@ -58,6 +62,7 @@ namespace Hazel
 		};
 
 		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+#endif
 
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 	}
@@ -132,11 +137,17 @@ namespace Hazel
 				ImGui::PopStyleVar(2);
 			// DockSpace
 			ImGuiIO& io = ImGui::GetIO();
+			ImGuiStyle& style = ImGui::GetStyle();
+			float minWinSizeX = style.WindowMinSize.x;
+			style.WindowMinSize.x = 250.0f;
 			if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
 			{
 				ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
 				ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 			}
+			style.WindowMinSize.x = minWinSizeX;
+
+
 			if (ImGui::BeginMenuBar())
 			{
 				if (ImGui::BeginMenu("File"))
@@ -144,6 +155,20 @@ namespace Hazel
 					// Disabling fullscreen would allow the window to be moved to the front of other windows, 
 					// which we can't undo at the moment without finer window depth/z control.
 					//ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);
+					//ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);1
+
+					if (ImGui::MenuItem("Serialize"))
+					{
+						SceneSerializer serializer(m_ActiveScene);
+						serializer.Serialize("assets/scenes/Example.ol");
+					}
+
+					if (ImGui::MenuItem("Deserialize"))
+					{
+						SceneSerializer serializer(m_ActiveScene);
+						serializer.Deserialize("assets/scenes/Example.ol");
+					}
+
 					if (ImGui::MenuItem("Exit")) Application::Get().Close();
 					ImGui::EndMenu();
 				}
@@ -178,7 +203,6 @@ namespace Hazel
 			ImGui::End();
 		}
 	}
-
 	void EditorLayer::OnEvent(Event& event)
 	{
 		//m_CameraController.OnEvent(e);
