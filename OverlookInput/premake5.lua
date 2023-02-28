@@ -23,6 +23,7 @@ project "OverlookInput"
 		"%{IncludeDir.assimp}",
 		"%{IncludeDir.stb}",
 		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGuizmo}"
 	}
 
 	links

@@ -147,6 +147,16 @@ namespace Hazel {
 			out << YAML::EndMap; // SpriteRendererComponent
 		}
 
+// 		if (entity.HasComponent<ModelRendererComponent>())
+// 		{
+// 			out << YAML::Key << "ModelRendererComponent";
+// 			out << YAML::BeginMap; // ModelRendererComponent
+// 
+// 			auto& ModelRendererComponent = entity.GetComponent<ModelRendererComponent>();
+// 			out << YAML::Key << "Scale" << YAML::Value << ModelRendererComponent.Scale;
+// 
+// 			out << YAML::EndMap; // ModelRendererComponent
+// 		}
 		out << YAML::EndMap; // Entity
 	}
 
@@ -241,6 +251,13 @@ namespace Hazel {
 				{
 					auto& src = deserializedEntity.AddComponent<SpriteRendererComponent>();
 					src.Color = spriteRendererComponent["Color"].as<glm::vec4>();
+				}
+
+				auto modelRendererComponent = entity["ModelRendererComponent"];
+				if (modelRendererComponent)
+				{
+					auto& src = deserializedEntity.AddComponent<ModelRendererComponent>();
+					src.Scale = modelRendererComponent["Scale"].as<glm::vec3>();
 				}
 			}
 		}

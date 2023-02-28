@@ -19,6 +19,9 @@
     <Filter Include="src\Hazel\ImGui">
       <UniqueIdentifier>{1AE138B3-866C-A677-8F7D-296CFB870278}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Hazel\Math">
+      <UniqueIdentifier>{C91259A8-B5E0-4CAE-9E74-BDD48AE12813}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Hazel\ModelLoader">
       <UniqueIdentifier>{8790D129-F3FC-8C24-BCF0-2482281CAF8C}</UniqueIdentifier>
     </Filter>
@@ -27,6 +30,9 @@
     </Filter>
     <Filter Include="src\Hazel\Scene">
       <UniqueIdentifier>{0DD9E8B3-7964-5678-8275-D96CEE7FB278}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Hazel\Utils">
+      <UniqueIdentifier>{506D16B4-BCF8-8378-C509-076D3114E078}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
@@ -39,6 +45,9 @@
     </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\ImGuizmo">
+      <UniqueIdentifier>{73BF7F4C-DF4A-ED10-E85B-700554664911}</UniqueIdentifier>
     </Filter>
     <Filter Include="vendor\assimp">
       <UniqueIdentifier>{6F57A1F8-DB17-1D2F-A452-66AC10D2610B}</UniqueIdentifier>
@@ -126,6 +135,9 @@
     <ClInclude Include="src\Hazel\ImGui\ImGuiLayer.h">
       <Filter>src\Hazel\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Hazel\Math\Math.h">
+      <Filter>src\Hazel\Math</Filter>
+    </ClInclude>
     <ClInclude Include="src\Hazel\ModelLoader\Mesh.h">
       <Filter>src\Hazel\ModelLoader</Filter>
     </ClInclude>
@@ -195,6 +207,9 @@
     <ClInclude Include="src\Hazel\Scene\ScriptableEntity.h">
       <Filter>src\Hazel\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\Hazel\Utils\PlatformUtils.h">
+      <Filter>src\Hazel\Utils</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
@@ -224,6 +239,9 @@
     </ClInclude>
     <ClInclude Include="src\hzpch.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\ImGuizmo\ImGuizmo.h">
+      <Filter>vendor\ImGuizmo</Filter>
     </ClInclude>
     <ClInclude Include="vendor\glm\glm\common.hpp">
       <Filter>vendor\glm\glm</Filter>
@@ -1496,6 +1514,9 @@
     <ClCompile Include="src\Hazel\ImGui\ImGuiLayer.cpp">
       <Filter>src\Hazel\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="src\Hazel\Math\Math.cpp">
+      <Filter>src\Hazel\Math</Filter>
+    </ClCompile>
     <ClCompile Include="src\Hazel\ModelLoader\Model.cpp">
       <Filter>src\Hazel\ModelLoader</Filter>
     </ClCompile>
@@ -1577,11 +1598,17 @@
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsPlatformUtils.cpp">
+      <Filter>src\Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\hzpch.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\ImGuizmo\ImGuizmo.cpp">
+      <Filter>vendor\ImGuizmo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

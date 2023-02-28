@@ -73,7 +73,7 @@ void Sandbox3D::OnEvent(Hazel::Event& event)
 	{
 		Hazel::WindowResizeEvent& e = (Hazel::WindowResizeEvent&)event;
 		mCamera->WindowsResize(e.GetWidth(), e.GetHeight());
-		RenderCommand::ResizeViewport(e.GetWidth(), e.GetHeight());
+		//RenderCommand::ResizeViewport(e.GetWidth(), e.GetHeight());
 		//HZ_INFO("{0} {1}", e.GetWidth(), e.GetHeight());
 	}
 }

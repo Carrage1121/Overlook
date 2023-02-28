@@ -4,19 +4,19 @@ Entities:
     TagComponent:
       Tag: Model
     TransformComponent:
-      Translation: [1, 0, 0]
+      Translation: [0, 0, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
   - Entity: 12837192831273
     TagComponent:
-      Tag: camera
+      Tag: Camera
     TransformComponent:
-      Translation: [0, 0, 0]
+      Translation: [0, 0, 10]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     CameraComponent:
       Camera:
-        ProjectionType: 1
+        ProjectionType: 0
         PerspectiveFOV: 0.785398185
         PerspectiveNear: 0.00999999978
         PerspectiveFar: 1000

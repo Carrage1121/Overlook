@@ -38,17 +38,17 @@ namespace Hazel {
 		// Update scripts
 		{
 			m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
-			{
-				// TODO: Move to Scene::OnScenePlay
-				if (!nsc.Instance)
 				{
-					nsc.Instance = nsc.InstantiateScript();
-					nsc.Instance->m_Entity = Entity{ entity, this };
-					nsc.Instance->OnCreate();
-				}
+					// TODO: Move to Scene::OnScenePlay
+					if (!nsc.Instance)
+					{
+						nsc.Instance = nsc.InstantiateScript();
+						nsc.Instance->m_Entity = Entity{ entity, this };
+						nsc.Instance->OnCreate();
+					}
 
-				nsc.Instance->OnUpdate(ts);
-			});
+					nsc.Instance->OnUpdate(ts);
+				});
 		}
 
 		// Render 2D
@@ -59,7 +59,7 @@ namespace Hazel {
 			for (auto entity : view)
 			{
 				auto [transform, camera] = view.get<TransformComponent, CameraComponent>(entity);
-				
+
 				if (camera.Primary)
 				{
 					mainCamera = &camera.Camera;
@@ -101,7 +101,7 @@ namespace Hazel {
 						nsc.Instance->OnCreate();
 					}
 
-			nsc.Instance->OnUpdate(ts);
+					nsc.Instance->OnUpdate(ts);
 				});
 		}
 		//Renderer3D
@@ -153,6 +153,18 @@ namespace Hazel {
 		}
 
 	}
+	Entity Scene::GetPrimaryCameraEntity()
+	{
+		auto view = m_Registry.view<CameraComponent>();
+		for (auto entity : view)
+		{
+			const auto& camera = view.get<CameraComponent>(entity);
+			if (camera.Primary)
+				return Entity{ entity, this };
+		}
+		return {};
+	}
+
 	template<typename T>
 	void Scene::OnComponentAdded(Entity entity, T& component)
 	{

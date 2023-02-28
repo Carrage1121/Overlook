@@ -9,7 +9,7 @@ namespace Hazel
 	class OverlookEdit : public Application
 	{
 	public:
-		OverlookEdit() : Application("Hazel Editor")
+		OverlookEdit() : Application("Overlook Editor")
 		{
 			//PushLayer(new ExampleLayer());
 			PushLayer(new EditorLayer());
@@ -24,5 +24,6 @@ namespace Hazel
 	
 	Application* CreateApplication()
 	{
-		return new OverlookEdit();	}
+		return new OverlookEdit();	
+	}
 }
