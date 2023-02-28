@@ -1494,6 +1494,7 @@
     <ClInclude Include="vendor\stb\stb_image.h">
       <Filter>vendor\stb</Filter>
     </ClInclude>
+    <ClInclude Include="src\Hazel\Renderer\EditorCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hazel\Core\Application.cpp">
@@ -1610,6 +1611,7 @@
     <ClCompile Include="vendor\ImGuizmo\ImGuizmo.cpp">
       <Filter>vendor\ImGuizmo</Filter>
     </ClCompile>
+    <ClCompile Include="src\Hazel\Renderer\EditorCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\assimp\include">

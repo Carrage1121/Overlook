@@ -3,6 +3,8 @@
 #include "Hazel.h"
 #include "Panels/SceneHierarchyPanel.h"
 
+
+#include "Hazel/Renderer/EditorCamera.h"
 namespace Hazel
 {
 	class EditorLayer : public Layer
@@ -17,7 +19,6 @@ namespace Hazel
 		virtual void OnUpdate(Timestep ts) override;
 		virtual void OnImGuiRender() override;
 		virtual void OnEvent(Event& event) override;
-		void CameraUpdate();
 	private:
 		bool OnKeyPressed(KeyPressedEvent& e);
 
@@ -33,6 +34,7 @@ namespace Hazel
 		Ref<Framebuffer> m_Framebuffer;
 
 		Scope <PerspectiveCamera> mCamera;
+		EditorCamera m_EditorCamera;
 
 		Ref<Scene> m_ActiveScene;
 

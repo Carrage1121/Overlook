@@ -43,6 +43,19 @@ namespace Hazel
 
 	}
 
+
+	void Renderer3D::BeginScene(const EditorCamera& camera)
+	{
+		HZ_PROFILE_FUNCTION();
+
+		glm::mat4 viewProj = camera.GetViewProjection();
+
+		m3_data.mShader->Bind();
+		m3_data.mShader->SetMat4("u_ViewProjection", viewProj);
+
+		//StartBatch();
+	}
+
 	void Renderer3D::BeginScene(const PerspectiveCamera& camera)
 	{
 		HZ_PROFILE_FUNCTION();

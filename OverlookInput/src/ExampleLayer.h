@@ -100,13 +100,13 @@ namespace Hazel
 		
 
 		// Render
-		Renderer2D::ResetStats();
+		// Renderer2D::ResetStats();
 		m_Framebuffer->Bind();
 		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		RenderCommand::Clear();
 
 		// Update scene
-		m_ActiveScene->OnUpdate(ts);
+		//m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
 
 		m_Framebuffer->Unbind();
 	}

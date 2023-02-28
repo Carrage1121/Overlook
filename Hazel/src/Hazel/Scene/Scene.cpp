@@ -33,7 +33,7 @@ namespace Hazel {
 		m_Registry.destroy(entity);
 	}
 
-	void Scene::OnUpdate(Timestep ts)
+	void Scene::OnUpdateRuntime(Timestep ts)
 	{
 		// Update scripts
 		{
@@ -86,8 +86,7 @@ namespace Hazel {
 
 	}
 
-
-	void Scene::OnUpdate3D(Timestep ts)
+	void Scene::OnUpdateRuntime3D(Timestep ts)
 	{
 		// Update scripts
 		{
@@ -136,6 +135,36 @@ namespace Hazel {
 
 			Renderer3D::EndScene();
 		}
+	}
+
+	void Scene::OnUpdateEditor(Timestep ts, EditorCamera& camera)
+	{
+		Renderer2D::BeginScene(camera);
+
+		auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
+		for (auto entity : group)
+		{
+			auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+
+			Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+		}
+
+		Renderer2D::EndScene();
+	}
+
+	void Scene::OnUpdateEditor3D(Timestep ts, EditorCamera& camera)
+	{
+		Renderer3D::BeginScene(camera);
+
+		auto group = m_Registry.group<TransformComponent>(entt::get<ModelRendererComponent>);
+		for (auto entity : group)
+		{
+			auto [transform, model] = group.get<TransformComponent, ModelRendererComponent>(entity);
+
+			Renderer3D::ShowModel(transform.GetTransform(), model.Scale);
+		}
+
+		Renderer3D::EndScene();
 	}
 
 	void Scene::OnViewportResize(uint32_t width, uint32_t height)
