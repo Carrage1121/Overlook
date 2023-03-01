@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Hazel.h"
+#include "Overlook.h"
 #include "Panels/SceneHierarchyPanel.h"
 
 
-#include "Hazel/Renderer/EditorCamera.h"
-namespace Hazel
+#include "Overlook/Renderer/EditorCamera.h"
+namespace Overlook
 {
 	class EditorLayer : public Layer
 	{

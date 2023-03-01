@@ -1,9 +1,9 @@
 #pragma once
-#include <Hazel.h>
-#include "Hazel/Core/EntryPoint.h"
+#include <Overlook.h>
+#include "Overlook/Core/EntryPoint.h"
 #include "Panels/SceneHierarchyPanel.h"
 #include "imgui/imgui.h"
-namespace Hazel
+namespace Overlook
 {
 	class ExampleLayer : public Layer
 	{
@@ -15,7 +15,7 @@ namespace Hazel
 
 	void OnAttach()
 	{
-		HZ_PROFILE_FUNCTION();
+		OL_PROFILE_FUNCTION();
 
 		m_CheckerboardTexture = Texture2D::Create("assets/Texture/Checkerboard.png");
 
@@ -61,13 +61,13 @@ namespace Hazel
 
 				float speed = 5.0f;
 
-				if (Input::IsKeyPressed(HZ_KEY_A))
+				if (Input::IsKeyPressed(OL_KEY_A))
 					translation.x -= speed * ts;
-				if (Input::IsKeyPressed(HZ_KEY_D))
+				if (Input::IsKeyPressed(OL_KEY_D))
 					translation.x += speed * ts;
-				if (Input::IsKeyPressed(HZ_KEY_W))
+				if (Input::IsKeyPressed(OL_KEY_W))
 					translation.y += speed * ts;
-				if (Input::IsKeyPressed(HZ_KEY_S))
+				if (Input::IsKeyPressed(OL_KEY_S))
 					translation.y -= speed * ts;
 			}
 		};
@@ -80,12 +80,12 @@ namespace Hazel
 
 	void OnDetach()
 	{
-		HZ_PROFILE_FUNCTION();
+		OL_PROFILE_FUNCTION();
 	}
 
 	void OnUpdate(Timestep ts)
 	{
-		HZ_PROFILE_FUNCTION();
+		OL_PROFILE_FUNCTION();
 
 		// Resize
 		if (FramebufferSpecification spec = m_Framebuffer->GetSpecification();
@@ -113,7 +113,7 @@ namespace Hazel
 
 	void OnImGuiRender()
 	{
-		HZ_PROFILE_FUNCTION();
+		OL_PROFILE_FUNCTION();
 
 		// Note: Switch this to true to enable dockspace
 		static bool dockspaceOpen = true;
@@ -213,7 +213,7 @@ namespace Hazel
 
 	private:
 
-		//Hazel::OrthographicCameraController m_CameraController;
+		//Overlook::OrthographicCameraController m_CameraController;
 
 		Ref<Framebuffer> m_Framebuffer;
 

@@ -4,14 +4,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Hazel/Scene/SceneSerializer.h"
-#include "Hazel/Utils/PlatformUtils.h"
+#include "Overlook/Scene/SceneSerializer.h"
+#include "Overlook/Utils/PlatformUtils.h"
 
 #include "ImGuizmo.h"
 
-#include "Hazel/Math/Math.h"
+#include "Overlook/Math/Math.h"
 
-namespace Hazel
+namespace Overlook
 {
 	EditorLayer::EditorLayer()
 		: Layer("Overlook Editor")
@@ -21,7 +21,7 @@ namespace Hazel
 
 	void EditorLayer::OnAttach()
 	{
-		HZ_PROFILE_FUNCTION();
+		OL_PROFILE_FUNCTION();
 
 		FramebufferSpecification fbSpec;
 		fbSpec.Width = 1280;
@@ -56,13 +56,13 @@ namespace Hazel
 
 				float speed = 0.01f;
 
-				if (Input::IsKeyPressed(HZ_KEY_A))
+				if (Input::IsKeyPressed(OL_KEY_A))
 					translation.x -= speed * ts;
-				if (Input::IsKeyPressed(HZ_KEY_D))
+				if (Input::IsKeyPressed(OL_KEY_D))
 					translation.x += speed * ts;
-				if (Input::IsKeyPressed(HZ_KEY_W))
+				if (Input::IsKeyPressed(OL_KEY_W))
 					translation.y += speed * ts;
-				if (Input::IsKeyPressed(HZ_KEY_S))
+				if (Input::IsKeyPressed(OL_KEY_S))
 					translation.y -= speed * ts;
 			}
 		};
@@ -75,7 +75,7 @@ namespace Hazel
 
 	void EditorLayer::OnDetach()
 	{
-		//HZ_PROFILE_FUNCTION();
+		//OL_PROFILE_FUNCTION();
 	}
 
 	void EditorLayer::OnUpdate(Timestep ts)
@@ -106,7 +106,7 @@ namespace Hazel
 
 	void EditorLayer::OnImGuiRender()
 	{
-		HZ_PROFILE_FUNCTION();
+		OL_PROFILE_FUNCTION();
 
 		// Note: Switch this to true to enable dockspace
 		static bool dockingEnabled = true;
@@ -227,7 +227,7 @@ namespace Hazel
 				glm::mat4 transform = tc.GetTransform();
 
 				// Snapping
-				bool snap = Input::IsKeyPressed(HZ_KEY_LEFT_CONTROL);
+				bool snap = Input::IsKeyPressed(OL_KEY_LEFT_CONTROL);
 				float snapValue = 0.5f; // Snap to 0.5m for translation/scale
 				// Snap to 45 degrees for rotation
 				if (m_GizmoType == ImGuizmo::OPERATION::ROTATE)
@@ -264,7 +264,7 @@ namespace Hazel
 		m_EditorCamera.OnEvent(e);
 
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<KeyPressedEvent>(HZ_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
+		dispatcher.Dispatch<KeyPressedEvent>(OL_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
 
 	}
 
@@ -274,25 +274,25 @@ namespace Hazel
 		if (e.GetRepeatCount() > 0)
 			return false;
 
-		bool control = Input::IsKeyPressed(HZ_KEY_LEFT_CONTROL) || Input::IsKeyPressed(HZ_KEY_RIGHT_CONTROL);
-		bool shift = Input::IsKeyPressed(HZ_KEY_LEFT_SHIFT) || Input::IsKeyPressed(HZ_KEY_RIGHT_SHIFT);
+		bool control = Input::IsKeyPressed(OL_KEY_LEFT_CONTROL) || Input::IsKeyPressed(OL_KEY_RIGHT_CONTROL);
+		bool shift = Input::IsKeyPressed(OL_KEY_LEFT_SHIFT) || Input::IsKeyPressed(OL_KEY_RIGHT_SHIFT);
 		switch (e.GetKeyCode())
 		{
-		case HZ_KEY_N:
+		case OL_KEY_N:
 		{
 			if (control)
 				NewScene();
 
 			break;
 		}
-		case HZ_KEY_O:
+		case OL_KEY_O:
 		{
 			if (control)
 				OpenScene();
 
 			break;
 		}
-		case HZ_KEY_S:
+		case OL_KEY_S:
 		{
 			if (control && shift)
 				SaveSceneAs();
@@ -300,16 +300,16 @@ namespace Hazel
 			break;
 		}
 		// Gizmos
-		case HZ_KEY_Q:
+		case OL_KEY_Q:
 			m_GizmoType = -1;
 			break;
-		case HZ_KEY_W:
+		case OL_KEY_W:
 			m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
 			break;
-		case HZ_KEY_E:
+		case OL_KEY_E:
 			m_GizmoType = ImGuizmo::OPERATION::ROTATE;
 			break;
-		case HZ_KEY_R:
+		case OL_KEY_R:
 			m_GizmoType = ImGuizmo::OPERATION::SCALE;
 			break;
 		}

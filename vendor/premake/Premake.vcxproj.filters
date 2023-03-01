@@ -4,26 +4,26 @@
     <Filter Include="..">
       <UniqueIdentifier>{61705900-4DFC-870B-B6AA-880BA255880B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="..\Hazel">
-      <UniqueIdentifier>{24146F37-10E1-C942-39FA-B7EA2526FFD0}</UniqueIdentifier>
+    <Filter Include="..\Overlook">
+      <UniqueIdentifier>{E1EF5E56-4DA5-D74B-D699-D122424ECE4F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="..\Hazel\vendor">
-      <UniqueIdentifier>{011A063F-6DA5-7303-76B6-F6F7E2C0CF03}</UniqueIdentifier>
+    <Filter Include="..\Overlook\vendor">
+      <UniqueIdentifier>{1EBFCB18-0AA3-8C6E-7303-87C15F0677F0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="..\Hazel\vendor\GLFW">
-      <UniqueIdentifier>{E03DB63E-CCCC-3F08-75EB-5303615950AE}</UniqueIdentifier>
+    <Filter Include="..\Overlook\vendor\GLFW">
+      <UniqueIdentifier>{1D9D7022-89D4-B8B9-92DE-1CDDFE94DFB2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="..\Hazel\vendor\Glad">
-      <UniqueIdentifier>{88C9B63E-7458-4008-1D77-540309E550AE}</UniqueIdentifier>
+    <Filter Include="..\Overlook\vendor\Glad">
+      <UniqueIdentifier>{C5287122-3160-B9B9-3A6A-1DDDA620E0B2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="..\Hazel\vendor\assimp">
-      <UniqueIdentifier>{FD19BE04-E913-E756-D280-7D67BE194DC3}</UniqueIdentifier>
+    <Filter Include="..\Overlook\vendor\assimp">
+      <UniqueIdentifier>{7A3C8DC0-E6FE-C04A-2FAF-4FD79BB09928}</UniqueIdentifier>
     </Filter>
-    <Filter Include="..\Hazel\vendor\imgui">
-      <UniqueIdentifier>{2BE4F717-9750-B312-6044-4B70CC6FD57A}</UniqueIdentifier>
+    <Filter Include="..\Overlook\vendor\imgui">
+      <UniqueIdentifier>{082BFE72-F44F-4DF3-1D9B-3283091F4C11}</UniqueIdentifier>
     </Filter>
-    <Filter Include="..\Hazel\vendor\yaml-cpp">
-      <UniqueIdentifier>{D35154DB-BF76-A35B-E8C1-88EBD445A279}</UniqueIdentifier>
+    <Filter Include="..\Overlook\vendor\yaml-cpp">
+      <UniqueIdentifier>{900776C7-FC14-A4AD-85FB-9F98F1077064}</UniqueIdentifier>
     </Filter>
     <Filter Include="..\OverlookInput">
       <UniqueIdentifier>{F13E4C94-DD37-6BE6-066A-506BF2C14AF2}</UniqueIdentifier>
@@ -33,23 +33,23 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Hazel\premake5.lua">
-      <Filter>..\Hazel</Filter>
+    <None Include="..\..\Overlook\premake5.lua">
+      <Filter>..\Overlook</Filter>
     </None>
-    <None Include="..\..\Hazel\vendor\GLFW\premake5.lua">
-      <Filter>..\Hazel\vendor\GLFW</Filter>
+    <None Include="..\..\Overlook\vendor\GLFW\premake5.lua">
+      <Filter>..\Overlook\vendor\GLFW</Filter>
     </None>
-    <None Include="..\..\Hazel\vendor\Glad\premake5.lua">
-      <Filter>..\Hazel\vendor\Glad</Filter>
+    <None Include="..\..\Overlook\vendor\Glad\premake5.lua">
+      <Filter>..\Overlook\vendor\Glad</Filter>
     </None>
-    <None Include="..\..\Hazel\vendor\assimp\premake5.lua">
-      <Filter>..\Hazel\vendor\assimp</Filter>
+    <None Include="..\..\Overlook\vendor\assimp\premake5.lua">
+      <Filter>..\Overlook\vendor\assimp</Filter>
     </None>
-    <None Include="..\..\Hazel\vendor\imgui\premake5.lua">
-      <Filter>..\Hazel\vendor\imgui</Filter>
+    <None Include="..\..\Overlook\vendor\imgui\premake5.lua">
+      <Filter>..\Overlook\vendor\imgui</Filter>
     </None>
-    <None Include="..\..\Hazel\vendor\yaml-cpp\premake5.lua">
-      <Filter>..\Hazel\vendor\yaml-cpp</Filter>
+    <None Include="..\..\Overlook\vendor\yaml-cpp\premake5.lua">
+      <Filter>..\Overlook\vendor\yaml-cpp</Filter>
     </None>
     <None Include="..\..\OverlookInput\premake5.lua">
       <Filter>..\OverlookInput</Filter>

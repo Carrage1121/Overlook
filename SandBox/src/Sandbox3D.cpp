@@ -15,28 +15,28 @@ Sandbox3D::Sandbox3D()
 #define ModelFilePath "D:/GameDevelop/GameEngine/Overlook/Sandbox/assets/Model/backpack/backpack.obj"
 void Sandbox3D::OnAttach()
 {
-	// 	HZ_PROFILE_FUNCTION();
+	// 	OL_PROFILE_FUNCTION();
 	// 
-	// 	m_CheckerboardTexture = Hazel::Texture3D::Create("assets/textures/Checkerboard.png");
+	// 	m_CheckerboardTexture = Overlook::Texture3D::Create("assets/textures/Checkerboard.png");
 
-	mCamera = Hazel::CreateScope<Camera>(glm::vec3(0.0f, 0.0f, 3.0f), 1280.0f, 720.0f);
+	mCamera = Overlook::CreateScope<Camera>(glm::vec3(0.0f, 0.0f, 3.0f), 1280.0f, 720.0f);
 
-	mShader.reset(Hazel::Shader::Create("assets/Shader/model_loading.vert", "assets/Shader/model_loading.frag"));
+	mShader.reset(Overlook::Shader::Create("assets/Shader/model_loading.vert", "assets/Shader/model_loading.frag"));
 
-	mModel = Hazel::CreateRef<Model>(ModelFilePath);
+	mModel = Overlook::CreateRef<Model>(ModelFilePath);
 
 	RenderCommand::Test();
 }
 
 void Sandbox3D::OnDetach()
 {
-	//HZ_PROFILE_FUNCTION();
+	//OL_PROFILE_FUNCTION();
 }
 
-void Sandbox3D::OnUpdate(Hazel::Timestep ts)
+void Sandbox3D::OnUpdate(Overlook::Timestep ts)
 {
 
-	//HZ_INFO("UPDATE");
+	//OL_INFO("UPDATE");
 
 	RenderCommand::SetClearColor({ 0.f, 1.f, 0.f, 1 });
 	RenderCommand::Clear();
@@ -51,36 +51,36 @@ void Sandbox3D::OnUpdate(Hazel::Timestep ts)
 
 void Sandbox3D::OnImGuiRender()
 {
-	//HZ_PROFILE_FUNCTION();
+	//OL_PROFILE_FUNCTION();
 	ImGui::Begin("Settings");
 	ImGui::End();
 
 }
 
-void Sandbox3D::OnEvent(Hazel::Event& event)
+void Sandbox3D::OnEvent(Overlook::Event& event)
 {
 	//m_CameraController.OnEvent(e);
-	if (event.GetEventType() == Hazel::EventType::MouseButtonReleased)
+	if (event.GetEventType() == Overlook::EventType::MouseButtonReleased)
 	{
-		Hazel::KeyPressedEvent& e = (Hazel::KeyPressedEvent&)event;
-		if (e.GetKeyCode() == HZ_MOUSE_BUTTON_2)
+		Overlook::KeyPressedEvent& e = (Overlook::KeyPressedEvent&)event;
+		if (e.GetKeyCode() == OL_MOUSE_BUTTON_2)
 		{
 			firstMouse = true;
 		}
 	}
 
-	if (event.GetEventType() == Hazel::EventType::WindowResize)
+	if (event.GetEventType() == Overlook::EventType::WindowResize)
 	{
-		Hazel::WindowResizeEvent& e = (Hazel::WindowResizeEvent&)event;
+		Overlook::WindowResizeEvent& e = (Overlook::WindowResizeEvent&)event;
 		mCamera->WindowsResize(e.GetWidth(), e.GetHeight());
 		//RenderCommand::ResizeViewport(e.GetWidth(), e.GetHeight());
-		//HZ_INFO("{0} {1}", e.GetWidth(), e.GetHeight());
+		//OL_INFO("{0} {1}", e.GetWidth(), e.GetHeight());
 	}
 }
 
 void Sandbox3D::CameraUpdate()
 {
-	if (Input::IsMouseButtonPressed(HZ_MOUSE_BUTTON_2))
+	if (Input::IsMouseButtonPressed(OL_MOUSE_BUTTON_2))
 	{
 		//rotation
 		auto [x, y] = Input::GetMousePosition();
@@ -101,22 +101,22 @@ void Sandbox3D::CameraUpdate()
 
 
 		//pos move
-		if (Input::IsKeyPressed(HZ_KEY_W))
+		if (Input::IsKeyPressed(OL_KEY_W))
 		{
-			mCamera->ProcessKeyboard(Hazel::Camera_Movement::FORWARD);
-			//HZ_CORE_TRACE("W PRESS");
+			mCamera->ProcessKeyboard(Overlook::Camera_Movement::FORWARD);
+			//OL_CORE_TRACE("W PRESS");
 		}
-		if (Input::IsKeyPressed(HZ_KEY_A))
+		if (Input::IsKeyPressed(OL_KEY_A))
 		{
-			mCamera->ProcessKeyboard(Hazel::Camera_Movement::RIGHT);
+			mCamera->ProcessKeyboard(Overlook::Camera_Movement::RIGHT);
 		}
-		if (Input::IsKeyPressed(HZ_KEY_S))
+		if (Input::IsKeyPressed(OL_KEY_S))
 		{
-			mCamera->ProcessKeyboard(Hazel::Camera_Movement::BACKWARD);
+			mCamera->ProcessKeyboard(Overlook::Camera_Movement::BACKWARD);
 		}
-		if (Input::IsKeyPressed(HZ_KEY_D))
+		if (Input::IsKeyPressed(OL_KEY_D))
 		{
-			mCamera->ProcessKeyboard(Hazel::Camera_Movement::LEFT);
+			mCamera->ProcessKeyboard(Overlook::Camera_Movement::LEFT);
 		}
 	}
 }

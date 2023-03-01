@@ -1,10 +1,10 @@
-#include <Hazel.h>
-#include "Hazel/Core/EntryPoint.h"
+#include <Overlook.h>
+#include "Overlook/Core/EntryPoint.h"
 
 #include "EditorLayer.h"
 #include "ExampleLayer.h"
 
-namespace Hazel
+namespace Overlook
 {
 	class OverlookEdit : public Application
 	{

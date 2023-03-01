@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Hazel/Core/Base.h"
-#include "Hazel/Core/Log.h"
-#include "Hazel/Scene/Scene.h"
-#include "Hazel/Scene/Entity.h"
+#include "Overlook/Core/Base.h"
+#include "Overlook/Core/Log.h"
+#include "Overlook/Scene/Scene.h"
+#include "Overlook/Scene/Entity.h"
 
-namespace Hazel {
+namespace Overlook {
 
 	class SceneHierarchyPanel
 	{

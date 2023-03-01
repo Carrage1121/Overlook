@@ -15,9 +15,9 @@ project "OverlookInput"
 
 	includedirs
 	{
-		"%{wks.location}/Hazel/vendor/spdlog/include",
-		"%{wks.location}/Hazel/src",
-		"%{wks.location}/Hazel/vendor",
+		"%{wks.location}/Overlook/vendor/spdlog/include",
+		"%{wks.location}/Overlook/src",
+		"%{wks.location}/Overlook/vendor",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.assimp}",
@@ -28,23 +28,23 @@ project "OverlookInput"
 
 	links
 	{
-		"Hazel"
+		"Overlook"
 	}
 
 	filter "system:windows"
 		systemversion "latest"
 
 	filter "configurations:Debug"
-		defines "HZ_DEBUG"
+		defines "OL_DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "HZ_RELEASE"
+		defines "OL_RELEASE"
 		runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
-		defines "HZ_DIST"
+		defines "OL_DIST"
 		runtime "Release"
 		optimize "on"

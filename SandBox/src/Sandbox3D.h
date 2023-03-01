@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Hazel.h"
+#include "Overlook.h"
 
-using namespace Hazel;
-class Sandbox3D : public Hazel::Layer
+using namespace Overlook;
+class Sandbox3D : public Overlook::Layer
 {
 public:
 	Sandbox3D();
@@ -12,18 +12,18 @@ public:
 	virtual void OnAttach() override;
 	virtual void OnDetach() override;
 
-	virtual void OnUpdate(Hazel::Timestep ts) override;
+	virtual void OnUpdate(Overlook::Timestep ts) override;
 	virtual void OnImGuiRender() override;
-	virtual void OnEvent(Hazel::Event& event) override;
+	virtual void OnEvent(Overlook::Event& event) override;
 	void CameraUpdate();
 private:
 	bool firstMouse = true;
 	float lastX = 100;
 	float lastY = 100;
 
-	Hazel::Scope <Hazel::Camera> mCamera;
+	Overlook::Scope <Overlook::Camera> mCamera;
 
-	Hazel::Ref<Hazel::Shader> mShader;
-	Hazel::Ref<Hazel::Model> mModel;
+	Overlook::Ref<Overlook::Shader> mShader;
+	Overlook::Ref<Overlook::Model> mModel;
 };
 

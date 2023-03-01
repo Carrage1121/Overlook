@@ -77,12 +77,12 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="..\..\Hazel\premake5.lua" />
-    <None Include="..\..\Hazel\vendor\GLFW\premake5.lua" />
-    <None Include="..\..\Hazel\vendor\Glad\premake5.lua" />
-    <None Include="..\..\Hazel\vendor\assimp\premake5.lua" />
-    <None Include="..\..\Hazel\vendor\imgui\premake5.lua" />
-    <None Include="..\..\Hazel\vendor\yaml-cpp\premake5.lua" />
+    <None Include="..\..\Overlook\premake5.lua" />
+    <None Include="..\..\Overlook\vendor\GLFW\premake5.lua" />
+    <None Include="..\..\Overlook\vendor\Glad\premake5.lua" />
+    <None Include="..\..\Overlook\vendor\assimp\premake5.lua" />
+    <None Include="..\..\Overlook\vendor\imgui\premake5.lua" />
+    <None Include="..\..\Overlook\vendor\yaml-cpp\premake5.lua" />
     <None Include="..\..\OverlookInput\premake5.lua" />
     <None Include="..\..\SandBox\premake5.lua" />
     <None Include="..\..\premake5.lua" />
