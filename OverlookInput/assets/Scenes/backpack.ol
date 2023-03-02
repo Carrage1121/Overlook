@@ -2,13 +2,6 @@ Scene: Untitled
 Entities:
   - Entity: 12837192831273
     TagComponent:
-      Tag: Model
-    TransformComponent:
-      Translation: [0, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - Entity: 12837192831273
-    TagComponent:
       Tag: Camera
     TransformComponent:
       Translation: [0, 0, 10]
@@ -25,3 +18,10 @@ Entities:
         OrthographicFar: 1
       Primary: true
       FixedAspectRatio: false
+  - Entity: 12837192831273
+    TagComponent:
+      Tag: Model
+    TransformComponent:
+      Translation: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.889999926, 0.889999926, 0.889999926]

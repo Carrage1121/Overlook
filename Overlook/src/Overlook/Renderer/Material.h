@@ -35,7 +35,7 @@ namespace Overlook
 
 	struct MaterialTexture
 	{
-		Overlook::Ref<Texture2D> texture2d = nullptr;
+		Ref<Texture2D> texture2d = nullptr;
 		TextureType type;
 		std::string path;
 	};
@@ -51,7 +51,7 @@ namespace Overlook
 
 		void AddTexture(TextureType type, Ref<Texture2D> texture)
 		{
-			HZ_CORE_ASSERT(mTexMap.find(type) == mTexMap.end());
+			OL_CORE_ASSERT(mTexMap.find(type) == mTexMap.end());
 			mTexMap[type] = texture;
 		}
 
@@ -63,7 +63,7 @@ namespace Overlook
 
 		bool bUseAlbedoMap = false;
 		glm::vec4 col = { 1.0f, 1.0f, 1.0f, 1.0f }; // 0 ~ 1
-		Ref<Texture2D> albedoRGBA = Texture2D::Create(1, 1);
+		/*Ref<Texture2D> albedoRGBA = Texture2D::Create(1, 1);
 		Ref<Texture2D> mAlbedoMap = Library<Texture2D>::GetInstance().GetDefaultTexture();
 
 		bool bUseNormalMap = false;
@@ -80,7 +80,7 @@ namespace Overlook
 		Ref<Texture2D> mRoughnessMap = Library<Texture2D>::GetInstance().Get("DefaultMetallicRoughness");
 
 		bool bUseAoMap = false;
-		Ref<Texture2D> mAoMap = Library<Texture2D>::GetInstance().GetWhiteTexture();
+		Ref<Texture2D> mAoMap = Library<Texture2D>::GetInstance().GetWhiteTexture();*/
 	private:
 		Ref<Shader> mShader;
 		std::unordered_map<TextureType, Ref<Texture2D>, EnumClassHash> mTexMap;

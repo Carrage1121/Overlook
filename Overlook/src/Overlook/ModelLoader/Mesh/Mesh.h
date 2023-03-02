@@ -1,4 +1,24 @@
 #pragma once
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
+//self
+#include "Overlook/Library/Library.h"
+#include "Overlook/Library/ShaderLibrary.h"
+
+#include "Overlook/Renderer/Shader.h"
+#include "Overlook/Renderer/Material.h"
+
+#include "Overlook/ModelLoader/Mesh/subMesh.h"
+#include "Overlook/ModelLoader/Animation/animdata.h"
+
+//Assimp
+#include <optional>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 namespace Overlook
 {
 	class Mesh
@@ -39,8 +59,8 @@ namespace Overlook
 		bool bPlayAnim = false;
 		bool bStopAnim = false;
 
-		Animation mAnimation;
-		Animator mAnimator;
+		/*Animation mAnimation;
+		Animator mAnimator;*/
 
 		float mAnimPlaySpeed = 1.0f;
 

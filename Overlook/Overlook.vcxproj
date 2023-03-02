@@ -156,6 +156,7 @@
     <ClInclude Include="src\Overlook\Core\Log.h" />
     <ClInclude Include="src\Overlook\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\Overlook\Core\PlatformDetection.h" />
+    <ClInclude Include="src\Overlook\Core\PublicSingleton.h" />
     <ClInclude Include="src\Overlook\Core\Timestep.h" />
     <ClInclude Include="src\Overlook\Core\Window.h" />
     <ClInclude Include="src\Overlook\Debug\Insterumenter.h" />
@@ -164,7 +165,15 @@
     <ClInclude Include="src\Overlook\Events\KeyEvent.h" />
     <ClInclude Include="src\Overlook\Events\MouseEvent.h" />
     <ClInclude Include="src\Overlook\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Overlook\Library\Library.h" />
+    <ClInclude Include="src\Overlook\Library\ShaderLibrary.h" />
+    <ClInclude Include="src\Overlook\Library\TextureLibrary.h" />
+    <ClInclude Include="src\Overlook\Library\UniformBufferLibrary.h" />
     <ClInclude Include="src\Overlook\Math\Math.h" />
+    <ClInclude Include="src\Overlook\ModelLoader\Animation\animation.h" />
+    <ClInclude Include="src\Overlook\ModelLoader\Animation\animator.h" />
+    <ClInclude Include="src\Overlook\ModelLoader\Animation\animdata.h" />
+    <ClInclude Include="src\Overlook\ModelLoader\Animation\bone.h" />
     <ClInclude Include="src\Overlook\ModelLoader\Mesh.h" />
     <ClInclude Include="src\Overlook\ModelLoader\Model.h" />
     <ClInclude Include="src\Overlook\ModelLoader\ModelLoadBuild.h" />
@@ -174,6 +183,7 @@
     <ClInclude Include="src\Overlook\Renderer\EditorCamera.h" />
     <ClInclude Include="src\Overlook\Renderer\Framebuffer.h" />
     <ClInclude Include="src\Overlook\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Overlook\Renderer\Material.h" />
     <ClInclude Include="src\Overlook\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\Overlook\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Overlook\Renderer\Renderer.h" />
@@ -183,6 +193,9 @@
     <ClInclude Include="src\Overlook\Renderer\Shader.h" />
     <ClInclude Include="src\Overlook\Renderer\Texture.h" />
     <ClInclude Include="src\Overlook\Renderer\VertexArray.h" />
+    <ClInclude Include="src\Overlook\Resource\AssetManager\AssetManager.h" />
+    <ClInclude Include="src\Overlook\Resource\ConfigManager\ConfigManager.h" />
+    <ClInclude Include="src\Overlook\Resource\ModeManager\ModeManager.h" />
     <ClInclude Include="src\Overlook\Scene\Components.h" />
     <ClInclude Include="src\Overlook\Scene\Entity.h" />
     <ClInclude Include="src\Overlook\Scene\Scene.h" />
@@ -626,7 +639,12 @@
     <ClCompile Include="src\Overlook\Core\Log.cpp" />
     <ClCompile Include="src\Overlook\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Overlook\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Overlook\Library\Library.cpp" />
+    <ClCompile Include="src\Overlook\Library\ShaderLibrary.cpp" />
+    <ClCompile Include="src\Overlook\Library\TextureLibrary.cpp" />
+    <ClCompile Include="src\Overlook\Library\UniformBufferLibrary.cpp" />
     <ClCompile Include="src\Overlook\Math\Math.cpp" />
+    <ClCompile Include="src\Overlook\ModelLoader\Animation\animation.cpp" />
     <ClCompile Include="src\Overlook\ModelLoader\Model.cpp" />
     <ClCompile Include="src\Overlook\ModelLoader\PerspectiveCamera.cpp" />
     <ClCompile Include="src\Overlook\ModelLoader\stbBuild.cpp" />
@@ -634,6 +652,7 @@
     <ClCompile Include="src\Overlook\Renderer\EditorCamera.cpp" />
     <ClCompile Include="src\Overlook\Renderer\Framebuffer.cpp" />
     <ClCompile Include="src\Overlook\Renderer\GraphicsContext.cpp" />
+    <ClCompile Include="src\Overlook\Renderer\Material.cpp" />
     <ClCompile Include="src\Overlook\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Overlook\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Overlook\Renderer\Renderer.cpp" />
@@ -643,6 +662,9 @@
     <ClCompile Include="src\Overlook\Renderer\Shader.cpp" />
     <ClCompile Include="src\Overlook\Renderer\Texture.cpp" />
     <ClCompile Include="src\Overlook\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Overlook\Resource\AssetManager\AssetManager.cpp" />
+    <ClCompile Include="src\Overlook\Resource\ConfigManager\ConfigManager.cpp" />
+    <ClCompile Include="src\Overlook\Resource\ModeManager\ModeManager.cpp" />
     <ClCompile Include="src\Overlook\Scene\Entity.cpp" />
     <ClCompile Include="src\Overlook\Scene\Scene.cpp" />
     <ClCompile Include="src\Overlook\Scene\SceneCamera.cpp" />
@@ -683,6 +705,9 @@
     <ProjectReference Include="vendor\assimp\assimp.vcxproj">
       <Project>{724885F2-5EEA-AFC8-47A5-C31C33E63619}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\Overlook\ModelLoader\Mesh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

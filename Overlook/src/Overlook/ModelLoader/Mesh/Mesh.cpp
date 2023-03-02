@@ -43,7 +43,7 @@ namespace Overlook
 
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
-			HE_CORE_ERROR("ERROR::ASSIMP::{0}", importer.GetErrorString());
+			OL_CORE_ERROR("ERROR::ASSIMP::{0}", importer.GetErrorString());
 			return;
 		}
 
@@ -54,8 +54,9 @@ namespace Overlook
 		{
 			bAnimated = true;
 			ProcessNode(scene->mRootNode, scene, subMeshIndex);
-			mAnimation = Animation(standardFullPath, this);
-			mAnimator = Animator(&mAnimation);
+			//TODO add animation
+			/*mAnimation = Animation(standardFullPath, this);
+			mAnimator = Animator(&mAnimation);*/
 		}
 		else
 			ProcessNode(scene->mRootNode, scene, subMeshIndex);
@@ -259,7 +260,7 @@ namespace Overlook
 				}
 				catch (...)
 				{
-					HE_CORE_WARN("Load Texture failed!");
+					OL_CORE_WARN("Load Texture failed!");
 					texture.texture2d = Texture2D::Create(AssetManager::GetFullPath("Assets/Textures/DefaultTexture.png"));
 				}
 

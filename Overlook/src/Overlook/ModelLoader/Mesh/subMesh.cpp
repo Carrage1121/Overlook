@@ -1,6 +1,9 @@
 #include "olpch.h"
 #include "subMesh.h"
 
+#include "Overlook/Resource/ModeManager/ModeManager.h"
+#include "Overlook/ModelLoader/Animation/animation.h"
+
 
 namespace Overlook
 {

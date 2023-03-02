@@ -6,6 +6,8 @@
 #include "Overlook/ModelLoader/Mesh/Mesh.h"
 #include "Overlook/Renderer/VertexArray.h"
 #include "Overlook/Renderer/Shader.h"
+#include "Overlook/Renderer/Material.h"
+#include "Overlook/Renderer/RenderCommand.h"
 
 
 #define MAX_BONE_INFLUENCE 4
@@ -46,7 +48,7 @@ namespace Overlook
 		SubMesh(const std::vector<StaticVertex>& vertices, const std::vector<uint32_t> indices, const std::vector<MaterialTexture>& textures, uint32_t materialIndex = 0);
 		SubMesh(const std::vector<SkinnedVertex>& vertices, const std::vector<uint32_t> indices, const std::vector<MaterialTexture>& textures, uint32_t materialIndex = 0);
 
-		void Draw(const glm::mat4& transform, const glm::vec3& cameraPos, const Overlook::Ref<Overlook::Shader>& shader, int entityID, Mesh* model);
+		void Draw(const glm::mat4& transform, const glm::vec3& cameraPos, const Ref<Shader>& shader, int entityID, Mesh* model);
 
 		void Draw();
 	private:
@@ -61,9 +63,9 @@ namespace Overlook
 
 		std::vector<uint32_t> mIndices;
 
-		Overlook::Ref<Overlook::VertexArray> mVertexArray;
-		Overlook::Ref<Overlook::VertexBuffer> mVB;
-		Overlook::Ref<Overlook::IndexBuffer> mIB;
+		Ref<VertexArray> mVertexArray;
+		Ref<VertexBuffer> mVB;
+		Ref<IndexBuffer> mIB;
 
 		int mEntityID = -1;
 	};

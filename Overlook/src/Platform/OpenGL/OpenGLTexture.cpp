@@ -92,4 +92,39 @@ namespace Overlook {
 
 		glBindTextureUnit(slot, m_RendererID);
 	}
+	
+	void OpenGLTexture2D::UnBind() const
+	{
+		glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
+	}
+	
+
+	// ---------------Tex3D--------------------
+	// TODO
+	OpenGLTexture3D::OpenGLTexture3D(uint32_t width, uint32_t height)
+	{
+		glGenTextures(1, &m_RendererID);
+		glBindTexture(GL_TEXTURE_2D_ARRAY, m_RendererID);
+	}
+
+	OpenGLTexture3D::OpenGLTexture3D(uint32_t rendererID, uint32_t width, uint32_t height)
+		: m_RendererID(rendererID), mWidth(width), mHeight(height)
+	{
+	}
+
+	OpenGLTexture3D::~OpenGLTexture3D()
+	{
+		glDeleteTextures(1, &m_RendererID);
+	}
+
+	void OpenGLTexture3D::Bind(uint32_t slot) const
+	{
+		glActiveTexture(GL_TEXTURE0 + slot);
+		glBindTexture(GL_TEXTURE_2D_ARRAY, m_RendererID);
+	}
+
+	void OpenGLTexture3D::UnBind() const
+	{
+		glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
+	}
 }

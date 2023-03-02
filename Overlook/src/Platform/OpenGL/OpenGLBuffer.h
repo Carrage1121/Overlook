@@ -26,6 +26,7 @@ namespace Overlook {
 	class OpenGLIndexBuffer : public IndexBuffer
 	{
 	public:
+		OpenGLIndexBuffer(uint32_t count);
 		OpenGLIndexBuffer(uint32_t* indices, uint32_t count);
 		virtual ~OpenGLIndexBuffer();
 
@@ -33,9 +34,21 @@ namespace Overlook {
 		virtual void Unbind() const;
 
 		virtual uint32_t GetCount() const { return m_Count; }
+		virtual void SetData(const void* data, uint32_t count) override;
 	private:
 		uint32_t m_RendererID;
 		uint32_t m_Count;
+	};
+
+	class OpenGLUniformBuffer : public UniformBuffer
+	{
+	public:
+		OpenGLUniformBuffer(uint32_t size, uint32_t binding);
+		virtual ~OpenGLUniformBuffer();
+
+		virtual void SetData(const void* data, uint32_t size, uint32_t offset = 0) override;
+	private:
+		uint32_t mRendererID = 0;
 	};
 
 }

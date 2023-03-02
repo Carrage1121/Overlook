@@ -127,8 +127,19 @@ namespace Overlook {
 		virtual void Unbind() const = 0;
 
 		virtual uint32_t GetCount() const = 0;
+		virtual void SetData(const void* data, uint32_t count) = 0;
 
+		static Ref<IndexBuffer> Create(uint32_t count);
 		static Ref<IndexBuffer> Create(uint32_t* indices, uint32_t count);
+	};
+
+	class UniformBuffer
+	{
+	public:
+		virtual ~UniformBuffer() {}
+		virtual void SetData(const void* data, uint32_t size, uint32_t offset = 0) = 0;
+
+		static Ref<UniformBuffer> Create(uint32_t size, uint32_t binding);
 	};
 
 }
