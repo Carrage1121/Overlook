@@ -4,7 +4,9 @@
 
 #include "Overlook/Renderer/Camera.h"
 #include "Overlook/Renderer/EditorCamera.h"
-#include "Overlook/ModelLoader/PerspectiveCamera.h"
+#include "Overlook/Renderer/PerspectiveCamera.h"
+
+#include "Overlook/Scene/Components.h"
 namespace Overlook
 {
 	class Renderer3D
@@ -19,10 +21,10 @@ namespace Overlook
 		static void EndScene();
 		static void Flush();
 	
-		static void ShowModel(const glm::mat4& transform, const glm::vec3& scale);
-	
-	private:
-		static void FlushAndReset();
+		static void DrawModel(const glm::mat4& transform, ModelRendererComponent modelComponent, int entityid);
+	public:
+		// shadow pass
+		static Ref<class Framebuffer> lightFBO;
 	};
 }
 

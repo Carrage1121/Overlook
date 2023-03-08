@@ -1,5 +1,9 @@
 #include "olpch.h"
-#include "Mesh.h"
+#include "Overlook/ModelLoader/Mesh/Mesh.h"
+
+//self
+#include "Overlook/Resource/AssetManager/AssetManager.h"
+#include <regex>
 namespace Overlook
 {
 	namespace Utils
@@ -16,14 +20,20 @@ namespace Overlook
 
 	void Mesh::Draw(const glm::mat4& transform, const glm::vec3& cameraPos, int entityID)
 	{
-		for (unsigned int i = 0; i < mSubMeshes.size(); ++i)
-			mSubMeshes[i].Draw(transform, cameraPos, mMaterial[0]->GetShader(), entityID, this);
+		// 		for (unsigned int i = 0; i < mSubMeshes.size(); ++i)
+		// 			mSubMeshes[i].Draw(transform, cameraPos, mMaterial[0]->GetShader(), entityID, this);
 	}
 
 	void Mesh::Draw(const glm::mat4& transform, const glm::vec3& cameraPos, Ref<Shader> shader, int entityID)
 	{
 		for (unsigned int i = 0; i < mSubMeshes.size(); ++i)
 			mSubMeshes[i].Draw(transform, cameraPos, shader, entityID, this);
+	}
+
+	void Mesh::Draw(const glm::mat4& transform, const Ref<Shader>& shader, int entityID)
+	{
+		for (unsigned int i = 0; i < mSubMeshes.size(); ++i)
+			mSubMeshes[i].Draw(transform, shader, entityID);
 	}
 
 	void Mesh::Draw()
@@ -34,11 +44,10 @@ namespace Overlook
 
 	void Mesh::LoadModel(const std::string& path)
 	{
-		mMaterial.resize(200);
 
 		Assimp::Importer importer;
 		std::string standardPath = std::regex_replace(path, std::regex("\\\\"), "/");
-		std::string standardFullPath = std::regex_replace(AssetManager::GetFullPath(path).string(), std::regex("\\\\"), "/");
+		std::string standardFullPath = AssetManager::GetFullPath(path);
 		const aiScene* scene = importer.ReadFile(standardFullPath, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_CalcTangentSpace);
 
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
@@ -60,8 +69,6 @@ namespace Overlook
 		}
 		else
 			ProcessNode(scene->mRootNode, scene, subMeshIndex);
-
-		mMaterial.resize(subMeshIndex);
 	}
 
 	void Mesh::ProcessNode(aiNode* node, const aiScene* scene, uint32_t& subMeshIndex)
@@ -171,7 +178,7 @@ namespace Overlook
 				{
 					BoneInfo newBoneInfo;
 					newBoneInfo.id = mBoneCounter;
-					newBoneInfo.offset = Utils::ConvertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
+					//newBoneInfo.offset = Utils::ConvertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
 					mBoneInfoMap[boneName] = newBoneInfo;
 					boneID = mBoneCounter;
 					mBoneCounter++;
@@ -180,7 +187,7 @@ namespace Overlook
 				{
 					boneID = mBoneInfoMap[boneName].id;
 				}
-				HE_CORE_ASSERT(boneID != -1);
+				OL_CORE_ASSERT(boneID != -1);
 				auto weights = mesh->mBones[boneIndex]->mWeights;
 				int numWeights = mesh->mBones[boneIndex]->mNumWeights;
 
@@ -188,7 +195,7 @@ namespace Overlook
 				{
 					int vertexId = weights[weightIndex].mVertexId;
 					float weight = weights[weightIndex].mWeight;
-					HE_CORE_ASSERT(vertexId <= vertices.size());
+					OL_CORE_ASSERT(vertexId <= vertices.size());
 					for (int i = 0; i < MAX_BONE_INFLUENCE; ++i)
 					{
 						if ((*reinterpret_cast<SkinnedVertex*>(&vertices[vertexId])).mBoneIDs[i] < 0)
@@ -211,8 +218,6 @@ namespace Overlook
 		// specular: texture_specularN
 		// normal: texture_normalN
 
-		mMaterial[subMeshIndex] = CreateRef<Material>();
-
 		const auto& loadTexture = [&](aiTextureType type) {
 			auto maps = loadMaterialTextures(material, type, subMeshIndex);
 			if (maps) textures.insert(textures.end(), maps.value().begin(), maps.value().end());
@@ -226,7 +231,8 @@ namespace Overlook
 		return SubMesh(vertices, indices, textures, subMeshIndex);
 	}
 
-	std::optional<std::vector<MaterialTexture>> Mesh::loadMaterialTextures(aiMaterial* mat, aiTextureType type, uint32_t& subMeshIndex)
+
+	std::optional <std::vector<MaterialTexture>>  Mesh::loadMaterialTextures(aiMaterial* mat, aiTextureType type, uint32_t& subMeshIndex)
 	{
 		std::vector<MaterialTexture> textures;
 		for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
@@ -236,18 +242,16 @@ namespace Overlook
 
 			// check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
 			bool skip = false;
-			//if (!mMaterial[subMeshIndex]->mTextures.empty())
-			//{
-			for (unsigned int j = 0; j < mMaterial[subMeshIndex]->mTextures.size(); j++)
+
+			for (unsigned int j = 0; j < textures_loaded.size(); j++)
 			{
-				if (std::strcmp(mMaterial[subMeshIndex]->mTextures[j].path.data(), str.C_Str()) == 0)
+				if (std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0)
 				{
-					textures.push_back(mMaterial[subMeshIndex]->mTextures[j]);
-					skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
+					textures.push_back(textures_loaded[j]);
+					skip = true;
 					break;
 				}
 			}
-			//}
 			if (!skip)
 			{   // if texture hasn't been loaded already, load it
 				MaterialTexture texture;
@@ -261,53 +265,29 @@ namespace Overlook
 				catch (...)
 				{
 					OL_CORE_WARN("Load Texture failed!");
-					texture.texture2d = Texture2D::Create(AssetManager::GetFullPath("Assets/Textures/DefaultTexture.png"));
+					texture.texture2d = Texture2D::Create(AssetManager::GetFullPath("assets/Textures/DefaultTexture.png"));
 				}
-
 				switch (type)
 				{
 				case aiTextureType_DIFFUSE:
-				case aiTextureType_BASE_COLOR:
-					texture.type = TextureType::Albedo;
-					mMaterial[subMeshIndex]->mAlbedoMap = texture.texture2d;
-					mMaterial[subMeshIndex]->bUseAlbedoMap = true;
-					break;
-				case aiTextureType_HEIGHT:
-					texture.type = TextureType::Height;
-					break;
-				case aiTextureType_AMBIENT:
-				case aiTextureType_AMBIENT_OCCLUSION:
-					texture.type = TextureType::AmbientOcclusion;
-					mMaterial[subMeshIndex]->mAoMap = texture.texture2d;
-					mMaterial[subMeshIndex]->bUseAoMap = true;
-					break;
-				case aiTextureType_NORMALS:
-				case aiTextureType_NORMAL_CAMERA:
-					texture.type = TextureType::Normal;
-					mMaterial[subMeshIndex]->mNormalMap = texture.texture2d;
-					mMaterial[subMeshIndex]->bUseNormalMap = true;
+					texture.type = TextureType::aiTextureType_DIFFUSE;
 					break;
 				case aiTextureType_SPECULAR:
-				case aiTextureType_METALNESS:
-					texture.type = TextureType::Metalness;
-					mMaterial[subMeshIndex]->mMetallicMap = texture.texture2d;
-					mMaterial[subMeshIndex]->bUseMetallicMap = true;
+					texture.type = TextureType::aiTextureType_SPECULAR;
 					break;
-				case aiTextureType_DIFFUSE_ROUGHNESS:
-					texture.type = TextureType::Roughness;
-					mMaterial[subMeshIndex]->mRoughnessMap = texture.texture2d;
-					mMaterial[subMeshIndex]->bUseRoughnessMap = true;
+				case aiTextureType_HEIGHT:
+					texture.type = TextureType::aiTextureType_HEIGHT;
 					break;
-				case aiTextureType_EMISSIVE:
-					texture.type = TextureType::Emission;
-					break;
+				case aiTextureType_NORMALS:
+					texture.type = TextureType::aiTextureType_NORMALS;
+				default:
+					texture.type = TextureType::aiTextureType_NONE;
 				}
 				texture.path = str.C_Str();
 				textures.push_back(texture);
-				mMaterial[subMeshIndex]->mTextures.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
+				textures_loaded.push_back(texture);
 			}
 		}
-
 		if (textures.empty()) return {};
 		return textures;
 	}

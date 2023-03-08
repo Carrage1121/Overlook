@@ -7,11 +7,11 @@ namespace Overlook
 {
     Library<Texture2D>::Library()
     {
-        Add("DefaultTexture", Texture2D::Create(std::string("Assets/Textures/DefaultTexture.png")));
-        Add("DefaultNormal", Texture2D::Create(std::string("Assets/Textures/DefaultNormal.png")));
-        Add("DefaultMetallicRoughness", Texture2D::Create(std::string("Assets/Textures/black.png")));
-        Add("DefaultHdr", Texture2D::Create(std::string("Assets/Textures/DefaultTexture.png")));
-        Add("BRDF_LUT", Texture2D::Create(std::string("Assets/Textures/BRDF_LUT.tga")));
+        Add("DefaultTexture", Texture2D::Create(AssetManager::GetAssetsPath("Texture/DefaultTexture.png")));
+        Add("DefaultNormal", Texture2D::Create(AssetManager::GetAssetsPath("Texture/DefaultNormal.png")));
+        Add("DefaultMetallicRoughness", Texture2D::Create(AssetManager::GetAssetsPath("Texture/black.png")));
+        Add("DefaultHdr", Texture2D::Create(AssetManager::GetAssetsPath("Texture/DefaultTexture.png")));
+        Add("BRDF_LUT", Texture2D::Create(AssetManager::GetAssetsPath("Texture/BRDF_LUT.tga")));
 
         Ref<Texture2D> whiteTexture = Texture2D::Create(1, 1);
         uint32_t whiteTextureData = 0xffffffff;

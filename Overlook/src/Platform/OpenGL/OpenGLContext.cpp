@@ -21,11 +21,11 @@ namespace Overlook {
 
 
 		//²é¿´äÖÈ¾Ó²¼þ
-		//OL_CORE_INFO("OpenGL Info:");
-		//OL_CORE_INFO("  Vendor: {0}", glGetString(GL_VENDOR));
-		//OL_CORE_INFO("  Renderer: {0}", glGetString(GL_RENDERER));
-		//OL_CORE_INFO("  Version: {0}", glGetString(GL_VERSION));
-	}
+// 		OL_CORE_INFO("OpenGL Info:");
+// 		OL_CORE_INFO("  Vendor: {0}", glGetString(GL_VENDOR));
+// 		OL_CORE_INFO("  Renderer: {0}", glGetString(GL_RENDERER));
+// 		OL_CORE_INFO("  Version: {0}", glGetString(GL_VERSION));
+ 	}
 
 	void OpenGLContext::SwapBuffers()
 	{

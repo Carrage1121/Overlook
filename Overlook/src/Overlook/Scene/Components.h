@@ -8,6 +8,9 @@
 
 #include "ScriptableEntity.h"
 #include "SceneCamera.h"
+#include "Overlook/Renderer/Texture.h"
+
+#include "Overlook/ModelLoader/Mesh/Mesh.h"
 
 namespace Overlook {
 
@@ -59,6 +62,8 @@ namespace Overlook {
 	struct SpriteRendererComponent
 	{
 		glm::vec4 Color{ 1.0f, 1.0f, 1.0f, 1.0f };
+		Ref<Texture2D> Texture;
+		float TilingFactor = 1.0f;
 
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
@@ -66,15 +71,18 @@ namespace Overlook {
 			: Color(color) {}
 	};
 
-	struct ModelRendererComponent
+	class ModelRendererComponent
 	{
-		glm::vec3 Scale{ 0.0f, 0.0f, 0.0f };
-
+	public:
 		ModelRendererComponent() = default;
 		ModelRendererComponent(const ModelRendererComponent&) = default;
-		ModelRendererComponent(const glm::vec3& scale)
-			: Scale(scale) {}
+		ModelRendererComponent(const std::string& path)
+			: Path(path) , mMesh(CreateRef<Mesh>(path))
+		{
+		}
 
+		Ref<Mesh> mMesh;
+		std::string Path;
 	};
 
 	struct CameraComponent

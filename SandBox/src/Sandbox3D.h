@@ -24,6 +24,6 @@ private:
 	Overlook::Scope <Overlook::Camera> mCamera;
 
 	Overlook::Ref<Overlook::Shader> mShader;
-	Overlook::Ref<Overlook::Model> mModel;
+	Overlook::Ref<Overlook::Mesh> mModel;
 };
 

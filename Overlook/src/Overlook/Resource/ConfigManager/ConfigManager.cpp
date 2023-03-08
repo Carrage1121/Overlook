@@ -7,12 +7,13 @@ namespace Overlook
     glm::vec2 ConfigManager::mViewportSize = { 1280.0f, 720.0f };
     int ConfigManager::selectedEntity = -1;
 
+
     ConfigManager::ConfigManager()
     {
-        mRootFolder = { OL_STRINGIFY_MACRO(ENGINE_ROOT_DIR) };
-        mAssetsFolder = mRootFolder / "Assets";
-        mShadersFolder = mRootFolder / "Shaders";
-        mResourcesFolder = mRootFolder / "Resources";
+        mRootFolder = std::filesystem::current_path();
+        mAssetsFolder = mRootFolder / "assets";
+        mShadersFolder = mRootFolder / mAssetsFolder / "Shader";
+        mResourcesFolder = mRootFolder / mAssetsFolder / "Resource";
     }
 
     void ConfigManager::Clear()

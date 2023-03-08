@@ -1,8 +1,9 @@
 #include "olpch.h"
-#include "subMesh.h"
 
+#include "Overlook/ModelLoader/Mesh/subMesh.h"
+#include "Overlook/ModelLoader/Mesh/Mesh.h"
 #include "Overlook/Resource/ModeManager/ModeManager.h"
-#include "Overlook/ModelLoader/Animation/animation.h"
+#include "Overlook/Renderer/RenderCommand.h"
 
 
 namespace Overlook
@@ -101,68 +102,81 @@ namespace Overlook
 
 	void SubMesh::Draw(const glm::mat4& transform, const glm::vec3& cameraPos, const Ref<Shader>& shader, int entityID, Mesh* model)
 	{
+		// 		SetupMesh(entityID);
+		// 
+		// 		shader->Bind();
+		// 		if (model->bPlayAnim)
+		// 		{
+		// 			if (!model->bStopAnim)
+		// 				model->mAnimator.UpdateAnimation(0.01f * model->mAnimPlaySpeed);
+		// 
+		// 			auto transforms = model->mAnimator.GetFinalBoneMatrices();
+		// 			for (int i = 0; i < transforms.size(); ++i)
+		// 				shader->SetMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
+		// 		}
+		// 
+		// 		shader->SetMat4("model", transform);
+		// 		shader->SetFloat3("camPos", cameraPos);
+		// 
+		// 		if (ModeManager::bHdrUse)
+		// 		{
+		// 			Library<CubeMapTexture>::GetInstance().Get("EnvironmentIrradiance")->Bind(0);
+		// 			Library<CubeMapTexture>::GetInstance().Get("EnvironmentPrefilter")->Bind(1);
+		// 			Library<Texture2D>::GetInstance().Get("BRDF_LUT")->Bind(2);
+		// 		}
+		// 		else
+		// 		{
+		// 			Library<CubeMapTexture>::GetInstance().Get("BlackCubeMap")->Bind(0);
+		// 			Library<CubeMapTexture>::GetInstance().Get("BlackCubeMap")->Bind(1);
+		// 			Library<Texture2D>::GetInstance().Get("BlackTexture")->Bind(2);
+		// 		}
+		// 
+		// 		if (model->mMaterial[mMaterialIndex]->bUseAlbedoMap)
+		// 			model->mMaterial[mMaterialIndex]->mAlbedoMap->Bind(3);
+		// 		else
+		// 			model->mMaterial[mMaterialIndex]->albedoRGBA->Bind(3);
+		// 
+		// 		if (model->mMaterial[mMaterialIndex]->bUseNormalMap)
+		// 			model->mMaterial[mMaterialIndex]->mNormalMap->Bind(4);
+		// 		else
+		// 			Library<Texture2D>::GetInstance().GetWhiteTexture()->Bind(4);
+		// 
+		// 		if (model->mMaterial[mMaterialIndex]->bUseMetallicMap)
+		// 			model->mMaterial[mMaterialIndex]->mMetallicMap->Bind(5);
+		// 		else
+		// 			model->mMaterial[mMaterialIndex]->metallicRGBA->Bind(5);
+		// 
+		// 		if (model->mMaterial[mMaterialIndex]->bUseRoughnessMap)
+		// 			model->mMaterial[mMaterialIndex]->mRoughnessMap->Bind(6);
+		// 		else
+		// 			model->mMaterial[mMaterialIndex]->roughnessRGBA->Bind(6);
+		// 
+		// 		if (model->mMaterial[mMaterialIndex]->bUseAoMap)
+		// 			model->mMaterial[mMaterialIndex]->mAoMap->Bind(7);
+		// 		else
+		// 			Library<Texture2D>::GetInstance().GetWhiteTexture()->Bind(7);
+		// 
+		// 		shader->SetInt("irradianceMap", 0);
+		// 		shader->SetInt("prefilterMap", 1);
+		// 		shader->SetInt("brdfLUT", 2);
+		// 		shader->SetInt("albedoMap", 3);
+		// 		shader->SetInt("normalMap", 4);
+		// 		shader->SetInt("metallicMap", 5);
+		// 		shader->SetInt("roughnessMap", 6);
+		// 		shader->SetInt("aoMap", 7);
+		// 
+		// 		RenderCommand::DrawIndexed(mVertexArray, mIB->GetCount());
+	}
+
+	void SubMesh::Draw(const glm::mat4& transform, const Ref<Shader>& shader, int entityID)
+	{
 		SetupMesh(entityID);
 
 		shader->Bind();
-		if (model->bPlayAnim)
-		{
-			if (!model->bStopAnim)
-				model->mAnimator.UpdateAnimation(0.01f * model->mAnimPlaySpeed);
+		shader->SetMat4("u_Model.Transform", (transform));
 
-			auto transforms = model->mAnimator.GetFinalBoneMatrices();
-			for (int i = 0; i < transforms.size(); ++i)
-				shader->SetMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
-		}
+		SetupTex(shader);
 
-		shader->SetMat4("model", transform);
-		shader->SetFloat3("camPos", cameraPos);
-
-		if (ModeManager::bHdrUse)
-		{
-			Library<CubeMapTexture>::GetInstance().Get("EnvironmentIrradiance")->Bind(0);
-			Library<CubeMapTexture>::GetInstance().Get("EnvironmentPrefilter")->Bind(1);
-			Library<Texture2D>::GetInstance().Get("BRDF_LUT")->Bind(2);
-		}
-		else
-		{
-			Library<CubeMapTexture>::GetInstance().Get("BlackCubeMap")->Bind(0);
-			Library<CubeMapTexture>::GetInstance().Get("BlackCubeMap")->Bind(1);
-			Library<Texture2D>::GetInstance().Get("BlackTexture")->Bind(2);
-		}
-
-		if (model->mMaterial[mMaterialIndex]->bUseAlbedoMap)
-			model->mMaterial[mMaterialIndex]->mAlbedoMap->Bind(3);
-		else
-			model->mMaterial[mMaterialIndex]->albedoRGBA->Bind(3);
-
-		if (model->mMaterial[mMaterialIndex]->bUseNormalMap)
-			model->mMaterial[mMaterialIndex]->mNormalMap->Bind(4);
-		else
-			Library<Texture2D>::GetInstance().GetWhiteTexture()->Bind(4);
-
-		if (model->mMaterial[mMaterialIndex]->bUseMetallicMap)
-			model->mMaterial[mMaterialIndex]->mMetallicMap->Bind(5);
-		else
-			model->mMaterial[mMaterialIndex]->metallicRGBA->Bind(5);
-
-		if (model->mMaterial[mMaterialIndex]->bUseRoughnessMap)
-			model->mMaterial[mMaterialIndex]->mRoughnessMap->Bind(6);
-		else
-			model->mMaterial[mMaterialIndex]->roughnessRGBA->Bind(6);
-
-		if (model->mMaterial[mMaterialIndex]->bUseAoMap)
-			model->mMaterial[mMaterialIndex]->mAoMap->Bind(7);
-		else
-			Library<Texture2D>::GetInstance().GetWhiteTexture()->Bind(7);
-
-		shader->SetInt("irradianceMap", 0);
-		shader->SetInt("prefilterMap", 1);
-		shader->SetInt("brdfLUT", 2);
-		shader->SetInt("albedoMap", 3);
-		shader->SetInt("normalMap", 4);
-		shader->SetInt("metallicMap", 5);
-		shader->SetInt("roughnessMap", 6);
-		shader->SetInt("aoMap", 7);
 
 		RenderCommand::DrawIndexed(mVertexArray, mIB->GetCount());
 	}
@@ -219,6 +233,25 @@ namespace Overlook
 			mIB->SetData(mIndices.data(), mIndices.size());
 
 			mVertexArray->Unbind();
+		}
+	}
+
+	void SubMesh::SetupTex(const Ref<Shader>& shader)
+	{
+		std::vector<TextureType> textureNeeded = { TextureType::aiTextureType_DIFFUSE, TextureType ::aiTextureType_SPECULAR,TextureType ::aiTextureType_NORMALS, TextureType ::aiTextureType_HEIGHT};
+
+		for (int i = 0; i < textureNeeded.size(); i++)
+		{
+			for (MaterialTexture& tex : mTextures)
+			{
+				if (tex.type == textureNeeded[i])
+				{
+					tex.texture2d->Bind(i);
+					std::string str1 = Material::TypeTostring(tex.type);
+					shader->SetInt(str1, i);
+					break;
+				}
+			}
 		}
 	}
 }

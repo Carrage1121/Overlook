@@ -28,6 +28,7 @@ namespace Overlook {
 		entt::registry m_Registry;
 		uint32_t m_ViewportWidth = 0, m_ViewportHeight = 0;
 
+		//std::vector<class System*> mSystems;
 		friend class Entity;
 		friend class SceneSerializer;
 		friend class SceneHierarchyPanel;

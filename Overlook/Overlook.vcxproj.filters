@@ -19,17 +19,35 @@
     <Filter Include="src\Overlook\ImGui">
       <UniqueIdentifier>{1733CC42-0317-8D98-6C77-87EB587A771A}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Overlook\Library">
+      <UniqueIdentifier>{31462606-1DD5-AFCF-C6F3-C3CAB261C075}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Overlook\Math">
       <UniqueIdentifier>{26999B4F-92AF-99E5-DB26-2507477C6A6D}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Overlook\ModelLoader">
       <UniqueIdentifier>{44AC2B1C-30D1-7A9C-591C-602C45A079BA}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Overlook\ModelLoader\Animation">
+      <UniqueIdentifier>{338A27B2-1FC6-2A1C-88D8-42137433D336}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Overlook\ModelLoader\Mesh">
       <UniqueIdentifier>{806C7448-EC84-5B72-B531-EB0B2109F00B}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Overlook\Renderer">
       <UniqueIdentifier>{73D6933B-DF42-4F36-A836-E7931462719E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Overlook\Resource">
+      <UniqueIdentifier>{E4740D48-50E1-C842-19D5-60A08500EBAA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Overlook\Resource\AssetManager">
+      <UniqueIdentifier>{EE8B92E2-DAC7-954C-43DA-AD432F353E67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Overlook\Resource\ConfigManager">
+      <UniqueIdentifier>{249E6E55-9057-D9FF-19B7-F3D9856F8F6F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Overlook\Resource\ModeManager">
+      <UniqueIdentifier>{93C9C026-FF37-16A6-4821-D1A5B4CE0B42}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Overlook\Scene">
       <UniqueIdentifier>{0A2B7C43-F60E-3D99-5F6F-37EC4B72271B}</UniqueIdentifier>
@@ -114,6 +132,9 @@
     <ClInclude Include="src\Overlook\Core\PlatformDetection.h">
       <Filter>src\Overlook\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Overlook\Core\PublicSingleton.h">
+      <Filter>src\Overlook\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Overlook\Core\Timestep.h">
       <Filter>src\Overlook\Core</Filter>
     </ClInclude>
@@ -138,19 +159,40 @@
     <ClInclude Include="src\Overlook\ImGui\ImGuiLayer.h">
       <Filter>src\Overlook\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Overlook\Library\Library.h">
+      <Filter>src\Overlook\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Library\ShaderLibrary.h">
+      <Filter>src\Overlook\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Library\TextureLibrary.h">
+      <Filter>src\Overlook\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Library\UniformBufferLibrary.h">
+      <Filter>src\Overlook\Library</Filter>
+    </ClInclude>
     <ClInclude Include="src\Overlook\Math\Math.h">
       <Filter>src\Overlook\Math</Filter>
     </ClInclude>
-    <ClInclude Include="src\Overlook\ModelLoader\Mesh.h">
-      <Filter>src\Overlook\ModelLoader</Filter>
+    <ClInclude Include="src\Overlook\ModelLoader\Animation\animation.h">
+      <Filter>src\Overlook\ModelLoader\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="src\Overlook\ModelLoader\Model.h">
-      <Filter>src\Overlook\ModelLoader</Filter>
+    <ClInclude Include="src\Overlook\ModelLoader\Animation\animator.h">
+      <Filter>src\Overlook\ModelLoader\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\ModelLoader\Animation\animdata.h">
+      <Filter>src\Overlook\ModelLoader\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\ModelLoader\Animation\bone.h">
+      <Filter>src\Overlook\ModelLoader\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\ModelLoader\Mesh\Mesh.h">
+      <Filter>src\Overlook\ModelLoader\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\ModelLoader\Mesh\subMesh.h">
+      <Filter>src\Overlook\ModelLoader\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="src\Overlook\ModelLoader\ModelLoadBuild.h">
-      <Filter>src\Overlook\ModelLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Overlook\ModelLoader\PerspectiveCamera.h">
       <Filter>src\Overlook\ModelLoader</Filter>
     </ClInclude>
     <ClInclude Include="src\Overlook\Renderer\Buffer.h">
@@ -168,7 +210,13 @@
     <ClInclude Include="src\Overlook\Renderer\GraphicsContext.h">
       <Filter>src\Overlook\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Overlook\Renderer\Material.h">
+      <Filter>src\Overlook\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Overlook\Renderer\OrthographicCamera.h">
+      <Filter>src\Overlook\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Renderer\PerspectiveCamera.h">
       <Filter>src\Overlook\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Overlook\Renderer\RenderCommand.h">
@@ -194,6 +242,15 @@
     </ClInclude>
     <ClInclude Include="src\Overlook\Renderer\VertexArray.h">
       <Filter>src\Overlook\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Resource\AssetManager\AssetManager.h">
+      <Filter>src\Overlook\Resource\AssetManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Resource\ConfigManager\ConfigManager.h">
+      <Filter>src\Overlook\Resource\ConfigManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Resource\ModeManager\ModeManager.h">
+      <Filter>src\Overlook\Resource\ModeManager</Filter>
     </ClInclude>
     <ClInclude Include="src\Overlook\Scene\Components.h">
       <Filter>src\Overlook\Scene</Filter>
@@ -1520,14 +1577,29 @@
     <ClCompile Include="src\Overlook\ImGui\ImGuiLayer.cpp">
       <Filter>src\Overlook\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="src\Overlook\Library\Library.cpp">
+      <Filter>src\Overlook\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Overlook\Library\ShaderLibrary.cpp">
+      <Filter>src\Overlook\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Overlook\Library\TextureLibrary.cpp">
+      <Filter>src\Overlook\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Overlook\Library\UniformBufferLibrary.cpp">
+      <Filter>src\Overlook\Library</Filter>
+    </ClCompile>
     <ClCompile Include="src\Overlook\Math\Math.cpp">
       <Filter>src\Overlook\Math</Filter>
     </ClCompile>
-    <ClCompile Include="src\Overlook\ModelLoader\Model.cpp">
-      <Filter>src\Overlook\ModelLoader</Filter>
+    <ClCompile Include="src\Overlook\ModelLoader\Animation\animation.cpp">
+      <Filter>src\Overlook\ModelLoader\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="src\Overlook\ModelLoader\PerspectiveCamera.cpp">
-      <Filter>src\Overlook\ModelLoader</Filter>
+    <ClCompile Include="src\Overlook\ModelLoader\Mesh\Mesh.cpp">
+      <Filter>src\Overlook\ModelLoader\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Overlook\ModelLoader\Mesh\subMesh.cpp">
+      <Filter>src\Overlook\ModelLoader\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="src\Overlook\ModelLoader\stbBuild.cpp">
       <Filter>src\Overlook\ModelLoader</Filter>
@@ -1544,7 +1616,13 @@
     <ClCompile Include="src\Overlook\Renderer\GraphicsContext.cpp">
       <Filter>src\Overlook\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Overlook\Renderer\Material.cpp">
+      <Filter>src\Overlook\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Overlook\Renderer\OrthographicCamera.cpp">
+      <Filter>src\Overlook\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Overlook\Renderer\PerspectiveCamera.cpp">
       <Filter>src\Overlook\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Overlook\Renderer\RenderCommand.cpp">
@@ -1570,6 +1648,15 @@
     </ClCompile>
     <ClCompile Include="src\Overlook\Renderer\VertexArray.cpp">
       <Filter>src\Overlook\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Overlook\Resource\AssetManager\AssetManager.cpp">
+      <Filter>src\Overlook\Resource\AssetManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Overlook\Resource\ConfigManager\ConfigManager.cpp">
+      <Filter>src\Overlook\Resource\ConfigManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Overlook\Resource\ModeManager\ModeManager.cpp">
+      <Filter>src\Overlook\Resource\ModeManager</Filter>
     </ClCompile>
     <ClCompile Include="src\Overlook\Scene\Entity.cpp">
       <Filter>src\Overlook\Scene</Filter>

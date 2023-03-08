@@ -2,6 +2,15 @@ Scene: Untitled
 Entities:
   - Entity: 12837192831273
     TagComponent:
+      Tag: Model
+    TransformComponent:
+      Translation: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.783199906, 0.783199906, 0.783199906]
+    ModelRendererComponent:
+      Path: assets\Model\backpack\backpack.obj
+  - Entity: 12837192831273
+    TagComponent:
       Tag: Camera
     TransformComponent:
       Translation: [0, 0, 10]
@@ -9,7 +18,7 @@ Entities:
       Scale: [1, 1, 1]
     CameraComponent:
       Camera:
-        ProjectionType: 0
+        ProjectionType: 1
         PerspectiveFOV: 0.785398185
         PerspectiveNear: 0.00999999978
         PerspectiveFar: 1000
@@ -20,8 +29,8 @@ Entities:
       FixedAspectRatio: false
   - Entity: 12837192831273
     TagComponent:
-      Tag: Model
+      Tag: Sprite
     TransformComponent:
       Translation: [0, 0, 0]
       Rotation: [0, 0, 0]
-      Scale: [0.889999926, 0.889999926, 0.889999926]
+      Scale: [1, 1, 1]

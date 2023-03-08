@@ -3,8 +3,8 @@
 #include "RenderCommand.h"
 
 #include "OrthographicCamera.h"
-#include "Overlook/ModelLoader/Model.h"
-#include "Overlook/ModelLoader/PerspectiveCamera.h"
+#include "Overlook/ModelLoader/Mesh/Mesh.h"
+#include "Overlook/Renderer/PerspectiveCamera.h"
 #include "Shader.h"
 
 namespace Overlook {
@@ -21,7 +21,7 @@ namespace Overlook {
 		static void EndScene();
 
 		static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform = glm::mat4(1.0f));
-		static void mSubmit(const Ref<Shader>& shader, const Ref<Model>& model, const glm::mat4& transform = glm::mat4(1.0f));
+		static void mSubmit(const Ref<Shader>& shader, const Ref<Mesh>& model, const glm::mat4& transform = glm::mat4(1.0f));
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	private:

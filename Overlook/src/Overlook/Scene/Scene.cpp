@@ -78,7 +78,7 @@ namespace Overlook {
 			{
 				auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-				Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+				Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
 			}
 
 			Renderer2D::EndScene();
@@ -130,7 +130,7 @@ namespace Overlook {
 			{
 				auto& [transform, model] = group.get<TransformComponent, ModelRendererComponent>(entity);
 
-				Renderer3D::ShowModel(transform.GetTransform(), model.Scale);
+				Renderer3D::DrawModel(transform.GetTransform(), model, (int)entity);
 			}
 
 			Renderer3D::EndScene();
@@ -146,7 +146,7 @@ namespace Overlook {
 		{
 			auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-			Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+			Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
 		}
 
 		Renderer2D::EndScene();
@@ -161,7 +161,7 @@ namespace Overlook {
 		{
 			auto [transform, model] = group.get<TransformComponent, ModelRendererComponent>(entity);
 
-			Renderer3D::ShowModel(transform.GetTransform(), model.Scale);
+			Renderer3D::DrawModel(transform.GetTransform(), model, (int)entity);
 		}
 
 		Renderer3D::EndScene();
@@ -182,6 +182,7 @@ namespace Overlook {
 		}
 
 	}
+
 	Entity Scene::GetPrimaryCameraEntity()
 	{
 		auto view = m_Registry.view<CameraComponent>();
@@ -219,6 +220,7 @@ namespace Overlook {
 	template<>
 	void Scene::OnComponentAdded<ModelRendererComponent>(Entity entity, ModelRendererComponent& component)
 	{
+		//component.mMesh = CreateRef<Mesh>(component.Path);
 	}
 
 	template<>

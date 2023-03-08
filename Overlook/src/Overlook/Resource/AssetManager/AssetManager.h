@@ -9,6 +9,7 @@ namespace Overlook
     class AssetManager : public PublicSingleton<AssetManager>
     {
     public:
-        static std::filesystem::path GetFullPath(const std::string& RelativePath);
+		static std::string GetFullPath(const std::string& RelativePath);
+		static std::string GetAssetsPath(const std::string& RelativePath);
     };
 }

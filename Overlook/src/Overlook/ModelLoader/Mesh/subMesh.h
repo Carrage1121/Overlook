@@ -1,16 +1,12 @@
 #pragma once
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
-//self
-#include "Overlook/ModelLoader/Mesh/Mesh.h"
 #include "Overlook/Renderer/VertexArray.h"
+#include "Overlook/Renderer/Buffer.h"
 #include "Overlook/Renderer/Shader.h"
 #include "Overlook/Renderer/Material.h"
-#include "Overlook/Renderer/RenderCommand.h"
-
 
 #define MAX_BONE_INFLUENCE 4
+
 namespace Overlook
 {
 	class Mesh;
@@ -40,6 +36,8 @@ namespace Overlook
 		float mWeights[MAX_BONE_INFLUENCE];
 	};
 
+
+
 	class SubMesh
 	{
 	public:
@@ -49,10 +47,11 @@ namespace Overlook
 		SubMesh(const std::vector<SkinnedVertex>& vertices, const std::vector<uint32_t> indices, const std::vector<MaterialTexture>& textures, uint32_t materialIndex = 0);
 
 		void Draw(const glm::mat4& transform, const glm::vec3& cameraPos, const Ref<Shader>& shader, int entityID, Mesh* model);
-
+		void Draw(const glm::mat4& transform, const Ref<Shader>& shader, int entityID);
 		void Draw();
 	private:
 		void SetupMesh(int entityID);
+		void SetupTex(const Ref<Shader>& shader);
 	public:
 		uint32_t mMaterialIndex;
 
@@ -70,5 +69,3 @@ namespace Overlook
 		int mEntityID = -1;
 	};
 }
-
-

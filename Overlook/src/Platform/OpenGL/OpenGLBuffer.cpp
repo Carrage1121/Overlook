@@ -57,14 +57,14 @@ namespace Overlook {
 	/////////////////////////////////////////////////////////////////////////////
 	// IndexBuffer //////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////
-	
+
 	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t count)
 	{
 		glCreateBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t) * count, nullptr, GL_DYNAMIC_DRAW);
 	}
-	
+
 	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
 		: m_Count(count)
 	{
@@ -98,7 +98,7 @@ namespace Overlook {
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
-	
+
 	void OpenGLIndexBuffer::SetData(const void* data, uint32_t count)
 	{
 		m_Count = count;
@@ -112,18 +112,19 @@ namespace Overlook {
 	/////////////////////////////////////////////////////////////////////////////
 	OpenGLUniformBuffer::OpenGLUniformBuffer(uint32_t size, uint32_t binding)
 	{
-		glCreateBuffers(1, &mRendererID);
-		glNamedBufferData(mRendererID, size, nullptr, GL_DYNAMIC_DRAW); // TODO: investigate usage hint
-		glBindBufferBase(GL_UNIFORM_BUFFER, binding, mRendererID);
+		glCreateBuffers(1, &m_RendererID);
+		glNamedBufferData(m_RendererID, size, nullptr, GL_DYNAMIC_DRAW); // TODO: investigate usage hint
+		glBindBufferBase(GL_UNIFORM_BUFFER, binding, m_RendererID);
 	}
 
 	OpenGLUniformBuffer::~OpenGLUniformBuffer()
 	{
-		glDeleteBuffers(1, &mRendererID);
+		glDeleteBuffers(1, &m_RendererID);
 	}
+
 
 	void OpenGLUniformBuffer::SetData(const void* data, uint32_t size, uint32_t offset)
 	{
-		glNamedBufferSubData(mRendererID, offset, size, data);
+		glNamedBufferSubData(m_RendererID, offset, size, data);
 	}
 }

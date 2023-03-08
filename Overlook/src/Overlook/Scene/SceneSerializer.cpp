@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "Components.h"
+#include "Overlook/Resource/AssetManager/AssetManager.h"
 
 #include <fstream>
 
@@ -147,16 +148,17 @@ namespace Overlook {
 			out << YAML::EndMap; // SpriteRendererComponent
 		}
 
-// 		if (entity.HasComponent<ModelRendererComponent>())
-// 		{
-// 			out << YAML::Key << "ModelRendererComponent";
-// 			out << YAML::BeginMap; // ModelRendererComponent
-// 
-// 			auto& ModelRendererComponent = entity.GetComponent<ModelRendererComponent>();
-// 			out << YAML::Key << "Scale" << YAML::Value << ModelRendererComponent.Scale;
-// 
-// 			out << YAML::EndMap; // ModelRendererComponent
-// 		}
+		if (entity.HasComponent<ModelRendererComponent>())
+		{
+			out << YAML::Key << "ModelRendererComponent";
+			out << YAML::BeginMap;
+
+			auto& modelRendererComponent = entity.GetComponent<ModelRendererComponent>();
+			out << YAML::Key << "Path" << YAML::Value << modelRendererComponent.Path.c_str();
+
+			out << YAML::EndMap;
+		}
+
 		out << YAML::EndMap; // Entity
 	}
 
@@ -169,10 +171,10 @@ namespace Overlook {
 		m_Scene->m_Registry.each([&](auto entityID)
 			{
 				Entity entity = { entityID, m_Scene.get() };
-		if (!entity)
-			return;
+				if (!entity)
+					return;
 
-		SerializeEntity(out, entity);
+				SerializeEntity(out, entity);
 			});
 		out << YAML::EndSeq;
 		out << YAML::EndMap;
@@ -189,11 +191,16 @@ namespace Overlook {
 
 	bool SceneSerializer::Deserialize(const std::string& filepath)
 	{
-		std::ifstream stream(filepath);
-		std::stringstream strStream;
-		strStream << stream.rdbuf();
+		YAML::Node data;
+		try
+		{
+			data = YAML::LoadFile(filepath);
+		}
+		catch (YAML::ParserException e)
+		{
+			return false;
+		}
 
-		YAML::Node data = YAML::Load(strStream.str());
 		if (!data["Scene"])
 			return false;
 
@@ -232,7 +239,7 @@ namespace Overlook {
 					auto& cc = deserializedEntity.AddComponent<CameraComponent>();
 
 					auto& cameraProps = cameraComponent["Camera"];
-					cc.Camera.SetProjectionType((SceneCamera::ProjectionType)cameraProps["ProjectionType"].as<int>());
+					//cc.Camera.SetProjectionType((SceneCamera::ProjectionType)cameraProps["ProjectionType"].as<int>());
 
 					cc.Camera.SetPerspectiveVerticalFOV(cameraProps["PerspectiveFOV"].as<float>());
 					cc.Camera.SetPerspectiveNearClip(cameraProps["PerspectiveNear"].as<float>());
@@ -253,11 +260,12 @@ namespace Overlook {
 					src.Color = spriteRendererComponent["Color"].as<glm::vec4>();
 				}
 
+				//
 				auto modelRendererComponent = entity["ModelRendererComponent"];
 				if (modelRendererComponent)
 				{
-					auto& src = deserializedEntity.AddComponent<ModelRendererComponent>();
-					src.Scale = modelRendererComponent["Scale"].as<glm::vec3>();
+					std::string str = modelRendererComponent["Path"].as<std::string>();
+					auto& src = deserializedEntity.AddComponent<ModelRendererComponent>(str);
 				}
 			}
 		}

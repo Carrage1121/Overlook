@@ -9,7 +9,6 @@ int main(int argc, char** argv)
 {
 	Overlook::Log::Init();
 	OL_CORE_WARN("Initialized Log!");
-	OL_INFO("Hello info?");
 	printf("Hello Overlook!!\n");
 	auto app = Overlook::CreateApplication();
 	app->Run();

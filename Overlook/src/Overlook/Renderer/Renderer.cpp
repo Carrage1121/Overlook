@@ -4,7 +4,7 @@
 #include "Overlook/Renderer/Renderer3D.h"
 
 #include "Platform/OpenGL/OpenGLShader.h"
-#include "Overlook/ModelLoader/PerspectiveCamera.h"
+#include "Overlook/Renderer/PerspectiveCamera.h"
 
 namespace Overlook {
 
@@ -15,13 +15,13 @@ namespace Overlook {
 		OL_PROFILE_FUNCTION();
 
 		RenderCommand::Init();
-		//Renderer2D::Init();
+		Renderer2D::Init();
 		Renderer3D::Init();
 	}
 
 	void Renderer::Shutdown()
 	{
-		//Renderer2D::Shutdown();
+		Renderer2D::Shutdown();
 		Renderer3D::Shutdown();
 	}
 
@@ -53,12 +53,12 @@ namespace Overlook {
 		RenderCommand::DrawIndexed(vertexArray);
 	}
 
-	void Renderer::mSubmit(const Ref<Shader>& shader, const Ref<Model>& model, const glm::mat4& transform)
+	void Renderer::mSubmit(const Ref<Shader>& shader, const Ref<Mesh>& model, const glm::mat4& transform)
 	{
 		shader->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);
 
-		model->Draw(std::dynamic_pointer_cast<OpenGLShader>(shader));
+		//model->Draw(std::dynamic_pointer_cast<OpenGLShader>(shader));
 	}
 }

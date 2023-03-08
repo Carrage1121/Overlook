@@ -2,12 +2,13 @@
 
 #include "Overlook/Renderer/Texture.h"
 #include "Overlook/Renderer/Shader.h"
-/*
+
 #include "Overlook/Library/ShaderLibrary.h"
 #include "Overlook/Library/TextureLibrary.h"
-*/
+
 
 #include <unordered_map>
+#include <vector>
 
 namespace Overlook
 {
@@ -23,18 +24,23 @@ namespace Overlook
 
 	enum class TextureType
 	{
-		Albedo = 0,
-		Normal,
-		Metalness,
-		Roughness,
-		AmbientOcclusion,
-		Specular,
-		Height,
-		Emission,
+		aiTextureType_NONE = 0,
+		aiTextureType_DIFFUSE = 1,
+		aiTextureType_SPECULAR = 2,
+		aiTextureType_AMBIENT = 3,
+		aiTextureType_EMISSIVE = 4,
+		aiTextureType_HEIGHT = 5,
+		aiTextureType_NORMALS = 6,
+		aiTextureType_SHININESS = 7,
 	};
+	//std::vector<std::string>TextureType = { "aiTextureType_NONE" ,"aiTextureType_DIFFUSE","aiTextureType_SPECULAR",
+		// "aiTextureType_AMBIENT" ,"aiTextureType_EMISSIVE" ,"aiTextureType_HEIGHT" ,"aiTextureType_NORMALS" ,"aiTextureType_SHININESS" };
+
+
 
 	struct MaterialTexture
 	{
+		unsigned int id;
 		Ref<Texture2D> texture2d = nullptr;
 		TextureType type;
 		std::string path;
@@ -63,7 +69,7 @@ namespace Overlook
 
 		bool bUseAlbedoMap = false;
 		glm::vec4 col = { 1.0f, 1.0f, 1.0f, 1.0f }; // 0 ~ 1
-		/*Ref<Texture2D> albedoRGBA = Texture2D::Create(1, 1);
+		Ref<Texture2D> albedoRGBA = Texture2D::Create(1, 1);
 		Ref<Texture2D> mAlbedoMap = Library<Texture2D>::GetInstance().GetDefaultTexture();
 
 		bool bUseNormalMap = false;
@@ -80,10 +86,35 @@ namespace Overlook
 		Ref<Texture2D> mRoughnessMap = Library<Texture2D>::GetInstance().Get("DefaultMetallicRoughness");
 
 		bool bUseAoMap = false;
-		Ref<Texture2D> mAoMap = Library<Texture2D>::GetInstance().GetWhiteTexture();*/
+		Ref<Texture2D> mAoMap = Library<Texture2D>::GetInstance().GetWhiteTexture();
 	private:
 		Ref<Shader> mShader;
 		std::unordered_map<TextureType, Ref<Texture2D>, EnumClassHash> mTexMap;
+
+	public:
+		//
+		template <typename Enumeration>
+		auto as_integer(Enumeration const value)
+			-> typename std::underlying_type<Enumeration>::type
+		{
+			return static_cast<typename std::underlying_type<Enumeration>::type>(value);
+		}
+
+		const static std::string TypeTostring(TextureType tt)
+		{
+			static std::unordered_map<TextureType, const std::string>hs = {
+				{TextureType::aiTextureType_NONE, "aiTextureType_NONE"},
+				{TextureType::aiTextureType_DIFFUSE, "aiTextureType_DIFFUSE"},
+				{TextureType::aiTextureType_SPECULAR, "aiTextureType_SPECULAR"},
+				{TextureType::aiTextureType_AMBIENT, "aiTextureType_AMBIENT"},
+				{TextureType::aiTextureType_EMISSIVE, "aiTextureType_EMISSIVE"},
+				{TextureType::aiTextureType_HEIGHT, "aiTextureType_HEIGHT"},
+				{TextureType::aiTextureType_NORMALS, "aiTextureType_NORMALS"},
+				{TextureType::aiTextureType_SHININESS, "aiTextureType_SHININESS"}
+			};
+
+			return hs[tt];
+		}
 	};
 
 }

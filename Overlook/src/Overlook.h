@@ -28,11 +28,11 @@
 #include "Overlook/Renderer/VertexArray.h"
 #include "Overlook/Renderer/Framebuffer.h"
 #include "Overlook/Renderer/OrthographicCamera.h"
+#include "Overlook/Renderer/PerspectiveCamera.h"
 #include "Overlook/Renderer/Renderer2D.h"
 #include "Overlook/Renderer/Renderer3D.h"
 
+
 // --ModelLoader
-#include "Overlook/ModelLoader/PerspectiveCamera.h"
-#include "Overlook/ModelLoader/Model.h"
-#include "Overlook/ModelLoader/mesh.h"
+#include "Overlook/ModelLoader/Mesh/Mesh.h"
 //-------------------------------

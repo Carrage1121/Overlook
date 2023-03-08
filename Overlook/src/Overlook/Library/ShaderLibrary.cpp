@@ -7,7 +7,7 @@ namespace Overlook
 {
     Library<Shader>::Library()
     {
-        Add("BasePBR", Shader::Create(AssetManager::GetFullPath("Shader/BasePBR.glsl")));
+        Add("BasePBR", Shader::Create(AssetManager::GetAssetsPath("Shader\\BasePBR.glsl")));
         //Add("SkyBox", Shader::Create(AssetManager::GetFullPath("Shaders/SkyBox.glsl")));
 
         /*Add("IBL_background", Shader::CreateNative(AssetManager::GetFullPath("Shaders/IBL/background.glsl")));

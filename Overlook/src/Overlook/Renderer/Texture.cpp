@@ -3,6 +3,7 @@
 
 #include "Overlook/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLTexture.h"
+#include "Overlook/Resource/AssetManager/AssetManager.h"
 
 namespace Overlook {
 
@@ -29,5 +30,4 @@ namespace Overlook {
 		OL_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
-
 }
