@@ -29,7 +29,11 @@ namespace Overlook {
 		OL_PROFILE_FUNCTION();
 
 		int width, height, channels;
-		stbi_set_flip_vertically_on_load(1);
+		//判读是否加载模型 TODO
+		if (path.find("Model") == std::string::npos)
+			stbi_set_flip_vertically_on_load(1);
+		else
+			stbi_set_flip_vertically_on_load(0);
 		stbi_uc* data = nullptr;
 		{
 			OL_PROFILE_SCOPE("stbi_load - OpenGLTexture2D::OpenGLTexture2D(const std::string&)");
@@ -68,22 +72,25 @@ namespace Overlook {
 			glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
 			glTextureStorage2D(m_RendererID, 1, internalFormat, m_Width, m_Height);
 
+			glGenerateMipmap(GL_TEXTURE_2D);
+
 			glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 			glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_S, GL_REPEAT);
 			glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
 			GLenum type = internalFormat == GL_RGBA16F ? GL_FLOAT : GL_UNSIGNED_BYTE;
 			glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, dataFormat, type, data);
-			glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+
 
 			stbi_image_free(data);
 		}
 		else
 		{
 			throw "Load Texture Failed!";
+			stbi_image_free(data);
 		}
 	}
 

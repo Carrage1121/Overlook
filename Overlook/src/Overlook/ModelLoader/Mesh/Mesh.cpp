@@ -4,6 +4,8 @@
 //self
 #include "Overlook/Resource/AssetManager/AssetManager.h"
 #include <regex>
+#include <glad/glad.h>
+#include "stb/stb_image.h"
 namespace Overlook
 {
 	namespace Utils
@@ -68,7 +70,11 @@ namespace Overlook
 			mAnimator = Animator(&mAnimation);*/
 		}
 		else
+		{
 			ProcessNode(scene->mRootNode, scene, subMeshIndex);
+			//processNode(scene->mRootNode, scene);
+		}
+			
 	}
 
 	void Mesh::ProcessNode(aiNode* node, const aiScene* scene, uint32_t& subMeshIndex)
@@ -231,7 +237,6 @@ namespace Overlook
 		return SubMesh(vertices, indices, textures, subMeshIndex);
 	}
 
-
 	std::optional <std::vector<MaterialTexture>>  Mesh::loadMaterialTextures(aiMaterial* mat, aiTextureType type, uint32_t& subMeshIndex)
 	{
 		std::vector<MaterialTexture> textures;
@@ -280,6 +285,10 @@ namespace Overlook
 					break;
 				case aiTextureType_NORMALS:
 					texture.type = TextureType::aiTextureType_NORMALS;
+					break;
+				case aiTextureType_AMBIENT:
+					texture.type = TextureType::aiTextureType_AMBIENT;
+					break;
 				default:
 					texture.type = TextureType::aiTextureType_NONE;
 				}

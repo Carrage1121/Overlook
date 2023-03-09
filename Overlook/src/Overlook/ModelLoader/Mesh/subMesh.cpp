@@ -5,6 +5,7 @@
 #include "Overlook/Resource/ModeManager/ModeManager.h"
 #include "Overlook/Renderer/RenderCommand.h"
 
+#include "Glad/glad.h"
 
 namespace Overlook
 {
@@ -51,6 +52,7 @@ namespace Overlook
 
 		mVertexArray->SetIndexBuffer(mIB);
 	}
+
 
 	SubMesh::SubMesh(const std::vector<SkinnedVertex>& vertices, const std::vector<uint32_t> indices)
 		: mSkinnedVertices(vertices), mIndices(indices)
@@ -170,14 +172,11 @@ namespace Overlook
 
 	void SubMesh::Draw(const glm::mat4& transform, const Ref<Shader>& shader, int entityID)
 	{
-		SetupMesh(entityID);
 
+		SetupMesh(entityID);
 		shader->Bind();
 		shader->SetMat4("u_Transform", (transform));
-
 		SetupTex(shader);
-
-
 		RenderCommand::DrawIndexed(mVertexArray, mIB->GetCount());
 	}
 

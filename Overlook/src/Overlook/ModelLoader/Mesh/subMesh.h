@@ -57,6 +57,7 @@ namespace Overlook
 
 		std::vector<StaticVertex> mStaticVertices;
 		std::vector<SkinnedVertex> mSkinnedVertices;
+		unsigned int VAO;
 	private:
 		std::vector<MaterialTexture> mTextures;
 
@@ -65,6 +66,7 @@ namespace Overlook
 		Ref<VertexArray> mVertexArray;
 		Ref<VertexBuffer> mVB;
 		Ref<IndexBuffer> mIB;
+
 
 		int mEntityID = -1;
 	};

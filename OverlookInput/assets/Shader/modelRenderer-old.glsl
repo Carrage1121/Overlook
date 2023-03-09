@@ -50,7 +50,8 @@ layout (location = 3) in flat int v_EntityID;
 layout (location = 0) out vec4 color;
 layout (location = 1) out int color2;
 
-uniform sampler2D aiTextureType_DIFFUSE;
+	   
+layout (binding = 1) uniform sampler2D aiTextureType_DIFFUSE;
 
 void main()
 {

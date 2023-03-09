@@ -66,6 +66,12 @@ namespace Overlook
 		std::string path;
 	};
 
+	struct _Texture {
+		unsigned int id;
+		std::string type;
+		std::string path;
+	};
+
 	class Material
 	{
 	public:
