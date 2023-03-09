@@ -33,9 +33,29 @@ namespace Overlook
 		aiTextureType_NORMALS = 6,
 		aiTextureType_SHININESS = 7,
 	};
-	//std::vector<std::string>TextureType = { "aiTextureType_NONE" ,"aiTextureType_DIFFUSE","aiTextureType_SPECULAR",
-		// "aiTextureType_AMBIENT" ,"aiTextureType_EMISSIVE" ,"aiTextureType_HEIGHT" ,"aiTextureType_NORMALS" ,"aiTextureType_SHININESS" };
+	//
+	template <typename Enumeration>
+	auto as_integer(Enumeration const value)
+		-> typename std::underlying_type<Enumeration>::type
+	{
+		return static_cast<typename std::underlying_type<Enumeration>::type>(value);
+	}
 
+	const static std::string TypeTostring(TextureType tt)
+	{
+		static std::unordered_map<TextureType, const std::string>hs = {
+			{TextureType::aiTextureType_NONE, "aiTextureType_NONE"},
+			{TextureType::aiTextureType_DIFFUSE, "aiTextureType_DIFFUSE"},
+			{TextureType::aiTextureType_SPECULAR, "aiTextureType_SPECULAR"},
+			{TextureType::aiTextureType_AMBIENT, "aiTextureType_AMBIENT"},
+			{TextureType::aiTextureType_EMISSIVE, "aiTextureType_EMISSIVE"},
+			{TextureType::aiTextureType_HEIGHT, "aiTextureType_HEIGHT"},
+			{TextureType::aiTextureType_NORMALS, "aiTextureType_NORMALS"},
+			{TextureType::aiTextureType_SHININESS, "aiTextureType_SHININESS"}
+		};
+
+		return hs[tt];
+	}
 
 
 	struct MaterialTexture
@@ -91,30 +111,6 @@ namespace Overlook
 		Ref<Shader> mShader;
 		std::unordered_map<TextureType, Ref<Texture2D>, EnumClassHash> mTexMap;
 
-	public:
-		//
-		template <typename Enumeration>
-		auto as_integer(Enumeration const value)
-			-> typename std::underlying_type<Enumeration>::type
-		{
-			return static_cast<typename std::underlying_type<Enumeration>::type>(value);
-		}
-
-		const static std::string TypeTostring(TextureType tt)
-		{
-			static std::unordered_map<TextureType, const std::string>hs = {
-				{TextureType::aiTextureType_NONE, "aiTextureType_NONE"},
-				{TextureType::aiTextureType_DIFFUSE, "aiTextureType_DIFFUSE"},
-				{TextureType::aiTextureType_SPECULAR, "aiTextureType_SPECULAR"},
-				{TextureType::aiTextureType_AMBIENT, "aiTextureType_AMBIENT"},
-				{TextureType::aiTextureType_EMISSIVE, "aiTextureType_EMISSIVE"},
-				{TextureType::aiTextureType_HEIGHT, "aiTextureType_HEIGHT"},
-				{TextureType::aiTextureType_NORMALS, "aiTextureType_NORMALS"},
-				{TextureType::aiTextureType_SHININESS, "aiTextureType_SHININESS"}
-			};
-
-			return hs[tt];
-		}
 	};
 
 }

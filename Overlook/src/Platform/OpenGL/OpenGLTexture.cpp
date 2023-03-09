@@ -112,6 +112,11 @@ namespace Overlook {
 		//glBindTextureUnit(slot, mRendererID);
 	}
 
+	void OpenGLTexture2D::SetDefaultActive()
+	{
+		glActiveTexture(GL_TEXTURE0);
+	}
+
 	void OpenGLTexture2D::UnBind() const
 	{
 		glBindTexture(GL_TEXTURE_2D_ARRAY, 0);

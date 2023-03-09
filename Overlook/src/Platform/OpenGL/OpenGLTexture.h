@@ -23,6 +23,10 @@ namespace Overlook
         virtual bool IsLoaded() const override { return m_IsLoaded; }
         virtual void UnBind() const override;
 
+
+        // always good practice to set everything back to defaults once configured.
+        void SetDefaultActive();
+
         virtual bool operator==(const Texture& other) const override
         {
             return m_RendererID == ((OpenGLTexture2D&)other).m_RendererID;

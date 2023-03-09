@@ -25,8 +25,8 @@ namespace Overlook
 
 	void Renderer3D::Init()
 	{
-		//m3_data.mShader = Shader::Create(std::string("assets/Shader/modelRenderer.glsl"));
-		m3_data.mShader = Shader::Create(std::string("assets/Shader/Texture.glsl"));
+		m3_data.mShader = Shader::Create(std::string("assets/Shader/modelRenderer.glsl"));
+		//m3_data.mShader = Shader::Create(std::string("assets/Shader/Texture.glsl"));
 		//m3_data.mShader = Shader::Create("model", "assets/Shader/model_loading.vert", "assets/Shader/model_loading.frag");
 		//RenderCommand::Test();
 		m3_data.CameraUniformBuffer = UniformBuffer::Create(sizeof(Renderer3DData::CameraData), 1);

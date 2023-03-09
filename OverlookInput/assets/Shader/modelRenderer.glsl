@@ -12,10 +12,7 @@ layout(std140, binding = 1) uniform Camera
 	mat4 u_ViewProjection;
 };
 
-layout (push_constant) uniform Transform
-{
-	mat4 Transform;
-} u_Model;
+uniform mat4 u_Transform;
 
 struct VertexOutput
 {
@@ -33,7 +30,7 @@ void main()
 	Output.Tangent = a_Tangent;
 	Output.TexCoord = a_TexCoord;
 	v_EntityID = a_EntityID;
-	gl_Position = u_ViewProjection * u_Model.Transform * vec4(a_Pos, 1.0);
+	gl_Position = u_ViewProjection * u_Transform * vec4(a_Pos, 1.0);
 }
 
 #type fragment
@@ -52,7 +49,7 @@ layout (location = 3) in flat int v_EntityID;
 layout (location = 0) out vec4 color;
 layout (location = 1) out int color2;
 	   
-layout (binding = 0) uniform sampler2D aiTextureType_DIFFUSE;
+layout (binding = 1) uniform sampler2D aiTextureType_DIFFUSE;
 
 void main()
 {

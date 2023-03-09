@@ -173,7 +173,7 @@ namespace Overlook
 		SetupMesh(entityID);
 
 		shader->Bind();
-		shader->SetMat4("u_Model.Transform", (transform));
+		shader->SetMat4("u_Transform", (transform));
 
 		SetupTex(shader);
 
@@ -238,20 +238,14 @@ namespace Overlook
 
 	void SubMesh::SetupTex(const Ref<Shader>& shader)
 	{
-		std::vector<TextureType> textureNeeded = { TextureType::aiTextureType_DIFFUSE, TextureType ::aiTextureType_SPECULAR,TextureType ::aiTextureType_NORMALS, TextureType ::aiTextureType_HEIGHT};
 
-		for (int i = 0; i < textureNeeded.size(); i++)
+		for (MaterialTexture& tex : mTextures)
 		{
-			for (MaterialTexture& tex : mTextures)
-			{
-				if (tex.type == textureNeeded[i])
-				{
-					tex.texture2d->Bind(i);
-					std::string str1 = Material::TypeTostring(tex.type);
-					shader->SetInt(str1, i);
-					break;
-				}
-			}
+			int i = as_integer(tex.type);
+			std::string str1 = TypeTostring(tex.type);
+			shader->SetInt(str1, i);
+
+			tex.texture2d->Bind(i);
 		}
 	}
 }
