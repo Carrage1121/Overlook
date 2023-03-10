@@ -25,6 +25,9 @@
     <Filter Include="..\Overlook\vendor\yaml-cpp">
       <UniqueIdentifier>{900776C7-FC14-A4AD-85FB-9F98F1077064}</UniqueIdentifier>
     </Filter>
+    <Filter Include="..\Overlook-ScriptCore">
+      <UniqueIdentifier>{AC7B18BC-9875-410E-81E2-D71E6D7BA77A}</UniqueIdentifier>
+    </Filter>
     <Filter Include="..\OverlookInput">
       <UniqueIdentifier>{F13E4C94-DD37-6BE6-066A-506BF2C14AF2}</UniqueIdentifier>
     </Filter>
@@ -33,6 +36,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Overlook-ScriptCore\premake5.lua">
+      <Filter>..\Overlook-ScriptCore</Filter>
+    </None>
     <None Include="..\..\Overlook\premake5.lua">
       <Filter>..\Overlook</Filter>
     </None>

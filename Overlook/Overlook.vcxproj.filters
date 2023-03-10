@@ -52,6 +52,9 @@
     <Filter Include="src\Overlook\Scene">
       <UniqueIdentifier>{0A2B7C43-F60E-3D99-5F6F-37EC4B72271B}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Overlook\Scripting">
+      <UniqueIdentifier>{6F61628A-5B5B-8BDC-44C8-21ED3061F148}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Overlook\Utils">
       <UniqueIdentifier>{4DBFA943-39A3-6A99-A203-65EC8E06551B}</UniqueIdentifier>
     </Filter>
@@ -272,6 +275,9 @@
     </ClInclude>
     <ClInclude Include="src\Overlook\Scene\ScriptableEntity.h">
       <Filter>src\Overlook\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Scripting\ScriptEngine.h">
+      <Filter>src\Overlook\Scripting</Filter>
     </ClInclude>
     <ClInclude Include="src\Overlook\Utils\PlatformUtils.h">
       <Filter>src\Overlook\Utils</Filter>
@@ -1675,6 +1681,9 @@
     </ClCompile>
     <ClCompile Include="src\Overlook\Scene\SceneSerializer.cpp">
       <Filter>src\Overlook\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Overlook\Scripting\ScriptEngine.cpp">
+      <Filter>src\Overlook\Scripting</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>

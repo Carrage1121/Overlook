@@ -41,7 +41,8 @@ project "Overlook"
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.yaml_cpp}",
 		"%{IncludeDir.assimp}",
-		"%{IncludeDir.ImGuizmo}"
+		"%{IncludeDir.ImGuizmo}",
+		"%{IncludeDir.mono}",
 	}
 
 	links
@@ -51,7 +52,8 @@ project "Overlook"
 		"ImGui",
 		"yaml-cpp",
 		"assimp",
-		"opengl32.lib"
+		"opengl32.lib",
+		"%{Library.mono}",
 	}
 
 	filter "files:vendor/ImGuizmo/**.cpp"
@@ -62,6 +64,14 @@ project "Overlook"
 
 		defines
 		{
+		}
+
+		links
+		{
+			"%{Library.WinSock}",
+			"%{Library.WinMM}",
+			"%{Library.WinVersion}",
+			"%{Library.BCrypt}",
 		}
 
 	filter "configurations:Debug"
