@@ -138,6 +138,9 @@
     <ClInclude Include="src\Overlook\Core\Timestep.h">
       <Filter>src\Overlook\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Overlook\Core\UUID.h">
+      <Filter>src\Overlook\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Overlook\Core\Window.h">
       <Filter>src\Overlook\Core</Filter>
     </ClInclude>
@@ -1569,6 +1572,9 @@
       <Filter>src\Overlook\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Overlook\Core\Log.cpp">
+      <Filter>src\Overlook\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Overlook\Core\UUID.cpp">
       <Filter>src\Overlook\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Overlook\ImGui\ImGuiBuild.cpp">

@@ -1,6 +1,9 @@
 #pragma once
-#include "Entity.h"
+
+#include "Overlook/Scene/Entity.h"
+
 namespace Overlook {
+
 	class ScriptableEntity
 	{
 	public:
@@ -19,4 +22,5 @@ namespace Overlook {
 		Entity m_Entity;
 		friend class Scene;
 	};
+
 }

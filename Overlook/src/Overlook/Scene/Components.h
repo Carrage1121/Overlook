@@ -6,13 +6,20 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
 
-#include "ScriptableEntity.h"
 #include "SceneCamera.h"
 #include "Overlook/Renderer/Texture.h"
-
+#include "Overlook/Core/UUID.h"
 #include "Overlook/ModelLoader/Mesh/Mesh.h"
 
 namespace Overlook {
+
+	struct IDComponent
+	{
+		UUID ID;
+
+		IDComponent() = default;
+		IDComponent(const IDComponent&) = default;
+	};
 
 	struct TagComponent
 	{
@@ -44,13 +51,14 @@ namespace Overlook {
 				* glm::scale(glm::mat4(1.0f), Scale);
 		}
 	};
+	// Forward declaration
+	class ScriptableEntity;
+
 	struct NativeScriptComponent
 	{
 		ScriptableEntity* Instance = nullptr;
-
 		ScriptableEntity* (*InstantiateScript)();
 		void (*DestroyScript)(NativeScriptComponent*);
-
 		template<typename T>
 		void Bind()
 		{
@@ -77,7 +85,7 @@ namespace Overlook {
 		ModelRendererComponent() = default;
 		ModelRendererComponent(const ModelRendererComponent&) = default;
 		ModelRendererComponent(const std::string& path)
-			: Path(path) , mMesh(CreateRef<Mesh>(path))
+			: Path(path), mMesh(CreateRef<Mesh>(path))
 		{
 		}
 
@@ -94,5 +102,4 @@ namespace Overlook {
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
 	};
-
 }

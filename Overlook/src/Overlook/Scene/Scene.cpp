@@ -4,9 +4,9 @@
 #include "Components.h"
 #include "Overlook/Renderer/Renderer2D.h"
 #include "Overlook/Renderer/Renderer3D.h"
-
+#include "ScriptableEntity.h"
 #include <glm/glm.hpp>
-
+#include "Overlook/Core/UUID.h"
 #include "Entity.h"
 
 namespace Overlook {
@@ -21,12 +21,19 @@ namespace Overlook {
 
 	Entity Scene::CreateEntity(const std::string& name)
 	{
+		return CreateEntityWithUUID(UUID(), name);
+	}
+
+	Entity Scene::CreateEntityWithUUID(UUID uuid, const std::string& name)
+	{
 		Entity entity = { m_Registry.create(), this };
+		entity.AddComponent<IDComponent>(uuid);
 		entity.AddComponent<TransformComponent>();
 		auto& tag = entity.AddComponent<TagComponent>();
 		tag.Tag = name.empty() ? "Entity" : name;
-		return entity;
-	}
+
+			return entity;
+		}
 
 	void Scene::DestroyEntity(Entity entity)
 	{
@@ -198,7 +205,12 @@ namespace Overlook {
 	template<typename T>
 	void Scene::OnComponentAdded(Entity entity, T& component)
 	{
-		static_assert(false);
+		// static_assert(false);
+	}
+
+	template<>
+	void Scene::OnComponentAdded<IDComponent>(Entity entity, IDComponent& component)
+	{
 	}
 
 	template<>

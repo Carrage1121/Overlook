@@ -6,6 +6,7 @@
 #include "Overlook/Core/Application.h"
 #include "Overlook/Core/Layer.h"
 #include "Overlook/Core/Log.h"
+#include "Overlook/Core/UUID.h"
 
 #include "Overlook/Core/Timestep.h"
 

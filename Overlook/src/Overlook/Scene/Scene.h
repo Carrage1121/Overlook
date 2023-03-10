@@ -1,6 +1,7 @@
 #pragma once
 #include "entt.hpp"
 #include "Overlook/Core/Timestep.h"
+#include "Overlook/Core/UUID.h"
 #include "Overlook/Renderer/EditorCamera.h"
 
 namespace Overlook {
@@ -11,6 +12,7 @@ namespace Overlook {
 		Scene();
 		~Scene();
 		Entity CreateEntity(const std::string& name = std::string());
+		Entity CreateEntityWithUUID(UUID uuid, const std::string& name = std::string());
 		void DestroyEntity(Entity entity);
 
 		void OnUpdateRuntime(Timestep ts);

@@ -158,6 +158,7 @@
     <ClInclude Include="src\Overlook\Core\PlatformDetection.h" />
     <ClInclude Include="src\Overlook\Core\PublicSingleton.h" />
     <ClInclude Include="src\Overlook\Core\Timestep.h" />
+    <ClInclude Include="src\Overlook\Core\UUID.h" />
     <ClInclude Include="src\Overlook\Core\Window.h" />
     <ClInclude Include="src\Overlook\Debug\Insterumenter.h" />
     <ClInclude Include="src\Overlook\Events\ApplicationEvent.h" />
@@ -637,6 +638,7 @@
     <ClCompile Include="src\Overlook\Core\Layer.cpp" />
     <ClCompile Include="src\Overlook\Core\LayerStack.cpp" />
     <ClCompile Include="src\Overlook\Core\Log.cpp" />
+    <ClCompile Include="src\Overlook\Core\UUID.cpp" />
     <ClCompile Include="src\Overlook\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Overlook\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Overlook\Library\Library.cpp" />
