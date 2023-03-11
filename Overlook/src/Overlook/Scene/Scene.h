@@ -29,6 +29,7 @@ namespace Overlook {
 
 		Entity GetEntityByUUID(UUID uuid);
 		Entity GetPrimaryCameraEntity();
+		void DuplicateEntity(Entity entity);
 
 		entt::registry m_Registry;
 	private:

@@ -102,50 +102,50 @@ namespace Overlook {
 		Scene* SceneContext = nullptr;
 	};
 
-	static ScriptEngineData* s_Data = nullptr;
+	static ScriptEngineData* script_Data = nullptr;
 
 	void ScriptEngine::Init()
 	{
-		s_Data = new ScriptEngineData();
+		script_Data = new ScriptEngineData();
 
 		InitMono();
 		LoadAssembly("Resources/Scripts/Overlook-ScriptCore.dll");
-		LoadAssemblyClasses(s_Data->CoreAssembly);
+		LoadAssemblyClasses(script_Data->CoreAssembly);
 
 		ScriptGlue::RegisterComponents();
 		ScriptGlue::RegisterFunctions();
 
 		// Retrieve and instantiate class
-		s_Data->EntityClass = ScriptClass("Overlook", "Entity");
+		script_Data->EntityClass = ScriptClass("Overlook", "Entity");
 #if 0
 
-		MonoObject* instance = s_Data->EntityClass.Instantiate();
+		MonoObject* instance = script_Data->EntityClass.Instantiate();
 
 		// Call method
-		MonoMethod* printMessageFunc = s_Data->EntityClass.GetMethod("PrintMessage", 0);
-		s_Data->EntityClass.InvokeMethod(instance, printMessageFunc);
+		MonoMethod* printMessageFunc = script_Data->EntityClass.GetMethod("PrintMessage", 0);
+		script_Data->EntityClass.InvokeMethod(instance, printMessageFunc);
 
 		// Call method with param
-		MonoMethod* printIntFunc = s_Data->EntityClass.GetMethod("PrintInt", 1);
+		MonoMethod* printIntFunc = script_Data->EntityClass.GetMethod("PrintInt", 1);
 
 		int value = 5;
 		void* param = &value;
 
-		s_Data->EntityClass.InvokeMethod(instance, printIntFunc, &param);
+		script_Data->EntityClass.InvokeMethod(instance, printIntFunc, &param);
 
-		MonoMethod* printIntsFunc = s_Data->EntityClass.GetMethod("PrintInts", 2);
+		MonoMethod* printIntsFunc = script_Data->EntityClass.GetMethod("PrintInts", 2);
 		int value2 = 508;
 		void* params[2] =
 		{
 			&value,
 			&value2
 		};
-		s_Data->EntityClass.InvokeMethod(instance, printIntsFunc, params);
+		script_Data->EntityClass.InvokeMethod(instance, printIntsFunc, params);
 
-		MonoString* monoString = mono_string_new(s_Data->AppDomain, "Hello World from C++!");
-		MonoMethod* printCustomMessageFunc = s_Data->EntityClass.GetMethod("PrintCustomMessage", 1);
+		MonoString* monoString = mono_string_new(script_Data->AppDomain, "Hello World from C++!");
+		MonoMethod* printCustomMessageFunc = script_Data->EntityClass.GetMethod("PrintCustomMessage", 1);
 		void* stringParam = monoString;
-		s_Data->EntityClass.InvokeMethod(instance, printCustomMessageFunc, &stringParam);
+		script_Data->EntityClass.InvokeMethod(instance, printCustomMessageFunc, &stringParam);
 
 		OL_CORE_ASSERT(false);
 #endif
@@ -154,7 +154,7 @@ namespace Overlook {
 	void ScriptEngine::Shutdown()
 	{
 		ShutdownMono();
-		delete s_Data;
+		delete script_Data;
 	}
 
 	void ScriptEngine::InitMono()
@@ -165,40 +165,40 @@ namespace Overlook {
 		OL_CORE_ASSERT(rootDomain);
 
 		// Store the root domain pointer
-		s_Data->RootDomain = rootDomain;
+		script_Data->RootDomain = rootDomain;
 	}
 
 	void ScriptEngine::ShutdownMono()
 	{
 		// NOTE(Yan): mono is a little confusing to shutdown, so maybe come back to this
 
-		// mono_domain_unload(s_Data->AppDomain);
-		s_Data->AppDomain = nullptr;
+		// mono_domain_unload(script_Data->AppDomain);
+		script_Data->AppDomain = nullptr;
 
-		// mono_jit_cleanup(s_Data->RootDomain);
-		s_Data->RootDomain = nullptr;
+		// mono_jit_cleanup(script_Data->RootDomain);
+		script_Data->RootDomain = nullptr;
 	}
 
 	void ScriptEngine::LoadAssembly(const std::filesystem::path& filepath)
 	{
 		// Create an App Domain
-		s_Data->AppDomain = mono_domain_create_appdomain("OverlookScriptRuntime", nullptr);
-		mono_domain_set(s_Data->AppDomain, true);
+		script_Data->AppDomain = mono_domain_create_appdomain("OverlookScriptRuntime", nullptr);
+		mono_domain_set(script_Data->AppDomain, true);
 
 		// Move this maybe
-		s_Data->CoreAssembly = Utils::LoadMonoAssembly(filepath);
-		s_Data->CoreAssemblyImage = mono_assembly_get_image(s_Data->CoreAssembly);
-		// Utils::PrintAssemblyTypes(s_Data->CoreAssembly);
+		script_Data->CoreAssembly = Utils::LoadMonoAssembly(filepath);
+		script_Data->CoreAssemblyImage = mono_assembly_get_image(script_Data->CoreAssembly);
+		// Utils::PrintAssemblyTypes(script_Data->CoreAssembly);
 	}
 
 	void ScriptEngine::OnRuntimeStart(Scene* scene)
 	{
-		s_Data->SceneContext = scene;
+		script_Data->SceneContext = scene;
 	}
 
 	bool ScriptEngine::EntityClassExists(const std::string& fullClassName)
 	{
-		return s_Data->EntityClasses.find(fullClassName) != s_Data->EntityClasses.end();
+		return script_Data->EntityClasses.find(fullClassName) != script_Data->EntityClasses.end();
 	}
 
 	void ScriptEngine::OnCreateEntity(Entity entity)
@@ -206,8 +206,8 @@ namespace Overlook {
 		const auto& sc = entity.GetComponent<ScriptComponent>();
 		if (ScriptEngine::EntityClassExists(sc.ClassName))
 		{
-			Ref<ScriptInstance> instance = CreateRef<ScriptInstance>(s_Data->EntityClasses[sc.ClassName], entity);
-			s_Data->EntityInstances[entity.GetUUID()] = instance;
+			Ref<ScriptInstance> instance = CreateRef<ScriptInstance>(script_Data->EntityClasses[sc.ClassName], entity);
+			script_Data->EntityInstances[entity.GetUUID()] = instance;
 			instance->InvokeOnCreate();
 		}
 	}
@@ -215,32 +215,37 @@ namespace Overlook {
 	void ScriptEngine::OnUpdateEntity(Entity entity, Timestep ts)
 	{
 		UUID entityUUID = entity.GetUUID();
-		OL_CORE_ASSERT(s_Data->EntityInstances.find(entityUUID) != s_Data->EntityInstances.end());
-
-		Ref<ScriptInstance> instance = s_Data->EntityInstances[entityUUID];
-		instance->InvokeOnUpdate((float)ts);
+		if (script_Data->EntityInstances.find(entityUUID) != script_Data->EntityInstances.end())
+		{
+			Ref<ScriptInstance> instance = script_Data->EntityInstances[entityUUID];
+			instance->InvokeOnUpdate((float)ts);
+		}
+		else
+		{
+			OL_CORE_ERROR("Could not find ScriptInstance for entity {}", entityUUID);
+		}
 	}
 
 	Scene* ScriptEngine::GetSceneContext()
 	{
-		return s_Data->SceneContext;
+		return script_Data->SceneContext;
 	}
 
 	void ScriptEngine::OnRuntimeStop()
 	{
-		s_Data->SceneContext = nullptr;
+		script_Data->SceneContext = nullptr;
 
-		s_Data->EntityInstances.clear();
+		script_Data->EntityInstances.clear();
 	}
 
 	std::unordered_map<std::string, Ref<ScriptClass>> ScriptEngine::GetEntityClasses()
 	{
-		return s_Data->EntityClasses;
+		return script_Data->EntityClasses;
 	}
 
 	void ScriptEngine::LoadAssemblyClasses(MonoAssembly* assembly)
 	{
-		s_Data->EntityClasses.clear();
+		script_Data->EntityClasses.clear();
 
 		MonoImage* image = mono_assembly_get_image(assembly);
 		const MonoTableInfo* typeDefinitionsTable = mono_image_get_table_info(image, MONO_TABLE_TYPEDEF);
@@ -267,18 +272,18 @@ namespace Overlook {
 
 			bool isEntity = mono_class_is_subclass_of(monoClass, entityClass, false);
 			if (isEntity)
-				s_Data->EntityClasses[fullName] = CreateRef<ScriptClass>(nameSpace, name);
+				script_Data->EntityClasses[fullName] = CreateRef<ScriptClass>(nameSpace, name);
 		}
 	}
 
 	MonoImage* ScriptEngine::GetCoreAssemblyImage()
 	{
-		return s_Data->CoreAssemblyImage;
+		return script_Data->CoreAssemblyImage;
 	}
 
 	MonoObject* ScriptEngine::InstantiateClass(MonoClass* monoClass)
 	{
-		MonoObject* instance = mono_object_new(s_Data->AppDomain, monoClass);
+		MonoObject* instance = mono_object_new(script_Data->AppDomain, monoClass);
 		mono_runtime_object_init(instance);
 		return instance;
 	}
@@ -286,7 +291,7 @@ namespace Overlook {
 	ScriptClass::ScriptClass(const std::string& classNamespace, const std::string& className)
 		: m_ClassNamespace(classNamespace), m_ClassName(className)
 	{
-		m_MonoClass = mono_class_from_name(s_Data->CoreAssemblyImage, classNamespace.c_str(), className.c_str());
+		m_MonoClass = mono_class_from_name(script_Data->CoreAssemblyImage, classNamespace.c_str(), className.c_str());
 	}
 
 	MonoObject* ScriptClass::Instantiate()
@@ -309,7 +314,7 @@ namespace Overlook {
 	{
 		m_Instance = scriptClass->Instantiate();
 
-		m_Constructor = s_Data->EntityClass.GetMethod(".ctor", 1);
+		m_Constructor = script_Data->EntityClass.GetMethod(".ctor", 1);
 		m_OnCreateMethod = scriptClass->GetMethod("OnCreate", 0);
 		m_OnUpdateMethod = scriptClass->GetMethod("OnUpdate", 1);
 

@@ -16,8 +16,9 @@ namespace Overlook {
 
 	Scene::Scene()
 	{
-		//mSystems.emplace_back(CreateScope<RenderSystem3D>(this));
-		mSystems.emplace_back(CreateScope<RenderSystem2D>(this));
+		mSystems.emplace_back(CreateScope<RenderSystem3D>(this));
+		mSystems.emplace_back(CreateScope<NativeScriptSystem>(this));
+		//mSystems.emplace_back(CreateScope<RenderSystem2D>(this));
 	}
 
 	Scene::~Scene()
@@ -164,6 +165,13 @@ namespace Overlook {
 				cameraComponent.Camera.SetViewportSize(width, height);
 		}
 
+	}
+
+	void Scene::DuplicateEntity(Entity entity)
+	{
+		Entity newEntity = CreateEntity(entity.GetName());
+
+		CopyComponentIfExists(AllComponents{}, newEntity, entity);
 	}
 
 	Entity Scene::GetPrimaryCameraEntity()

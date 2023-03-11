@@ -16,7 +16,7 @@ Entities:
       Scale: [1, 1, 1]
     CameraComponent:
       Camera:
-        ProjectionType: 1
+        ProjectionType: 0
         PerspectiveFOV: 0.785398185
         PerspectiveNear: 0.00999999978
         PerspectiveFar: 1000
@@ -31,8 +31,8 @@ Entities:
     TransformComponent:
       Translation: [0, 0, 0]
       Rotation: [0, 0, 0]
-      Scale: [0.783199906, 0.783199906, 0.783199906]
+      Scale: [1, 1, 1]
     ScriptComponent:
-      ClassName: BasicMove
+      ClassName: Sandbox.Player
     ModelRendererComponent:
       Path: assets\Model\backpack\backpack.obj
