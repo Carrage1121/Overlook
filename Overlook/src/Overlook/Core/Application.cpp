@@ -1,6 +1,8 @@
 #include "olpch.h"
 #include "Application.h"
 
+#include "Overlook/Scripting/ScriptEngine.h"
+
 #include "Overlook/Core/Log.h"
 #include "Overlook/Renderer/Renderer.h"
 
@@ -21,6 +23,7 @@ namespace Overlook {
 		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps(name)));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
+		ScriptEngine::Init();
 		Renderer::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
@@ -29,6 +32,8 @@ namespace Overlook {
 
 	Application::~Application()
 	{
+		Renderer::Shutdown();
+		ScriptEngine::Shutdown();
 	}
 
 	void Application::PushLayer(Layer* layer)

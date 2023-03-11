@@ -3,8 +3,8 @@ project "Overlook-ScriptCore"
 	language "C#"
 	dotnetframework "4.7.2"
 
-	targetdir ("%{wks.location}/Overlooknut/Resources/Scripts")
-	objdir ("%{wks.location}/Overlooknut/Resources/Scripts/Intermediates")
+	targetdir ("%{wks.location}/OverlookInput/Resources/Scripts")
+	objdir ("%{wks.location}/OverlookInput/Resources/Scripts/Intermediates")
 
 	files 
 	{

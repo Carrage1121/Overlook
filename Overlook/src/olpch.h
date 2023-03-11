@@ -8,6 +8,7 @@
 #include <math.h>
 
 #include <string>
+#include <string.h>
 #include <sstream>
 #include <fstream>// std::ifstream
 #include <vector>

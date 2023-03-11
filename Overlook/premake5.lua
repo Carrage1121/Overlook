@@ -53,7 +53,7 @@ project "Overlook"
 		"yaml-cpp",
 		"assimp",
 		"opengl32.lib",
-		"%{Library.mono}",
+		"%{Library.mono}"
 	}
 
 	filter "files:vendor/ImGuizmo/**.cpp"
@@ -68,10 +68,10 @@ project "Overlook"
 
 		links
 		{
-			"%{Library.WinSock}",
-			"%{Library.WinMM}",
-			"%{Library.WinVersion}",
-			"%{Library.BCrypt}",
+			--"%{Library.WinSock}",
+			--"%{Library.WinMM}",
+			--"%{Library.WinVersion}",
+			--"%{Library.BCrypt}",
 		}
 
 	filter "configurations:Debug"

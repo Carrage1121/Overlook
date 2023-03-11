@@ -91,6 +91,9 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST $(SolutionDir)\Overlook\vendor\mono\bin\Debug\mono-2.0-sgen.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\Overlook\vendor\mono\bin\Debug\mono-2.0-sgen.dll  ..\bin\Debug-windows-x86_64\OverlookInput &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\Overlook\vendor\mono\bin\Debug\mono-2.0-sgen.dll  ..\bin\Debug-windows-x86_64\OverlookInput &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -112,6 +115,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST $(SolutionDir)\Overlook\vendor\mono\bin\Release\mono-2.0-sgen.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\Overlook\vendor\mono\bin\Release\mono-2.0-sgen.dll  ..\bin\Release-windows-x86_64\OverlookInput &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\Overlook\vendor\mono\bin\Release\mono-2.0-sgen.dll  ..\bin\Release-windows-x86_64\OverlookInput &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <ClCompile>
@@ -133,6 +139,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST $(SolutionDir)\Overlook\vendor\mono\bin\Dist\mono-2.0-sgen.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\Overlook\vendor\mono\bin\Dist\mono-2.0-sgen.dll  ..\bin\Dist-windows-x86_64\OverlookInput &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\Overlook\vendor\mono\bin\Dist\mono-2.0-sgen.dll  ..\bin\Dist-windows-x86_64\OverlookInput &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\EditorLayer.h" />

@@ -31,6 +31,11 @@ project "OverlookInput"
 		"Overlook"
 	}
 
+	postbuildcommands
+	{
+		"{COPY} %{Binary.mono}  %{cfg.targetdir}"
+	}
+
 	filter "system:windows"
 		systemversion "latest"
 
