@@ -2,13 +2,11 @@ Scene: Untitled
 Entities:
   - Entity: 12837192831273
     TagComponent:
-      Tag: Model
+      Tag: Sprite
     TransformComponent:
       Translation: [0, 0, 0]
       Rotation: [0, 0, 0]
-      Scale: [0.783199906, 0.783199906, 0.783199906]
-    ModelRendererComponent:
-      Path: assets\Model\backpack\backpack.obj
+      Scale: [1, 1, 1]
   - Entity: 12837192831273
     TagComponent:
       Tag: Camera
@@ -29,8 +27,12 @@ Entities:
       FixedAspectRatio: false
   - Entity: 12837192831273
     TagComponent:
-      Tag: Sprite
+      Tag: Model
     TransformComponent:
       Translation: [0, 0, 0]
       Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
+      Scale: [0.783199906, 0.783199906, 0.783199906]
+    ScriptComponent:
+      ClassName: BasicMove
+    ModelRendererComponent:
+      Path: assets\Model\backpack\backpack.obj

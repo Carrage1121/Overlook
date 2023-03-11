@@ -61,13 +61,13 @@ namespace Overlook
 
 				float speed = 5.0f;
 
-				if (Input::IsKeyPressed(OL_KEY_A))
+				if (Input::IsKeyPressed(Key::A))
 					translation.x -= speed * ts;
-				if (Input::IsKeyPressed(OL_KEY_D))
+				if (Input::IsKeyPressed(Key::D))
 					translation.x += speed * ts;
-				if (Input::IsKeyPressed(OL_KEY_W))
+				if (Input::IsKeyPressed(Key::W))
 					translation.y += speed * ts;
-				if (Input::IsKeyPressed(OL_KEY_S))
+				if (Input::IsKeyPressed(Key::S))
 					translation.y -= speed * ts;
 			}
 		};

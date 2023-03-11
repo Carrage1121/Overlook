@@ -51,6 +51,15 @@ namespace Overlook {
 				* glm::scale(glm::mat4(1.0f), Scale);
 		}
 	};
+
+	struct ScriptComponent
+	{
+		std::string ClassName;
+
+		ScriptComponent() = default;
+		ScriptComponent(const ScriptComponent&) = default;
+	};
+
 	// Forward declaration
 	class ScriptableEntity;
 
@@ -102,4 +111,14 @@ namespace Overlook {
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
 	};
+
+	template<typename... Component>
+	struct ComponentGroup
+	{
+	};
+
+	using AllComponents =
+		ComponentGroup<TransformComponent, SpriteRendererComponent,
+		CameraComponent, ScriptComponent,
+		NativeScriptComponent, ModelRendererComponent>;
 }

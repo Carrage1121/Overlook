@@ -144,6 +144,9 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Overlook\Scene\System\NativeScriptSystem.h" />
+    <ClInclude Include="src\Overlook\Scene\System\RenderSystem3D.h" />
+    <ClInclude Include="src\Overlook\Scene\System\RenderSystem2D.h" />
     <ClInclude Include="src\Overlook.h" />
     <ClInclude Include="src\Overlook\Core\Application.h" />
     <ClInclude Include="src\Overlook\Core\Assert.h" />
@@ -203,7 +206,10 @@
     <ClInclude Include="src\Overlook\Scene\SceneCamera.h" />
     <ClInclude Include="src\Overlook\Scene\SceneSerializer.h" />
     <ClInclude Include="src\Overlook\Scene\ScriptableEntity.h" />
+    <ClInclude Include="src\Overlook\Scene\System\System.h" />
+    <ClInclude Include="src\Overlook\Scene\System\SystemGroup.h" />
     <ClInclude Include="src\Overlook\Scripting\ScriptEngine.h" />
+    <ClInclude Include="src\Overlook\Scripting\ScriptGlue.h" />
     <ClInclude Include="src\Overlook\Utils\PlatformUtils.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
@@ -635,6 +641,9 @@
     <ClInclude Include="vendor\stb\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Overlook\Scene\System\NativeScriptSystem.cpp" />
+    <ClCompile Include="src\Overlook\Scene\System\RenderSystem3D.cpp" />
+    <ClCompile Include="src\Overlook\Scene\System\RenderSystem2D.cpp" />
     <ClCompile Include="src\Overlook\Core\Application.cpp" />
     <ClCompile Include="src\Overlook\Core\Layer.cpp" />
     <ClCompile Include="src\Overlook\Core\LayerStack.cpp" />
@@ -674,6 +683,7 @@
     <ClCompile Include="src\Overlook\Scene\SceneCamera.cpp" />
     <ClCompile Include="src\Overlook\Scene\SceneSerializer.cpp" />
     <ClCompile Include="src\Overlook\Scripting\ScriptEngine.cpp" />
+    <ClCompile Include="src\Overlook\Scripting\ScriptGlue.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />

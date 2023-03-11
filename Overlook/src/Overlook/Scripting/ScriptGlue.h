@@ -6,6 +6,7 @@ namespace Overlook {
 	{
 	public:
 		static void RegisterFunctions();
+		static void RegisterComponents();
 	};
 
 

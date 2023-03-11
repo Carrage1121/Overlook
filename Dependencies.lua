@@ -21,10 +21,10 @@ Library = {}
 --Library["mono"] = "%{LibraryDir.mono}/libmono-static-sgen.lib"
 Library["mono"] = "%{LibraryDir.mono}/mono-2.0-sgen.lib"
 -- Windows
---Library["WinSock"] = "Ws2_32.lib"
---Library["WinMM"] = "Winmm.lib"
---Library["WinVersion"] = "Version.lib"
---Library["BCrypt"] = "Bcrypt.lib"
+-- Library["WinSock"] = "Ws2_32.lib"
+-- Library["WinMM"] = "Winmm.lib"
+-- Library["WinVersion"] = "Version.lib"
+-- Library["BCrypt"] = "Bcrypt.lib"
 
 BinaryDir = {}
 BinaryDir["mono"] = "%{wks.location}/Overlook/vendor/mono/bin/%{cfg.buildcfg}"

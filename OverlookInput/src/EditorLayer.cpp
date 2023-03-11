@@ -68,13 +68,13 @@ namespace Overlook
 
 				float speed = 0.01f;
 
-				if (Input::IsKeyPressed(OL_KEY_A))
+				if (Input::IsKeyPressed(Key::A))
 					translation.x -= speed * ts;
-				if (Input::IsKeyPressed(OL_KEY_D))
+				if (Input::IsKeyPressed(Key::D))
 					translation.x += speed * ts;
-				if (Input::IsKeyPressed(OL_KEY_W))
+				if (Input::IsKeyPressed(Key::W))
 					translation.y += speed * ts;
-				if (Input::IsKeyPressed(OL_KEY_S))
+				if (Input::IsKeyPressed(Key::S))
 					translation.y -= speed * ts;
 			}
 		};
@@ -120,8 +120,7 @@ namespace Overlook
 		{
 			m_EditorCamera.OnUpdate(ts);
 
-			//m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
-			m_ActiveScene->OnUpdateEditor3D(ts, m_EditorCamera);
+			m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
 			break;
 		}
 		case SceneState::Play:
@@ -286,7 +285,7 @@ namespace Overlook
 				glm::mat4 transform = tc.GetTransform();
 
 				// Snapping
-				bool snap = Input::IsKeyPressed(OL_KEY_LEFT_CONTROL);
+				bool snap = Input::IsKeyPressed(Key::LeftControl);
 				float snapValue = 0.5f; // Snap to 0.5m for translation/scale
 				// Snap to 45 degrees for rotation
 				if (m_GizmoType == ImGuizmo::OPERATION::ROTATE)
@@ -363,25 +362,25 @@ namespace Overlook
 		if (e.GetRepeatCount() > 0)
 			return false;
 
-		bool control = Input::IsKeyPressed(OL_KEY_LEFT_CONTROL) || Input::IsKeyPressed(OL_KEY_RIGHT_CONTROL);
-		bool shift = Input::IsKeyPressed(OL_KEY_LEFT_SHIFT) || Input::IsKeyPressed(OL_KEY_RIGHT_SHIFT);
+		bool control = Input::IsKeyPressed(Key::LeftControl) || Input::IsKeyPressed(Key::RightControl);
+		bool shift = Input::IsKeyPressed(Key::LeftShift) || Input::IsKeyPressed(Key::RightShift);
 		switch (e.GetKeyCode())
 		{
-		case OL_KEY_N:
+		case Key::N:
 		{
 			if (control)
 				NewScene();
 
 			break;
 		}
-		case OL_KEY_O:
+		case Key::O:
 		{
 			if (control)
 				OpenScene();
 
 			break;
 		}
-		case OL_KEY_S:
+		case Key::S:
 		{
 			if (control && shift)
 				SaveSceneAs();
@@ -389,16 +388,16 @@ namespace Overlook
 			break;
 		}
 		// Gizmos
-		case OL_KEY_Q:
+		case Key::Q:
 			m_GizmoType = -1;
 			break;
-		case OL_KEY_W:
+		case Key::W:
 			m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
 			break;
-		case OL_KEY_E:
+		case Key::E:
 			m_GizmoType = ImGuizmo::OPERATION::ROTATE;
 			break;
-		case OL_KEY_R:
+		case Key::R:
 			m_GizmoType = ImGuizmo::OPERATION::SCALE;
 			break;
 		}
@@ -406,9 +405,9 @@ namespace Overlook
 
 	bool EditorLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e)
 	{
-		if (e.GetMouseButton() == OL_MOUSE_BUTTON_LEFT)
+		if (e.GetMouseButton() == Mouse::ButtonLeft)
 		{
-			if (m_ViewportHovered && !ImGuizmo::IsOver() && !Input::IsKeyPressed(OL_KEY_LEFT_ALT))
+			if (m_ViewportHovered && !ImGuizmo::IsOver() && !Input::IsKeyPressed(Key::LeftAlt))
 				m_SceneHierarchyPanel.SetSelectedEntity(m_HoveredEntity);
 		}
 		return false;

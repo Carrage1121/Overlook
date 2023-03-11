@@ -279,6 +279,9 @@
     <ClInclude Include="src\Overlook\Scripting\ScriptEngine.h">
       <Filter>src\Overlook\Scripting</Filter>
     </ClInclude>
+    <ClInclude Include="src\Overlook\Scripting\ScriptGlue.h">
+      <Filter>src\Overlook\Scripting</Filter>
+    </ClInclude>
     <ClInclude Include="src\Overlook\Utils\PlatformUtils.h">
       <Filter>src\Overlook\Utils</Filter>
     </ClInclude>
@@ -1566,6 +1569,11 @@
     <ClInclude Include="vendor\stb\stb_image.h">
       <Filter>vendor\stb</Filter>
     </ClInclude>
+    <ClInclude Include="src\Overlook\Scene\System\System.h" />
+    <ClInclude Include="src\Overlook\Scene\System\RenderSystem2D.h" />
+    <ClInclude Include="src\Overlook\Scene\System\RenderSystem3D.h" />
+    <ClInclude Include="src\Overlook\Scene\System\SystemGroup.h" />
+    <ClInclude Include="src\Overlook\Scene\System\NativeScriptSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Overlook\Core\Application.cpp">
@@ -1685,6 +1693,9 @@
     <ClCompile Include="src\Overlook\Scripting\ScriptEngine.cpp">
       <Filter>src\Overlook\Scripting</Filter>
     </ClCompile>
+    <ClCompile Include="src\Overlook\Scripting\ScriptGlue.cpp">
+      <Filter>src\Overlook\Scripting</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -1721,6 +1732,9 @@
     <ClCompile Include="vendor\ImGuizmo\ImGuizmo.cpp">
       <Filter>vendor\ImGuizmo</Filter>
     </ClCompile>
+    <ClCompile Include="src\Overlook\Scene\System\RenderSystem2D.cpp" />
+    <ClCompile Include="src\Overlook\Scene\System\RenderSystem3D.cpp" />
+    <ClCompile Include="src\Overlook\Scene\System\NativeScriptSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\assimp\include">

@@ -53,6 +53,7 @@ project "Overlook"
 		"yaml-cpp",
 		"assimp",
 		"opengl32.lib",
+
 		"%{Library.mono}"
 	}
 
@@ -64,14 +65,6 @@ project "Overlook"
 
 		defines
 		{
-		}
-
-		links
-		{
-			--"%{Library.WinSock}",
-			--"%{Library.WinMM}",
-			--"%{Library.WinVersion}",
-			--"%{Library.BCrypt}",
 		}
 
 	filter "configurations:Debug"
