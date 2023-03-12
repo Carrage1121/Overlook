@@ -31,8 +31,8 @@ namespace Overlook
 		mVertexArray->SetIndexBuffer(mIB);
 	}
 
-	SubMesh::SubMesh(const std::vector<StaticVertex>& vertices, const std::vector<uint32_t> indices, const std::vector<MaterialTexture>& textures, uint32_t materialIndex)
-		: mStaticVertices(vertices), mIndices(indices), mTextures(textures), mMaterialIndex(materialIndex)
+	SubMesh::SubMesh(const std::vector<StaticVertex>& vertices, const std::vector<uint32_t> indices, const std::vector<MaterialTexture>& textures)
+		: mStaticVertices(vertices), mIndices(indices), mMaterial(textures)
 	{
 		mVertexArray = VertexArray::Create();
 
@@ -78,8 +78,8 @@ namespace Overlook
 		mVertexArray->SetIndexBuffer(mIB);
 	}
 
-	SubMesh::SubMesh(const std::vector<SkinnedVertex>& vertices, const std::vector<uint32_t> indices, const std::vector<MaterialTexture>& textures, uint32_t materialIndex)
-		: mSkinnedVertices(vertices), mIndices(indices), mTextures(textures), mMaterialIndex(materialIndex)
+	SubMesh::SubMesh(const std::vector<SkinnedVertex>& vertices, const std::vector<uint32_t> indices, const std::vector<MaterialTexture>& textures)
+		: mSkinnedVertices(vertices), mIndices(indices), mMaterial(textures)
 	{
 		mVertexArray = VertexArray::Create();
 
@@ -238,7 +238,7 @@ namespace Overlook
 	void SubMesh::SetupTex(const Ref<Shader>& shader)
 	{
 
-		for (MaterialTexture& tex : mTextures)
+		for (MaterialTexture& tex : mMaterial)
 		{
 			int i = as_integer(tex.type);
 			std::string str1 = TypeTostring(tex.type);

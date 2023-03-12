@@ -3,6 +3,8 @@
 
 #include <stb/stb_image.h>
 
+#include "Overlook/Resource/AssetManager/AssetManager.h"
+
 namespace Overlook {
 
 	OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
@@ -29,7 +31,7 @@ namespace Overlook {
 		OL_PROFILE_FUNCTION();
 
 		int width, height, channels;
-		//ÅÐ¶ÁÊÇ·ñ¼ÓÔØÄ£ÐÍ TODO
+		//ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ TODO
 		if (path.find("Model") == std::string::npos)
 			stbi_set_flip_vertically_on_load(1);
 		else
@@ -128,4 +130,115 @@ namespace Overlook {
 	{
 		glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
 	}
+
+
+ // ---------------CubeMap--------------------
+    OpenGLCubeMapTexture::OpenGLCubeMapTexture()
+    {
+        glGenTextures(1, &mRendererID);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, mRendererID);
+
+        mWidth = 512;
+        mHeight = 512;
+
+        for (unsigned int i = 0; i < 6; ++i)
+        {
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB16F, 512, 512, 0, GL_RGB, GL_FLOAT, nullptr);
+        }
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // enable pre-filter mipmap sampling (combatting visible dots artifact)
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+    }
+
+    OpenGLCubeMapTexture::OpenGLCubeMapTexture(uint32_t width, uint32_t height)
+        : mWidth(width), mHeight(height)
+    {
+        glGenTextures(1, &mRendererID);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, mRendererID);
+
+        for (unsigned int i = 0; i < 6; ++i)
+        {
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB16F, mWidth, mHeight, 0, GL_RGB, GL_FLOAT, nullptr);
+        }
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // enable pre-filter mipmap sampling (combatting visible dots artifact)
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+    }
+
+    // refer to https://learnopengl-cn.github.io/04%20Advanced%20OpenGL/06%20Cubemaps/
+    OpenGLCubeMapTexture::OpenGLCubeMapTexture(std::vector<std::string>& paths)
+        : mPaths(paths)
+    {
+        glGenTextures(1, &mRendererID);
+        OpenGLCubeMapTexture::Generate();
+    }
+
+    OpenGLCubeMapTexture::~OpenGLCubeMapTexture()
+    {
+        glDeleteTextures(1, &mRendererID);
+    }
+
+    void OpenGLCubeMapTexture::SetFace(FaceTarget faceIndex, const std::string& path)
+    {
+        mPaths[(uint32_t)faceIndex] = path;
+    }
+
+    void OpenGLCubeMapTexture::GenerateMipmap()
+    {
+        glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+    }
+
+    void OpenGLCubeMapTexture::Bind(uint32_t slot) const
+    {
+        glActiveTexture(GL_TEXTURE0 + slot);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, mRendererID);
+    }
+
+    void OpenGLCubeMapTexture::UnBind() const
+    {
+        glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+    }
+
+    void OpenGLCubeMapTexture::Generate()
+    {
+        glBindTexture(GL_TEXTURE_CUBE_MAP, mRendererID);
+
+        int width = 0;
+        int height = 0;
+        int nrChannels = 0;
+        stbi_set_flip_vertically_on_load(false);
+        for (unsigned int i = 0; i < mPaths.size(); i++)
+        {
+            unsigned char* data = stbi_load(AssetManager::GetFullPath(mPaths[i]).c_str(), &width, &height, &nrChannels, 0);
+            if (data)
+            {
+                glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+                    0, GL_RGB8, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data
+                );
+                stbi_image_free(data);
+            }
+            else
+            {
+                OL_CORE_ERROR("Cubemap don't loaded correctly!");
+                stbi_image_free(data);
+            }
+        }
+
+        mWidth = width;
+        mHeight = height;
+
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+    }
 }

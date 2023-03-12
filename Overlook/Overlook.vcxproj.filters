@@ -1574,6 +1574,7 @@
     <ClInclude Include="src\Overlook\Scene\System\RenderSystem3D.h" />
     <ClInclude Include="src\Overlook\Scene\System\SystemGroup.h" />
     <ClInclude Include="src\Overlook\Scene\System\NativeScriptSystem.h" />
+    <ClInclude Include="src\Overlook\Resource\TextureManager\TextureManger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Overlook\Core\Application.cpp">
@@ -1735,6 +1736,7 @@
     <ClCompile Include="src\Overlook\Scene\System\RenderSystem2D.cpp" />
     <ClCompile Include="src\Overlook\Scene\System\RenderSystem3D.cpp" />
     <ClCompile Include="src\Overlook\Scene\System\NativeScriptSystem.cpp" />
+    <ClCompile Include="src\Overlook\Resource\TextureManager\TextureManger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\assimp\include">

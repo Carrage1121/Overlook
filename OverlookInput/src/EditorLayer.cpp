@@ -465,7 +465,7 @@ namespace Overlook
 
 	void EditorLayer::SaveSceneAs()
 	{
-		std::string filepath = FileDialogs::SaveFile("Hazel Scene (*.hazel)\0*.hazel\0");
+		std::string filepath = FileDialogs::SaveFile("Overlook Scene (*.ol)\0*.ol\0");
 		if (!filepath.empty())
 		{
 			SerializeScene(m_ActiveScene, filepath);

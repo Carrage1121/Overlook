@@ -72,9 +72,8 @@ namespace Overlook
 		else
 		{
 			ProcessNode(scene->mRootNode, scene, subMeshIndex);
-			//processNode(scene->mRootNode, scene);
 		}
-			
+
 	}
 
 	void Mesh::ProcessNode(aiNode* node, const aiScene* scene, uint32_t& subMeshIndex)
@@ -107,6 +106,7 @@ namespace Overlook
 		for (uint32_t i = 0; i < mesh->mNumVertices; ++i)
 		{
 			Vertex vertex;
+			aiVector3D& aiVertex = mesh->mVertices[i];
 
 			if (bAnimated)
 			{
@@ -114,28 +114,17 @@ namespace Overlook
 			}
 
 			//pos
-			glm::vec3 vector;
-			vector.x = mesh->mVertices[i].x;
-			vector.y = mesh->mVertices[i].y;
-			vector.z = mesh->mVertices[i].z;
-			vertex.Pos = vector;
+			vertex.Pos = { aiVertex.x, aiVertex.y, aiVertex.z };
 
 			//normal
-			if (mesh->HasNormals())
-			{
-				vector.x = mesh->mNormals[i].x;
-				vector.y = mesh->mNormals[i].y;
-				vector.z = mesh->mNormals[i].z;
-				vertex.Normal = vector;
-			}
+			aiVector3D& aiNormal = mesh->mNormals[i];
+			vertex.Normal = { aiNormal.x, aiNormal.y, aiNormal.z };
 
 			//tex coord
-			if (mesh->mTextureCoords[0])
+			if (mesh->mTextureCoords[0])  // has tex coord?
 			{
-				glm::vec2 vec;
-				vec.x = mesh->mTextureCoords[0][i].x;
-				vec.y = mesh->mTextureCoords[0][i].y;
-				vertex.TexCoord = vec;
+				aiVector3D& aiTexCoord = mesh->mTextureCoords[0][i];
+				vertex.TexCoord = { aiTexCoord.x, aiTexCoord.y };
 			}
 			else
 				vertex.TexCoord = glm::vec2(0.0f, 0.0f);
@@ -143,15 +132,11 @@ namespace Overlook
 			if (mesh->HasTangentsAndBitangents())
 			{
 				// tangent
-				vector.x = mesh->mTangents[i].x;
-				vector.y = mesh->mTangents[i].y;
-				vector.z = mesh->mTangents[i].z;
-				vertex.Tangent = vector;
+
+				vertex.Tangent = { mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z };
+
 				// bitangent
-				vector.x = mesh->mBitangents[i].x;
-				vector.y = mesh->mBitangents[i].y;
-				vector.z = mesh->mBitangents[i].z;
-				vertex.Bitangent = vector;
+				vertex.Bitangent = { mesh->mBitangents[i].x, mesh->mBitangents[i].y,mesh->mBitangents[i].z };
 			}
 			else
 			{
@@ -225,7 +210,7 @@ namespace Overlook
 		// normal: texture_normalN
 
 		const auto& loadTexture = [&](aiTextureType type) {
-			auto maps = loadMaterialTextures(material, type, subMeshIndex);
+			auto maps = loadMaterialTextures(material, type);
 			if (maps) textures.insert(textures.end(), maps.value().begin(), maps.value().end());
 		};
 
@@ -234,10 +219,10 @@ namespace Overlook
 			loadTexture(static_cast<aiTextureType>(type));
 		}
 
-		return SubMesh(vertices, indices, textures, subMeshIndex);
+		return SubMesh(vertices, indices, textures);
 	}
 
-	std::optional <std::vector<MaterialTexture>>  Mesh::loadMaterialTextures(aiMaterial* mat, aiTextureType type, uint32_t& subMeshIndex)
+	std::optional <std::vector<MaterialTexture>>  Mesh::loadMaterialTextures(aiMaterial* mat, aiTextureType type)
 	{
 		std::vector<MaterialTexture> textures;
 		for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)

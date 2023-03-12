@@ -221,6 +221,7 @@
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\olpch.h" />
+    <ClInclude Include="src\Overlook\Resource\TextureManager\TextureManger.h" />
     <ClInclude Include="vendor\ImGuizmo\ImGuizmo.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
@@ -697,6 +698,7 @@
     <ClCompile Include="src\olpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Overlook\Resource\TextureManager\TextureManger.cpp" />
     <ClCompile Include="vendor\ImGuizmo\ImGuizmo.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>

@@ -21,14 +21,33 @@ namespace Overlook
 
 	static Renderer3DData m3_data;
 
-	Ref<Framebuffer> Renderer3D::lightFBO = nullptr;
+
+	static Ref<CubeMapTexture> sSkyBox;
+	static Ref<Shader> sSkyBoxShader;
+	static Mesh sBox;
+
+	std::vector<std::string> sPaths{
+		"Assets/Texture/Skybox/right.jpg",
+		"Assets/Texture/Skybox/left.jpg",
+		"Assets/Texture/Skybox/top.jpg",
+		"Assets/Texture/Skybox/bottom.jpg",
+		"Assets/Texture/Skybox/front.jpg",
+		"Assets/Texture/Skybox/back.jpg",
+	};
+
 
 	void Renderer3D::Init()
 	{
 		m3_data.mShader = Shader::Create(std::string("assets/Shader/modelRenderer-old.glsl"));
 		//m3_data.mShader = Shader::Create(std::string("assets/Shader/Texture.glsl"));
 		//m3_data.mShader = Shader::Create("model", "assets/Shader/model_loading.vert", "assets/Shader/model_loading.frag");
-		//RenderCommand::Test();
+
+		// TODO : abstruct skybox
+		sSkyBoxShader = Shader::Create(std::string("assets/Shader/SkyBox.glsl"));
+		sSkyBox = CubeMapTexture::Create(sPaths);
+		sBox = Mesh(std::string("assets/Model/Base/Box.obj"));
+
+		RenderCommand::Test();
 		m3_data.CameraUniformBuffer = UniformBuffer::Create(sizeof(Renderer3DData::CameraData), 1);
 
 	}
@@ -84,6 +103,34 @@ namespace Overlook
 			modelComponent.mMesh->Draw(transform, m3_data.mShader, entityid);
 		}
 
+	}
+
+	Ref<CubeMapTexture> Renderer3D::GetSkyBox()
+	{
+		return sSkyBox;
+	}
+
+	Ref<CubeMapTexture> Renderer3D::GetDefaultSkyBox()
+	{
+		sSkyBox = CubeMapTexture::Create(sPaths);
+		return sSkyBox;
+	}
+
+	void Renderer3D::DrawSkyBox(const EditorCamera& camera)
+	{
+		m3_data.CameraBuffer.ViewProjection = camera.GetProjection() * glm::mat4(glm::mat3(camera.GetViewMatrix()));
+		m3_data.CameraUniformBuffer->SetData(&m3_data.CameraBuffer, sizeof(Renderer3DData::CameraData), 0);
+
+		RenderCommand::Cull(0);
+
+		RenderCommand::DepthFunc(DepthComp::LEQUAL);
+		sSkyBoxShader->Bind();
+
+		sSkyBox->Bind(0);
+		sSkyBoxShader->SetInt("SkyBox", 0);
+		sBox.Draw();
+
+		RenderCommand::DepthFunc(DepthComp::LESS);
 	}
 
 }

@@ -22,6 +22,13 @@ namespace Overlook
 		static void Flush();
 	
 		static void DrawModel(const glm::mat4& transform, ModelRendererComponent modelComponent, int entityid);
+
+		// give to Editor SceneSettingsPanel to use
+		static Ref<CubeMapTexture> GetSkyBox();
+		static Ref<CubeMapTexture> GetDefaultSkyBox();
+
+		// TODO: Move to Environment System
+		static void DrawSkyBox(const EditorCamera& camera);
 	public:
 		// shadow pass
 		static Ref<class Framebuffer> lightFBO;

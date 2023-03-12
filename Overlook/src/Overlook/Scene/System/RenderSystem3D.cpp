@@ -53,6 +53,7 @@ namespace Overlook
 				Renderer3D::DrawModel(transform.GetTransform(), model, (int)entity);
 			}
 
+			Renderer3D::DrawSkyBox(camera);
 			Renderer3D::EndScene();
 		}
 	}
@@ -68,7 +69,7 @@ namespace Overlook
 
 			Renderer3D::DrawModel(transform.GetTransform(), model, (int)entity);
 		}
-
+		Renderer3D::DrawSkyBox(camera);
 		Renderer3D::EndScene();
 	}
 }
