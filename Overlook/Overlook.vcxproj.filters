@@ -49,8 +49,14 @@
     <Filter Include="src\Overlook\Resource\ModeManager">
       <UniqueIdentifier>{93C9C026-FF37-16A6-4821-D1A5B4CE0B42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Overlook\Resource\TextureManager">
+      <UniqueIdentifier>{9F306F44-8B17-313C-3468-9759202EAAA2}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Overlook\Scene">
       <UniqueIdentifier>{0A2B7C43-F60E-3D99-5F6F-37EC4B72271B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Overlook\Scene\System">
+      <UniqueIdentifier>{DE0EAC35-4AD1-DFBF-9381-6E4CFF82B89D}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Overlook\Scripting">
       <UniqueIdentifier>{6F61628A-5B5B-8BDC-44C8-21ED3061F148}</UniqueIdentifier>
@@ -258,6 +264,9 @@
     <ClInclude Include="src\Overlook\Resource\ModeManager\ModeManager.h">
       <Filter>src\Overlook\Resource\ModeManager</Filter>
     </ClInclude>
+    <ClInclude Include="src\Overlook\Resource\TextureManager\TextureManger.h">
+      <Filter>src\Overlook\Resource\TextureManager</Filter>
+    </ClInclude>
     <ClInclude Include="src\Overlook\Scene\Components.h">
       <Filter>src\Overlook\Scene</Filter>
     </ClInclude>
@@ -275,6 +284,24 @@
     </ClInclude>
     <ClInclude Include="src\Overlook\Scene\ScriptableEntity.h">
       <Filter>src\Overlook\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Scene\System\NativeScriptSystem.h">
+      <Filter>src\Overlook\Scene\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Scene\System\PhysicSystem3D.h">
+      <Filter>src\Overlook\Scene\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Scene\System\RenderSystem2D.h">
+      <Filter>src\Overlook\Scene\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Scene\System\RenderSystem3D.h">
+      <Filter>src\Overlook\Scene\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Scene\System\System.h">
+      <Filter>src\Overlook\Scene\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Scene\System\SystemGroup.h">
+      <Filter>src\Overlook\Scene\System</Filter>
     </ClInclude>
     <ClInclude Include="src\Overlook\Scripting\ScriptEngine.h">
       <Filter>src\Overlook\Scripting</Filter>
@@ -1569,12 +1596,6 @@
     <ClInclude Include="vendor\stb\stb_image.h">
       <Filter>vendor\stb</Filter>
     </ClInclude>
-    <ClInclude Include="src\Overlook\Scene\System\System.h" />
-    <ClInclude Include="src\Overlook\Scene\System\RenderSystem2D.h" />
-    <ClInclude Include="src\Overlook\Scene\System\RenderSystem3D.h" />
-    <ClInclude Include="src\Overlook\Scene\System\SystemGroup.h" />
-    <ClInclude Include="src\Overlook\Scene\System\NativeScriptSystem.h" />
-    <ClInclude Include="src\Overlook\Resource\TextureManager\TextureManger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Overlook\Core\Application.cpp">
@@ -1679,6 +1700,9 @@
     <ClCompile Include="src\Overlook\Resource\ModeManager\ModeManager.cpp">
       <Filter>src\Overlook\Resource\ModeManager</Filter>
     </ClCompile>
+    <ClCompile Include="src\Overlook\Resource\TextureManager\TextureManger.cpp">
+      <Filter>src\Overlook\Resource\TextureManager</Filter>
+    </ClCompile>
     <ClCompile Include="src\Overlook\Scene\Entity.cpp">
       <Filter>src\Overlook\Scene</Filter>
     </ClCompile>
@@ -1690,6 +1714,18 @@
     </ClCompile>
     <ClCompile Include="src\Overlook\Scene\SceneSerializer.cpp">
       <Filter>src\Overlook\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Overlook\Scene\System\NativeScriptSystem.cpp">
+      <Filter>src\Overlook\Scene\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Overlook\Scene\System\PhysicSystem3D.cpp">
+      <Filter>src\Overlook\Scene\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Overlook\Scene\System\RenderSystem2D.cpp">
+      <Filter>src\Overlook\Scene\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Overlook\Scene\System\RenderSystem3D.cpp">
+      <Filter>src\Overlook\Scene\System</Filter>
     </ClCompile>
     <ClCompile Include="src\Overlook\Scripting\ScriptEngine.cpp">
       <Filter>src\Overlook\Scripting</Filter>
@@ -1733,10 +1769,6 @@
     <ClCompile Include="vendor\ImGuizmo\ImGuizmo.cpp">
       <Filter>vendor\ImGuizmo</Filter>
     </ClCompile>
-    <ClCompile Include="src\Overlook\Scene\System\RenderSystem2D.cpp" />
-    <ClCompile Include="src\Overlook\Scene\System\RenderSystem3D.cpp" />
-    <ClCompile Include="src\Overlook\Scene\System\NativeScriptSystem.cpp" />
-    <ClCompile Include="src\Overlook\Resource\TextureManager\TextureManger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\assimp\include">

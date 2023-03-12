@@ -1,0 +1,45 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"INSTALL"
+		],
+		"files" : 
+		[
+			"Extras/BulletRoboticsGUI/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 174,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"lib/BulletRoboticsGUI_Debug.lib"
+			],
+			"targetId" : "BulletRoboticsGUI::@dc5cedd4e2be1c9aa575",
+			"targetIndex" : 24,
+			"type" : "target"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "Extras/BulletRoboticsGUI",
+		"source" : "Extras/BulletRoboticsGUI"
+	}
+}

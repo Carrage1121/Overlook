@@ -43,6 +43,14 @@ project "Overlook"
 		"%{IncludeDir.assimp}",
 		"%{IncludeDir.ImGuizmo}",
 		"%{IncludeDir.mono}",
+		"%{IncludeDir.bullet3}",
+		"%{IncludeDir.bullet3}/BulletCollision",
+		"%{IncludeDir.bullet3}/BulletDynamics",
+		"%{IncludeDir.bullet3}/LinearMath"
+	}
+
+	libdirs {
+		"bullet3/bin"
 	}
 
 	links
@@ -54,7 +62,15 @@ project "Overlook"
 		"assimp",
 		"opengl32.lib",
 
-		"%{Library.mono}"
+		"%{Library.mono}",
+		--"BulletDynamics",
+   		--"BulletCollision",
+    	--"LinearMath"
+		"%{Library.Bullet3Collision}",
+		"%{Library.BulletCollision}",
+		"%{Library.Bullet3Dynamics}",
+		"%{Library.LinearMath}",
+		"%{Library.BulletDynamics}",
 	}
 
 	filter "files:vendor/ImGuizmo/**.cpp"

@@ -18,6 +18,7 @@ namespace Overlook {
 	{
 		mSystems.emplace_back(CreateScope<RenderSystem3D>(this));
 		mSystems.emplace_back(CreateScope<NativeScriptSystem>(this));
+		mSystems.emplace_back(CreateScope<PhysicSystem3D>(this));
 		//mSystems.emplace_back(CreateScope<RenderSystem2D>(this));
 	}
 

@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "src/Bullet3Serialize/Bullet2FileLoader",
+		"source" : "src/Bullet3Serialize/Bullet2FileLoader"
+	}
+}
