@@ -133,4 +133,21 @@ namespace Overlook
 		RenderCommand::DepthFunc(DepthComp::LESS);
 	}
 
+	void Renderer3D::DrawSkyBox(const Camera& camera)
+	{
+		m3_data.CameraBuffer.ViewProjection = camera.GetProjection();
+		m3_data.CameraUniformBuffer->SetData(&m3_data.CameraBuffer, sizeof(Renderer3DData::CameraData), 0);
+
+		RenderCommand::Cull(0);
+
+		RenderCommand::DepthFunc(DepthComp::LEQUAL);
+		sSkyBoxShader->Bind();
+
+		sSkyBox->Bind(0);
+		sSkyBoxShader->SetInt("SkyBox", 0);
+		sBox.Draw();
+
+		RenderCommand::DepthFunc(DepthComp::LESS);
+	}
+
 }

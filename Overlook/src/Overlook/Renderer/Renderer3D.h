@@ -29,6 +29,7 @@ namespace Overlook
 
 		// TODO: Move to Environment System
 		static void DrawSkyBox(const EditorCamera& camera);
+		static void DrawSkyBox(const Camera& camera);
 	public:
 		// shadow pass
 		static Ref<class Framebuffer> lightFBO;
