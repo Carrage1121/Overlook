@@ -13,3 +13,6 @@
 [submodule "Overlook/vendor/ImGuizmo"]
 	path = Overlook/vendor/ImGuizmo
 	url = https://github.com/CedricGuillemet/ImGuizmo
+[submodule "Overlook/vendor/magic_enum"]
+	path = Overlook/vendor/magic_enum
+	url = https://github.com/Neargye/magic_enum

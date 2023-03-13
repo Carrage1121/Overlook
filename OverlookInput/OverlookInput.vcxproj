@@ -79,7 +79,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>OL_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Overlook\vendor\spdlog\include;..\Overlook\src;..\Overlook\vendor\glm;..\Overlook\vendor\entt\include;..\Overlook\vendor\assimp\include;..\Overlook\vendor;..\Overlook\vendor\Glad\include;..\Overlook\vendor\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Overlook\vendor\spdlog\include;..\Overlook\src;..\Overlook\vendor\glm;..\Overlook\vendor\entt\include;..\Overlook\vendor\assimp\include;..\Overlook\vendor;..\Overlook\vendor\Glad\include;..\Overlook\vendor\ImGuizmo;..\Overlook\vendor\magic_enum\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -100,7 +100,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>OL_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Overlook\vendor\spdlog\include;..\Overlook\src;..\Overlook\vendor\glm;..\Overlook\vendor\entt\include;..\Overlook\vendor\assimp\include;..\Overlook\vendor;..\Overlook\vendor\Glad\include;..\Overlook\vendor\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Overlook\vendor\spdlog\include;..\Overlook\src;..\Overlook\vendor\glm;..\Overlook\vendor\entt\include;..\Overlook\vendor\assimp\include;..\Overlook\vendor;..\Overlook\vendor\Glad\include;..\Overlook\vendor\ImGuizmo;..\Overlook\vendor\magic_enum\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -124,7 +124,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>OL_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Overlook\vendor\spdlog\include;..\Overlook\src;..\Overlook\vendor\glm;..\Overlook\vendor\entt\include;..\Overlook\vendor\assimp\include;..\Overlook\vendor;..\Overlook\vendor\Glad\include;..\Overlook\vendor\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Overlook\vendor\spdlog\include;..\Overlook\src;..\Overlook\vendor\glm;..\Overlook\vendor\entt\include;..\Overlook\vendor\assimp\include;..\Overlook\vendor;..\Overlook\vendor\Glad\include;..\Overlook\vendor\ImGuizmo;..\Overlook\vendor\magic_enum\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>

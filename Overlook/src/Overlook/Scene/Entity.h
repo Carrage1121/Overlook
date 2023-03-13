@@ -39,6 +39,13 @@ namespace Overlook {
 			return m_Scene->m_Registry.get<T>(m_EntityHandle);
 		}
 
+		template<typename... T>
+		std::tuple<T*...> GetComponents()
+		{
+			OL_CORE_ASSERT((HasComponent<T>() && ...), "Entity does not have component!");
+			return std::make_tuple<T*...>((&m_Scene->m_Registry.get<T>(m_EntityHandle))...);
+		}
+
 		template<typename T>
 		bool HasComponent()
 		{

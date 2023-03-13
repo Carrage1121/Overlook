@@ -20,7 +20,8 @@ project "Overlook"
 		"vendor/glm/glm/**.inl",
 		"%{IncludeDir.assimp}",
 		"vendor/ImGuizmo/ImGuizmo.h",
-		"vendor/ImGuizmo/ImGuizmo.cpp"
+		"vendor/ImGuizmo/ImGuizmo.cpp",
+		"vendor/magic_enum/include/**.hpp",
 	}
 
 	defines
@@ -44,13 +45,6 @@ project "Overlook"
 		"%{IncludeDir.ImGuizmo}",
 		"%{IncludeDir.mono}",
 		"%{IncludeDir.bullet3}",
-		"%{IncludeDir.bullet3}/BulletCollision",
-		"%{IncludeDir.bullet3}/BulletDynamics",
-		"%{IncludeDir.bullet3}/LinearMath"
-	}
-
-	libdirs {
-		"bullet3/bin"
 	}
 
 	links
@@ -63,14 +57,6 @@ project "Overlook"
 		"opengl32.lib",
 
 		"%{Library.mono}",
-		--"BulletDynamics",
-   		--"BulletCollision",
-    	--"LinearMath"
-		"%{Library.Bullet3Collision}",
-		"%{Library.BulletCollision}",
-		"%{Library.Bullet3Dynamics}",
-		"%{Library.LinearMath}",
-		"%{Library.BulletDynamics}",
 	}
 
 	filter "files:vendor/ImGuizmo/**.cpp"
@@ -79,8 +65,15 @@ project "Overlook"
 	filter "system:windows"
 		systemversion "latest"
 
-		defines
+		libdirs {
+			path.join("vendor/bullet3/build", "lib/Debug")
+		}
+
+		links
 		{
+			"BulletCollision_Debug",
+			"BulletDynamics_Debug",
+			"LinearMath_Debug" 
 		}
 
 	filter "configurations:Debug"

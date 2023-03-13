@@ -23,9 +23,12 @@ namespace Overlook
 				ScriptEngine::OnUpdateEntity(entity, ts);
 			}
 		}
+
+
 		//Renderer3D
 		Camera* mainCamera = nullptr;
 		glm::mat4 cameraTransform;
+		glm::vec3 cameraPos;
 		{
 			auto view = mScene->m_Registry.view<TransformComponent, CameraComponent>();
 			for (auto entity : view)
@@ -36,6 +39,7 @@ namespace Overlook
 				{
 					mainCamera = &camera.Camera;
 					cameraTransform = transform.GetTransform();
+					cameraPos = transform.GetTranslation();
 					break;
 				}
 			}

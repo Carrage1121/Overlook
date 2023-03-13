@@ -100,6 +100,12 @@
     <Filter Include="vendor\glm\glm\gtx">
       <UniqueIdentifier>{B3A6A76B-9F8A-68C1-08EB-6214F4ED5243}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vendor\magic_enum">
+      <UniqueIdentifier>{B766A863-237D-A6F9-6CF4-311BD8497781}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\magic_enum\include">
+      <UniqueIdentifier>{2A553060-9617-64EA-DFC7-F2764BC93CC8}</UniqueIdentifier>
+    </Filter>
     <Filter Include="vendor\stb">
       <UniqueIdentifier>{8BD3C5A8-778B-07F6-E092-E051CC69A2E6}</UniqueIdentifier>
     </Filter>
@@ -308,6 +314,9 @@
     </ClInclude>
     <ClInclude Include="src\Overlook\Scripting\ScriptGlue.h">
       <Filter>src\Overlook\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Utils\MathUtils.h">
+      <Filter>src\Overlook\Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\Overlook\Utils\PlatformUtils.h">
       <Filter>src\Overlook\Utils</Filter>
@@ -1593,9 +1602,26 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\magic_enum\include\magic_enum.hpp">
+      <Filter>vendor\magic_enum\include</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\magic_enum\include\magic_enum_containers.hpp">
+      <Filter>vendor\magic_enum\include</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\magic_enum\include\magic_enum_format.hpp">
+      <Filter>vendor\magic_enum\include</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\magic_enum\include\magic_enum_fuse.hpp">
+      <Filter>vendor\magic_enum\include</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\magic_enum\include\magic_enum_switch.hpp">
+      <Filter>vendor\magic_enum\include</Filter>
+    </ClInclude>
     <ClInclude Include="vendor\stb\stb_image.h">
       <Filter>vendor\stb</Filter>
     </ClInclude>
+    <ClInclude Include="src\Overlook\ImGui\ImGuiWrapper.h" />
+    <ClInclude Include="src\Overlook\Resource\IconManager\IconManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Overlook\Core\Application.cpp">
@@ -1769,6 +1795,8 @@
     <ClCompile Include="vendor\ImGuizmo\ImGuizmo.cpp">
       <Filter>vendor\ImGuizmo</Filter>
     </ClCompile>
+    <ClCompile Include="src\Overlook\ImGui\ImGuiWrapper.cpp" />
+    <ClCompile Include="src\Overlook\Resource\IconManager\IconManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\assimp\include">

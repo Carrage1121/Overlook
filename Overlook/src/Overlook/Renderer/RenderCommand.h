@@ -36,6 +36,17 @@ namespace Overlook {
 		{
 			s_RendererAPI->DrawIndexed(vertexArray, count);
 		}
+
+		static void DrawLines(const Ref<VertexArray>& vertexArray, uint32_t vertexCount)
+		{
+			s_RendererAPI->DrawLines(vertexArray, vertexCount);
+		}
+
+		static void SetLineWidth(float width)
+		{
+			s_RendererAPI->SetLineWidth(width);
+		}
+
 		//Open/Close Depth Write
 		inline static void DepthMask(int32_t MaskBit)
 		{

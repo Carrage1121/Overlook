@@ -58,7 +58,7 @@ namespace Overlook {
 		Compile(shaderSources);
 
 		// Extract name from filepath
-		auto lastSlash = filepath.find_last_of("/\\");
+		auto lastSlash = filepath.find_last_of("/");
 		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
 		auto lastDot = filepath.rfind('.');
 		auto count = lastDot == std::string::npos ? filepath.size() - lastSlash : lastDot - lastSlash;

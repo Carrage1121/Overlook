@@ -5,10 +5,18 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
+#include "magic_enum.hpp"
+
 #include "Overlook/Scene/Components.h"
 #include "Overlook/Utils/PlatformUtils.h"
 #include "Overlook/Scripting/ScriptEngine.h"
+
+#include "Overlook/ImGui/ImGuiWrapper.h"
+#include "Overlook/Resource/IconManager/IconManager.h"
+#include "Overlook/Resource/ConfigManager/ConfigManager.h"
+
 #include <cstring>
+#include <regex>
 
 /* The Microsoft C++ compiler is non-compliant with the C++ standard and needs
  * the following definition to disable a security warning on std::strncpy().
@@ -245,6 +253,8 @@ namespace Overlook {
 			DisplayAddComponentEntry<ScriptComponent>("Script");
 			DisplayAddComponentEntry<SpriteRendererComponent>("Sprite Renderer");
 			DisplayAddComponentEntry<ModelRendererComponent>("Model Renderer");
+			DisplayAddComponentEntry<Rigidbody3DComponent>("Rigidbody 3D");
+			DisplayAddComponentEntry<BoxCollider3DComponent>("Box Collider 3D");
 			ImGui::EndPopup();
 		}
 
@@ -371,6 +381,79 @@ namespace Overlook {
 					}
 				}
 				ImGui::EndColumns();
+				if (ImGuiWrapper::TreeNodeExStyle2((void*)"Material", "Material"))
+				{
+					uint32_t matIndex = 0;
+
+					const auto& materialNode = [&matIndex = matIndex](const char* name, Ref<Material>& material, Ref<Texture2D>& tex, void(*func)(Ref<Material>& mat)) {
+						std::string label = std::string(name) + std::to_string(matIndex);
+						ImGui::PushID(label.c_str());
+
+						if (ImGui::TreeNode((void*)name, name))
+						{
+							ImGui::Image((ImTextureID)tex->GetRendererID(), ImVec2(64, 64), ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+							if (ImGui::BeginDragDropTarget())
+							{
+								if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+								{
+									auto path = (const wchar_t*)payload->Data;
+									std::string relativePath = (std::filesystem::path("assets") / path).string();
+									std::filesystem::path texturePath = ConfigManager::GetInstance().GetAssetsFolder() / path;
+									relativePath = std::regex_replace(relativePath, std::regex("\\\\"), "/");
+									tex = IconManager::GetInstance().LoadOrFindTexture(relativePath);
+								}
+								ImGui::EndDragDropTarget();
+							}
+
+							func(material);
+
+							ImGui::TreePop();
+						}
+
+						ImGui::PopID();
+					};
+
+					for (auto& material : component.mMesh->mMaterial)
+					{
+						std::string label = std::string("material") + std::to_string(matIndex);
+						ImGui::PushID(label.c_str());
+
+						if (ImGui::TreeNode((void*)label.c_str(), std::to_string(matIndex).c_str()))
+						{
+							materialNode("Albedo", material, material->mAlbedoMap, [](Ref<Material>& mat) {
+								ImGui::SameLine();
+								ImGui::Checkbox("Use", &mat->bUseAlbedoMap);
+
+								if (ImGui::ColorEdit4("##albedo", glm::value_ptr(mat->col)))
+								{
+									if (!mat->bUseAlbedoMap)
+									{
+										unsigned char data[4];
+										for (size_t i = 0; i < 4; i++)
+										{
+											data[i] = (unsigned char)(mat->col[i] * 255.0f);
+										}
+										mat->albedoRGBA->SetData(data, sizeof(unsigned char) * 4);
+									}
+								}
+								});
+
+							materialNode("Normal", material, material->mNormalMap, [](Ref<Material>& mat) {
+								ImGui::SameLine();
+								ImGui::Checkbox("Use", &mat->bUseNormalMap);
+								});
+
+							ImGui::TreePop();
+						}
+
+						matIndex++;
+
+						ImGui::PopID();
+					}
+
+					ImGui::TreePop();
+				}
+
 			});
 
 		DrawComponent<ScriptComponent>("Script", entity, [](auto& component)
@@ -388,6 +471,82 @@ namespace Overlook {
 
 				if (!scriptClassExists)
 					ImGui::PopStyleColor();
+			});
+
+		DrawComponent<Rigidbody3DComponent>("Rigidbody 3D", entity, [](auto& component)
+			{
+				const char* bodyTypeStrings[] = { "Static", "Dynamic", "Kinematic" };
+				const char* currentBodyTypeString = bodyTypeStrings[(int)component.Type];
+
+				ImGui::Columns(2, nullptr, false);
+				ImGui::SetColumnWidth(0, 150.0f);
+				ImGui::Text("Body Type");
+				ImGui::NextColumn();
+				if (ImGui::BeginCombo("##Body Type", currentBodyTypeString))
+				{
+					for (int i = 0; i < 3; i++)
+					{
+						bool isSelected = currentBodyTypeString == bodyTypeStrings[i];
+						if (ImGui::Selectable(bodyTypeStrings[i], isSelected))
+						{
+							currentBodyTypeString = bodyTypeStrings[i];
+							component.Type = (Rigidbody3DComponent::Body3DType)i;
+						}
+
+						if (isSelected)
+							ImGui::SetItemDefaultFocus();
+					}
+
+					ImGui::EndCombo();
+				}
+				ImGui::EndColumns();
+
+				ImGui::Columns(2, nullptr, false);
+				ImGui::SetColumnWidth(0, 150.0f);
+				ImGui::Text("Collision Shape");
+				ImGui::NextColumn();
+				constexpr auto collisionShapes = magic_enum::enum_values<CollisionShape>();
+				if (ImGui::BeginCombo("##Collision Shape", magic_enum::enum_name(component.Shape).data()))
+				{
+					for (auto& shape : collisionShapes)
+					{
+						bool isSelected = component.Shape == shape;
+						if (ImGui::Selectable(magic_enum::enum_name(shape).data(), isSelected))
+						{
+							component.Shape = shape;
+						}
+
+						if (isSelected)
+							ImGui::SetItemDefaultFocus();
+					}
+
+					ImGui::EndCombo();
+				}
+				ImGui::EndColumns();
+
+				if (component.Shape != CollisionShape::None)
+				{
+					const auto& floatValueUI = [](const char* name, float& value) {
+						ImGui::Columns(2, nullptr, false);
+						ImGui::SetColumnWidth(0, 150.0f);
+						ImGui::Text(name);
+						ImGui::NextColumn();
+						std::string label = std::string("##") + std::string(name);
+						ImGui::SliderFloat(label.c_str(), &value, 0.0f, 1.0f, "%.2f");
+						ImGui::EndColumns();
+					};
+
+					floatValueUI("linearDamping", component.linearDamping);
+					floatValueUI("angularDamping", component.angularDamping);
+					floatValueUI("restitution", component.restitution);
+					floatValueUI("friction", component.friction);
+				}
+
+// 				ImGuiWrapper::DrawTwoUI(
+// 					[]() { ImGui::Text("mass"); },
+// 					[&component = component]() { ImGui::SliderFloat("##masas", &component.mass, 0.0f, 10.0f, "%.2f"); },
+// 					150.0f
+// 				);
 			});
 	}
 

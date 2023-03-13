@@ -31,25 +31,33 @@ namespace Overlook {
 			: Tag(tag) {}
 	};
 
-	struct TransformComponent
+	class TransformComponent
 	{
-		glm::vec3 Translation = { 0.0f, 0.0f, 0.0f };
-		glm::vec3 Rotation = { 0.0f, 0.0f, 0.0f };
-		glm::vec3 Scale = { 1.0f, 1.0f, 1.0f };
-
+	public:
 		TransformComponent() = default;
 		TransformComponent(const TransformComponent&) = default;
 		TransformComponent(const glm::vec3& translation)
 			: Translation(translation) {}
+		TransformComponent(const glm::vec3& translation, const glm::vec3& rotation, const glm::vec3& scale)
+			: Translation(translation), Rotation(rotation), Scale(scale) {}
 
-		glm::mat4 GetTransform() const
+		[[nodiscard]] glm::mat4 GetTransform() const
 		{
-			glm::mat4 rotation = glm::toMat4(glm::quat(Rotation));
-
-			return glm::translate(glm::mat4(1.0f), Translation)
-				* rotation
-				* glm::scale(glm::mat4(1.0f), Scale);
+			return glm::translate(glm::mat4(1.0f), Translation) * GetRotationMatrix() * glm::scale(glm::mat4(1.0f), Scale);
 		}
+
+		[[nodiscard]] glm::mat4 GetRotationMatrix() const
+		{
+			return glm::toMat4(glm::quat(Rotation));
+		}
+
+		[[nodiscard]] glm::vec3 GetTranslation() const { return Translation; }
+
+		void SetTranslation(float x, float y, float z) { Translation = { x, y, z }; }
+
+		glm::vec3 Translation = { 0.0f, 0.0f, 0.0f };
+		glm::vec3 Rotation = { 0.0f, 0.0f, 0.0f };  // Euler angles
+		glm::vec3 Scale = { 1.0f, 1.0f, 1.0f };
 	};
 
 	struct ScriptComponent
@@ -112,6 +120,54 @@ namespace Overlook {
 		CameraComponent(const CameraComponent&) = default;
 	};
 
+	class BoxCollider3DComponent
+	{
+	public:
+		glm::vec3 Size = { 0.5f, 0.5f, 0.5f };
+		glm::vec3 inertia = { 0.0, 0.0, 0.0 };
+
+		// TODO: move into physics material in the future maybe 
+		float linearDamping = 0.0f;
+		float angularDamping = 0.0f;
+		float restitution = 0.5f;
+		float friction = 0.5f;
+
+		// Storage for runtime
+		void* RuntimeFixture = nullptr;
+
+		BoxCollider3DComponent() = default;
+		BoxCollider3DComponent(const BoxCollider3DComponent&) = default;
+	};
+
+	enum class CollisionShape
+	{
+		None = 0,
+		Box = 1,
+		Sphere,
+		ConvexHull
+	};
+
+	class Rigidbody3DComponent
+	{
+	public:
+		enum class Body3DType { Static = 0, Dynamic, Kinematic };
+	public:
+		Body3DType Type = Body3DType::Static;
+		CollisionShape Shape = CollisionShape::Box;
+
+		float mass{ 1.0f };
+		float linearDamping = 0.0f;
+		float angularDamping = 0.0f;
+		float restitution = 1.0f;
+		float friction = 1.0f;
+
+		// Storage for runtime
+		void* RuntimeBody = nullptr;
+
+		Rigidbody3DComponent() = default;
+		Rigidbody3DComponent(const Rigidbody3DComponent&) = default;
+	};
+
 	template<typename... Component>
 	struct ComponentGroup
 	{
@@ -120,5 +176,5 @@ namespace Overlook {
 	using AllComponents =
 		ComponentGroup<TransformComponent, SpriteRendererComponent,
 		CameraComponent, ScriptComponent,
-		NativeScriptComponent, ModelRendererComponent>;
+		NativeScriptComponent, ModelRendererComponent, BoxCollider3DComponent, Rigidbody3DComponent>;
 }

@@ -40,7 +40,6 @@ namespace Overlook
 	{
 		m3_data.mShader = Shader::Create(std::string("assets/Shader/modelRenderer-old.glsl"));
 		//m3_data.mShader = Shader::Create(std::string("assets/Shader/Texture.glsl"));
-		//m3_data.mShader = Shader::Create("model", "assets/Shader/model_loading.vert", "assets/Shader/model_loading.frag");
 
 		// TODO : abstruct skybox
 		sSkyBoxShader = Shader::Create(std::string("assets/Shader/SkyBox.glsl"));
@@ -67,7 +66,6 @@ namespace Overlook
 		m3_data.CameraUniformBuffer->SetData(&m3_data.CameraBuffer, sizeof(Renderer3DData::CameraData));
 	}
 
-
 	void Renderer3D::BeginScene(const EditorCamera& camera)
 	{
 		OL_PROFILE_FUNCTION();
@@ -93,6 +91,14 @@ namespace Overlook
 
 	void Renderer3D::Flush()
 	{
+	}
+
+	void Renderer3D::DrawModel(const glm::mat4& transform, const glm::vec3& cameraPos, ModelRendererComponent& MeshComponent, int EntityID)
+	{
+		Ref<Shader> defaultShader = Library<Shader>::GetInstance().GetDefaultShader();
+		defaultShader->Bind();
+
+		MeshComponent.mMesh->Draw(transform, cameraPos, Library<Shader>::GetInstance().GetDefaultShader(), EntityID);
 	}
 
 	void Renderer3D::DrawModel(const glm::mat4& transform, ModelRendererComponent modelComponent, int entityid)

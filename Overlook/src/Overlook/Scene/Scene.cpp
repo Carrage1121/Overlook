@@ -129,6 +129,11 @@ namespace Overlook {
 				ScriptEngine::OnCreateEntity(entity);
 			}
 		}
+
+		for (auto& system : mSystems)
+		{
+			system->OnRuntiemStart();
+		}
 	}
 
 	void Scene::OnRuntimeStop()

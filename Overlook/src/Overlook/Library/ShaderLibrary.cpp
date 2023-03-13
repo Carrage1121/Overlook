@@ -7,8 +7,9 @@ namespace Overlook
 {
     Library<Shader>::Library()
     {
-        Add("BasePBR", Shader::Create(AssetManager::GetAssetsPath("Shader\\BasePBR.glsl")));
-        //Add("SkyBox", Shader::Create(AssetManager::GetFullPath("Shaders/SkyBox.glsl")));
+        Add("BasePBR", Shader::Create(AssetManager::GetAssetsPath("Shader/BasePBR.glsl")));
+        Add("SkyBox", Shader::Create(AssetManager::GetAssetsPath("Shader/SkyBox.glsl")));
+        Add("ModelRender", Shader::Create(AssetManager::GetAssetsPath("Shader/modelRenderer-old.glsl")));
 
         /*Add("IBL_background", Shader::CreateNative(AssetManager::GetFullPath("Shaders/IBL/background.glsl")));
         Add("IBL_brdf", Shader::CreateNative(AssetManager::GetFullPath("Shaders/IBL/brdf.glsl")));
@@ -30,7 +31,7 @@ namespace Overlook
 
     Ref<Shader> Library<Shader>::GetDefaultShader()
     {
-        return mLibrary["BasePBR"];
+        return mLibrary["ModelRender"];
     }
 
     Ref<Shader> Library<Shader>::GetSkyBoxShader()

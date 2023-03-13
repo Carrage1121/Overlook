@@ -66,6 +66,7 @@ namespace Overlook
 
 		std::vector<SubMesh> mSubMeshes;
 		std::vector<MaterialTexture> textures_loaded;
+		std::vector<Ref<Material>> mMaterial;
 	private:
 		std::string mDirectory;
 
