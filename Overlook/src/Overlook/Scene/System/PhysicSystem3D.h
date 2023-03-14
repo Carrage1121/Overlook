@@ -59,8 +59,10 @@ namespace Overlook
 	public:
 		void OnRuntiemStart() override;
 		void OnUpdateRuntime(Timestep ts) override;
-		void OnUpdateEditor(Timestep ts, EditorCamera& camera) override;
 		void OnRuntimeStop() override;
+		void OnUpdateEditor(Timestep ts, EditorCamera& camera) override;
+
+		static void SetDebugMode(int flags) { mDebugDrawer.setDebugMode(flags); }
 	private:
 		btBroadphaseInterface* mBroadphase;
 		btDefaultCollisionConfiguration* mCollisionConfiguration;

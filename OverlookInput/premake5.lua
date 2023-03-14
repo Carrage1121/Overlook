@@ -25,6 +25,7 @@ project "OverlookInput"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGuizmo}",
 		"%{IncludeDir.magic_enum}",
+		"%{IncludeDir.bullet3}"
 	}
 
 	links

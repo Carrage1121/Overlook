@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Overlook/Renderer/Texture.h"
+#include "Overlook/Renderer/Framebuffer.h"
 
 #include "Overlook/Renderer/Camera.h"
 #include "Overlook/Renderer/EditorCamera.h"
@@ -23,10 +24,6 @@ namespace Overlook
 	
 		static void DrawModel(const glm::mat4& transform, ModelRendererComponent modelComponent, int entityid);
 		static void DrawModel(const glm::mat4& transform, const glm::vec3& cameraPos, ModelRendererComponent& MeshComponent, int EntityID);
-
-		// give to Editor SceneSettingsPanel to use
-		static Ref<CubeMapTexture> GetSkyBox();
-		static Ref<CubeMapTexture> GetDefaultSkyBox();
 
 		// TODO: Move to Environment System
 		static void DrawSkyBox(const EditorCamera& camera);

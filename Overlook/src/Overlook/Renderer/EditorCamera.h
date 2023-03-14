@@ -18,22 +18,30 @@ namespace Overlook {
 		void OnUpdate(Timestep ts);
 		void OnEvent(Event& e);
 
-		inline float GetDistance() const { return m_Distance; }
-		inline void SetDistance(float distance) { m_Distance = distance; }
+		[[nodiscard]] inline float GetDistance() const { return mDistance; }
+		inline void SetDistance(float distance) { mDistance = distance; }
 
-		inline void SetViewportSize(float width, float height) { m_ViewportWidth = width; m_ViewportHeight = height; UpdateProjection(); }
+		inline void SetViewportSize(float width, float height) { mViewportWidth = width; mViewportHeight = height; UpdateProjection(); }
 
-		const glm::mat4& GetViewMatrix() const { return m_ViewMatrix; }
-		glm::mat4 GetViewProjection() const { return m_Projection * m_ViewMatrix; }
+		[[nodiscard]] const glm::mat4& GetViewMatrix() const { return mViewMatrix; }
+		[[nodiscard]] glm::mat4 GetViewProjection() const { return m_Projection * mViewMatrix; }
 
-		glm::vec3 GetUpDirection() const;
-		glm::vec3 GetRightDirection() const;
-		glm::vec3 GetForwardDirection() const;
-		const glm::vec3& GetPosition() const { return m_Position; }
-		glm::quat GetOrientation() const;
+		[[nodiscard]] glm::vec3 GetUpDirection() const;
+		[[nodiscard]] glm::vec3 GetRightDirection() const;
+		[[nodiscard]] glm::vec3 GetForwardDirection() const;
+		[[nodiscard]] const glm::vec3& GetPosition() const { return mPosition; }
+		[[nodiscard]] glm::quat GetOrientation() const;
 
-		float GetPitch() const { return m_Pitch; }
-		float GetYaw() const { return m_Yaw; }
+		[[nodiscard]] float GetPitch() const { return mPitch; }
+		[[nodiscard]] float GetYaw() const { return mYaw; }
+
+		[[nodiscard]] float GetNearPlane() const { return mNearClip; }
+		[[nodiscard]] float GetFarPlane() const { return mFarClip; }
+
+		[[nodiscard]] float GetFOV() const { return mFOV; }
+		[[nodiscard]] float GetAspect() const { return mAspectRatio; }
+
+		void SetCenter(const glm::vec3& center);
 	private:
 		void UpdateProjection();
 		void UpdateView();
@@ -49,19 +57,23 @@ namespace Overlook {
 		std::pair<float, float> PanSpeed() const;
 		float RotationSpeed() const;
 		float ZoomSpeed() const;
+	public:
+		float mCameraSpeed = 1.0f;
 	private:
-		float m_FOV = 45.0f, m_AspectRatio = 1.778f, m_NearClip = 0.1f, m_FarClip = 100000.0f;
+		float mFOV = 45.0f, mAspectRatio = 1.778f, mNearClip = 0.1f, mFarClip = 1000.0f;
 
-		glm::mat4 m_ViewMatrix;
-		glm::vec3 m_Position = { 0.0f, 0.0f, 0.0f };
-		glm::vec3 m_FocalPoint = { 0.0f, 0.0f, 0.0f };
+		glm::mat4 mViewMatrix;
+		glm::vec3 mPosition = { 0.0f, 0.0f, 0.0f };
+		glm::vec3 mFocalPoint = { 0.0f, 0.0f, 0.0f };
 
-		glm::vec2 m_InitialMousePosition = { 0.0f, 0.0f };
+		glm::vec2 mInitialMousePosition = { 0.0f, 0.0f };
 
-		float m_Distance = 10.0f;
-		float m_Pitch = 0.0f, m_Yaw = 0.0f;
+		float mDistance = 10.0f;
+		float mPitch = 0.0f, mYaw = 0.0f;
 
-		float m_ViewportWidth = 1280, m_ViewportHeight = 720;
+		float mViewportWidth = 1280, mViewportHeight = 720;
+
+		bool bInit = true;
 	};
 
 }

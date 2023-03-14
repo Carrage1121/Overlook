@@ -4,6 +4,12 @@
 
 #include "Overlook/Renderer/Texture.h"
 
+#include "Overlook/Resource/IconManager/IconManager.h"
+#include "Overlook/Resource/ConfigManager/ConfigManager.h"
+#include "Overlook/Resource/ModeManager/ModeManager.h"
+
+#include <optional>
+
 namespace Overlook {
 
 	class ContentBrowserPanel
@@ -11,12 +17,14 @@ namespace Overlook {
 	public:
 		ContentBrowserPanel();
 
-		void OnImGuiRender();
+		void OnImGuiRender(bool* pOpen);
 	private:
-		std::filesystem::path m_CurrentDirectory;
-
-		Ref<Texture2D> m_DirectoryIcon;
-		Ref<Texture2D> m_FileIcon;
+		void DrawTree();
+		void DrawTreeRecursive(const std::filesystem::path& currentPath);
+		void DrawContent();
+	private:
+		std::filesystem::path mCurrentDirectory;
+		std::optional<std::filesystem::path> mSelectedDirectory;
 	};
 
 }

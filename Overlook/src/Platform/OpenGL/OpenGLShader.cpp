@@ -197,6 +197,12 @@ namespace Overlook {
 		glUseProgram(0);
 	}
 
+	void OpenGLShader::SetBool(const std::string& name, bool value)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform1i(location, value);
+	}
+
 	void OpenGLShader::SetInt(const std::string& name, int value)
 	{
 		OL_PROFILE_FUNCTION();
@@ -235,6 +241,13 @@ namespace Overlook {
 		OL_PROFILE_FUNCTION();
 
 		UploadUniformMat4(name, value);
+	}
+
+	void OpenGLShader::SetUniform(const std::string& fullname, const glm::mat4& value)
+	{
+		OL_CORE_ASSERT(mUniformLocations.find(fullname) != mUniformLocations.end());
+		GLint location = mUniformLocations.at(fullname);
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
 	}
 
 	void OpenGLShader::UploadUniformInt(const std::string& name, int value)

@@ -2,7 +2,6 @@
 #include "Overlook/Core/EntryPoint.h"
 
 #include "EditorLayer.h"
-#include "ExampleLayer.h"
 
 namespace Overlook
 {
@@ -11,7 +10,6 @@ namespace Overlook
 	public:
 		OverlookEdit() : Application("Overlook Editor")
 		{
-			//PushLayer(new ExampleLayer());
 			PushLayer(new EditorLayer());
 		}
 	

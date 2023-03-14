@@ -77,7 +77,7 @@
       <PrecompiledHeaderFile>olpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;OL_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor;vendor\entt\include;vendor\yaml-cpp\include;vendor\assimp\include;vendor\ImGuizmo;vendor\mono\include;vendor\bullet3\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor;vendor\entt\include;vendor\yaml-cpp\include;vendor\assimp\include;vendor\ImGuizmo;vendor\mono\include;vendor\bullet3\src;..\OverlookInput\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -90,7 +90,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;vendor\mono\lib\Debug\mono-2.0-sgen.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;vendor\mono\lib\Debug\mono-2.0-sgen.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;Bullet3Common_Debug.lib;Bullet3Collision_Debug.lib;Bullet3Dynamics_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>vendor\bullet3\build\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -100,7 +100,7 @@
       <PrecompiledHeaderFile>olpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;OL_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor;vendor\entt\include;vendor\yaml-cpp\include;vendor\assimp\include;vendor\ImGuizmo;vendor\mono\include;vendor\bullet3\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor;vendor\entt\include;vendor\yaml-cpp\include;vendor\assimp\include;vendor\ImGuizmo;vendor\mono\include;vendor\bullet3\src;..\OverlookInput\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -116,7 +116,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;vendor\mono\lib\Release\mono-2.0-sgen.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;vendor\mono\lib\Release\mono-2.0-sgen.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;Bullet3Common_Debug.lib;Bullet3Collision_Debug.lib;Bullet3Dynamics_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>vendor\bullet3\build\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -126,7 +126,7 @@
       <PrecompiledHeaderFile>olpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;OL_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor;vendor\entt\include;vendor\yaml-cpp\include;vendor\assimp\include;vendor\ImGuizmo;vendor\mono\include;vendor\bullet3\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor;vendor\entt\include;vendor\yaml-cpp\include;vendor\assimp\include;vendor\ImGuizmo;vendor\mono\include;vendor\bullet3\src;..\OverlookInput\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -142,7 +142,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;vendor\mono\lib\Dist\mono-2.0-sgen.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;vendor\mono\lib\Dist\mono-2.0-sgen.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;Bullet3Common_Debug.lib;Bullet3Collision_Debug.lib;Bullet3Dynamics_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>vendor\bullet3\build\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -174,7 +174,6 @@
     <ClInclude Include="src\Overlook\Library\ShaderLibrary.h" />
     <ClInclude Include="src\Overlook\Library\TextureLibrary.h" />
     <ClInclude Include="src\Overlook\Library\UniformBufferLibrary.h" />
-    <ClInclude Include="src\Overlook\Math\Math.h" />
     <ClInclude Include="src\Overlook\ModelLoader\Animation\animation.h" />
     <ClInclude Include="src\Overlook\ModelLoader\Animation\animator.h" />
     <ClInclude Include="src\Overlook\ModelLoader\Animation\animdata.h" />
@@ -190,7 +189,9 @@
     <ClInclude Include="src\Overlook\Renderer\Material.h" />
     <ClInclude Include="src\Overlook\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\Overlook\Renderer\PerspectiveCamera.h" />
+    <ClInclude Include="src\Overlook\Renderer\PostProcessing.h" />
     <ClInclude Include="src\Overlook\Renderer\RenderCommand.h" />
+    <ClInclude Include="src\Overlook\Renderer\RenderPass.h" />
     <ClInclude Include="src\Overlook\Renderer\Renderer.h" />
     <ClInclude Include="src\Overlook\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Overlook\Renderer\Renderer3D.h" />
@@ -209,6 +210,7 @@
     <ClInclude Include="src\Overlook\Scene\SceneCamera.h" />
     <ClInclude Include="src\Overlook\Scene\SceneSerializer.h" />
     <ClInclude Include="src\Overlook\Scene\ScriptableEntity.h" />
+    <ClInclude Include="src\Overlook\Scene\System\EnvironmentSystem.h" />
     <ClInclude Include="src\Overlook\Scene\System\NativeScriptSystem.h" />
     <ClInclude Include="src\Overlook\Scene\System\PhysicSystem3D.h" />
     <ClInclude Include="src\Overlook\Scene\System\RenderSystem2D.h" />
@@ -222,6 +224,7 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLPostProcessing.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
@@ -666,7 +669,6 @@
     <ClCompile Include="src\Overlook\Library\ShaderLibrary.cpp" />
     <ClCompile Include="src\Overlook\Library\TextureLibrary.cpp" />
     <ClCompile Include="src\Overlook\Library\UniformBufferLibrary.cpp" />
-    <ClCompile Include="src\Overlook\Math\Math.cpp" />
     <ClCompile Include="src\Overlook\ModelLoader\Animation\animation.cpp" />
     <ClCompile Include="src\Overlook\ModelLoader\Mesh\Mesh.cpp" />
     <ClCompile Include="src\Overlook\ModelLoader\Mesh\subMesh.cpp" />
@@ -678,7 +680,9 @@
     <ClCompile Include="src\Overlook\Renderer\Material.cpp" />
     <ClCompile Include="src\Overlook\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Overlook\Renderer\PerspectiveCamera.cpp" />
+    <ClCompile Include="src\Overlook\Renderer\PostProcessing.cpp" />
     <ClCompile Include="src\Overlook\Renderer\RenderCommand.cpp" />
+    <ClCompile Include="src\Overlook\Renderer\RenderPass.cpp" />
     <ClCompile Include="src\Overlook\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Overlook\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Overlook\Renderer\Renderer3D.cpp" />
@@ -695,15 +699,18 @@
     <ClCompile Include="src\Overlook\Scene\Scene.cpp" />
     <ClCompile Include="src\Overlook\Scene\SceneCamera.cpp" />
     <ClCompile Include="src\Overlook\Scene\SceneSerializer.cpp" />
+    <ClCompile Include="src\Overlook\Scene\System\EnvironmentSystem.cpp" />
     <ClCompile Include="src\Overlook\Scene\System\NativeScriptSystem.cpp" />
     <ClCompile Include="src\Overlook\Scene\System\PhysicSystem3D.cpp" />
     <ClCompile Include="src\Overlook\Scene\System\RenderSystem2D.cpp" />
     <ClCompile Include="src\Overlook\Scene\System\RenderSystem3D.cpp" />
     <ClCompile Include="src\Overlook\Scripting\ScriptEngine.cpp" />
     <ClCompile Include="src\Overlook\Scripting\ScriptGlue.cpp" />
+    <ClCompile Include="src\Overlook\Utils\MathUtils.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLPostProcessing.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />

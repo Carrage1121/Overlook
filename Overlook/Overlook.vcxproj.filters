@@ -22,9 +22,6 @@
     <Filter Include="src\Overlook\Library">
       <UniqueIdentifier>{31462606-1DD5-AFCF-C6F3-C3CAB261C075}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Overlook\Math">
-      <UniqueIdentifier>{26999B4F-92AF-99E5-DB26-2507477C6A6D}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Overlook\ModelLoader">
       <UniqueIdentifier>{44AC2B1C-30D1-7A9C-591C-602C45A079BA}</UniqueIdentifier>
     </Filter>
@@ -45,6 +42,9 @@
     </Filter>
     <Filter Include="src\Overlook\Resource\ConfigManager">
       <UniqueIdentifier>{249E6E55-9057-D9FF-19B7-F3D9856F8F6F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Overlook\Resource\IconManager">
+      <UniqueIdentifier>{F77D7830-63EC-CDAF-ACD5-88AF1883C34B}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Overlook\Resource\ModeManager">
       <UniqueIdentifier>{93C9C026-FF37-16A6-4821-D1A5B4CE0B42}</UniqueIdentifier>
@@ -177,6 +177,9 @@
     <ClInclude Include="src\Overlook\ImGui\ImGuiLayer.h">
       <Filter>src\Overlook\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Overlook\ImGui\ImGuiWrapper.h">
+      <Filter>src\Overlook\ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="src\Overlook\Library\Library.h">
       <Filter>src\Overlook\Library</Filter>
     </ClInclude>
@@ -188,9 +191,6 @@
     </ClInclude>
     <ClInclude Include="src\Overlook\Library\UniformBufferLibrary.h">
       <Filter>src\Overlook\Library</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Overlook\Math\Math.h">
-      <Filter>src\Overlook\Math</Filter>
     </ClInclude>
     <ClInclude Include="src\Overlook\ModelLoader\Animation\animation.h">
       <Filter>src\Overlook\ModelLoader\Animation</Filter>
@@ -237,7 +237,13 @@
     <ClInclude Include="src\Overlook\Renderer\PerspectiveCamera.h">
       <Filter>src\Overlook\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Overlook\Renderer\PostProcessing.h">
+      <Filter>src\Overlook\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Overlook\Renderer\RenderCommand.h">
+      <Filter>src\Overlook\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Renderer\RenderPass.h">
       <Filter>src\Overlook\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Overlook\Renderer\Renderer.h">
@@ -267,6 +273,9 @@
     <ClInclude Include="src\Overlook\Resource\ConfigManager\ConfigManager.h">
       <Filter>src\Overlook\Resource\ConfigManager</Filter>
     </ClInclude>
+    <ClInclude Include="src\Overlook\Resource\IconManager\IconManager.h">
+      <Filter>src\Overlook\Resource\IconManager</Filter>
+    </ClInclude>
     <ClInclude Include="src\Overlook\Resource\ModeManager\ModeManager.h">
       <Filter>src\Overlook\Resource\ModeManager</Filter>
     </ClInclude>
@@ -290,6 +299,9 @@
     </ClInclude>
     <ClInclude Include="src\Overlook\Scene\ScriptableEntity.h">
       <Filter>src\Overlook\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Scene\System\EnvironmentSystem.h">
+      <Filter>src\Overlook\Scene\System</Filter>
     </ClInclude>
     <ClInclude Include="src\Overlook\Scene\System\NativeScriptSystem.h">
       <Filter>src\Overlook\Scene\System</Filter>
@@ -328,6 +340,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLPostProcessing.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
@@ -1620,8 +1635,6 @@
     <ClInclude Include="vendor\stb\stb_image.h">
       <Filter>vendor\stb</Filter>
     </ClInclude>
-    <ClInclude Include="src\Overlook\ImGui\ImGuiWrapper.h" />
-    <ClInclude Include="src\Overlook\Resource\IconManager\IconManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Overlook\Core\Application.cpp">
@@ -1645,6 +1658,9 @@
     <ClCompile Include="src\Overlook\ImGui\ImGuiLayer.cpp">
       <Filter>src\Overlook\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="src\Overlook\ImGui\ImGuiWrapper.cpp">
+      <Filter>src\Overlook\ImGui</Filter>
+    </ClCompile>
     <ClCompile Include="src\Overlook\Library\Library.cpp">
       <Filter>src\Overlook\Library</Filter>
     </ClCompile>
@@ -1656,9 +1672,6 @@
     </ClCompile>
     <ClCompile Include="src\Overlook\Library\UniformBufferLibrary.cpp">
       <Filter>src\Overlook\Library</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Overlook\Math\Math.cpp">
-      <Filter>src\Overlook\Math</Filter>
     </ClCompile>
     <ClCompile Include="src\Overlook\ModelLoader\Animation\animation.cpp">
       <Filter>src\Overlook\ModelLoader\Animation</Filter>
@@ -1693,7 +1706,13 @@
     <ClCompile Include="src\Overlook\Renderer\PerspectiveCamera.cpp">
       <Filter>src\Overlook\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Overlook\Renderer\PostProcessing.cpp">
+      <Filter>src\Overlook\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Overlook\Renderer\RenderCommand.cpp">
+      <Filter>src\Overlook\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Overlook\Renderer\RenderPass.cpp">
       <Filter>src\Overlook\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Overlook\Renderer\Renderer.cpp">
@@ -1723,6 +1742,9 @@
     <ClCompile Include="src\Overlook\Resource\ConfigManager\ConfigManager.cpp">
       <Filter>src\Overlook\Resource\ConfigManager</Filter>
     </ClCompile>
+    <ClCompile Include="src\Overlook\Resource\IconManager\IconManager.cpp">
+      <Filter>src\Overlook\Resource\IconManager</Filter>
+    </ClCompile>
     <ClCompile Include="src\Overlook\Resource\ModeManager\ModeManager.cpp">
       <Filter>src\Overlook\Resource\ModeManager</Filter>
     </ClCompile>
@@ -1740,6 +1762,9 @@
     </ClCompile>
     <ClCompile Include="src\Overlook\Scene\SceneSerializer.cpp">
       <Filter>src\Overlook\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Overlook\Scene\System\EnvironmentSystem.cpp">
+      <Filter>src\Overlook\Scene\System</Filter>
     </ClCompile>
     <ClCompile Include="src\Overlook\Scene\System\NativeScriptSystem.cpp">
       <Filter>src\Overlook\Scene\System</Filter>
@@ -1766,6 +1791,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLPostProcessing.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
@@ -1795,8 +1823,7 @@
     <ClCompile Include="vendor\ImGuizmo\ImGuizmo.cpp">
       <Filter>vendor\ImGuizmo</Filter>
     </ClCompile>
-    <ClCompile Include="src\Overlook\ImGui\ImGuiWrapper.cpp" />
-    <ClCompile Include="src\Overlook\Resource\IconManager\IconManager.cpp" />
+    <ClCompile Include="src\Overlook\Utils\MathUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\assimp\include">

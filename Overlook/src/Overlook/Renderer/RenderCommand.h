@@ -96,6 +96,11 @@ namespace Overlook {
 			s_RendererAPI->ClearStencil();
 		}
 
+		static void StencilMask(uint32_t mask)
+		{
+			s_RendererAPI->StencilMask(mask);
+		}
+
 		//cull
 		inline static void Cull(int32_t Bit)
 		{
@@ -105,6 +110,17 @@ namespace Overlook {
 		inline static void CullFrontOrBack(int32_t Bit)
 		{
 			s_RendererAPI->CullFrontOrBack(Bit);
+		}
+
+		//framebuffer
+		[[nodiscard]] static int GetDrawFrameBuffer()
+		{
+			return s_RendererAPI->GetDrawFrameBuffer();
+		}
+
+		static void BindFrameBuffer(uint32_t framebufferID)
+		{
+			s_RendererAPI->BindFrameBuffer(framebufferID);
 		}
 	private:
 		static Scope<RendererAPI> s_RendererAPI;

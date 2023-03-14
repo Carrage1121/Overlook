@@ -12,8 +12,6 @@
 #include "Overlook/Scripting/ScriptEngine.h"
 
 #include "Overlook/ImGui/ImGuiWrapper.h"
-#include "Overlook/Resource/IconManager/IconManager.h"
-#include "Overlook/Resource/ConfigManager/ConfigManager.h"
 
 #include <cstring>
 #include <regex>
@@ -27,10 +25,6 @@
 
 
 namespace Overlook {
-
-	extern const std::filesystem::path g_AssetPath;
-
-
 	SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& context)
 	{
 		SetContext(context);
@@ -38,61 +32,79 @@ namespace Overlook {
 
 	void SceneHierarchyPanel::SetContext(const Ref<Scene>& context)
 	{
-		m_Context = context;
-		m_SelectionContext = {};
+		mContext = context;
+		mSelectionContext = {};
 	}
 
-	void SceneHierarchyPanel::OnImGuiRender()
+	void SceneHierarchyPanel::OnImGuiRender(bool* pOpen, bool* pOpenProperties)
 	{
-		ImGui::Begin("Scene Hierarchy");
+		if (*pOpen)
+		{
+			ImGui::Begin("Scene Hierarchy", pOpen);
 
-		m_Context->m_Registry.each([&](auto entityID)
+			if (mContext)
 			{
-				Entity entity{ entityID , m_Context.get() };
-				DrawEntityNode(entity);
-			});
+				mContext->m_Registry.each([&](auto entityID)
+					{
+						Entity entity = { entityID, mContext.get() };
+						DrawEntityNode(entity);
+					});
 
-		if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
-			m_SelectionContext = {};
+				if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
+					mSelectionContext = {};
 
-		// Right-click on blank space
-		if (ImGui::BeginPopupContextWindow(0, 1, false))
-		{
-			if (ImGui::MenuItem("Create Empty Entity"))
-				m_Context->CreateEntity("Empty Entity");
+				// Right-click on blank space
+				if (ImGui::BeginPopupContextWindow(0, 1, false))
+				{
+					if (ImGui::MenuItem("Create Empty Entity"))
+						mContext->CreateEntity("Empty Entity");
 
-			ImGui::EndPopup();
+					if (ImGui::MenuItem("Create Directional Light"))
+					{
+						auto entity = mContext->CreateEntity("Directional Light");
+						entity.AddComponent<DirectionalLightComponent>();
+						SetSelectedEntity(entity);
+					}
+
+					ImGui::EndPopup();
+				}
+			}
+
+			ImGui::End();
 		}
-
-		ImGui::End();
-
-		ImGui::Begin("Properties");
-		if (m_SelectionContext)
+		if (*pOpenProperties)
 		{
-			DrawComponents(m_SelectionContext);
+			ImGui::Begin("Properties", pOpenProperties);
+			if (mSelectionContext)
+			{
+				DrawComponents(mSelectionContext);
+			}
+			ImGui::End();
 		}
-
-		ImGui::End();
 	}
-
 
 	void SceneHierarchyPanel::SetSelectedEntity(Entity entity)
 	{
-		m_SelectionContext = entity;
+		mSelectionContext = entity;
 	}
 
 	void SceneHierarchyPanel::DrawEntityNode(Entity entity)
 	{
-		auto& tag = entity.GetComponent<TagComponent>().Tag;
-
-		ImGuiTreeNodeFlags flags = ((m_SelectionContext == entity) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
-		flags |= ImGuiTreeNodeFlags_SpanAvailWidth;
-		bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)entity, flags, tag.c_str());
-		if (ImGui::IsItemClicked())
+		const char* name = "Unnamed Entity";
+		if (entity.HasComponent<TagComponent>())
 		{
-			m_SelectionContext = entity;
+			name = entity.GetComponent<TagComponent>().Tag.c_str();
 		}
 
+		ImGuiTreeNodeFlags flags = ((mSelectionContext == entity) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
+		flags |= ImGuiTreeNodeFlags_SpanAvailWidth;
+
+		std::string label = std::string("##") + std::string(name);
+		bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)entity, flags, "");
+		if (ImGui::IsItemClicked())
+		{
+			mSelectionContext = entity;
+		}
 		bool entityDeleted = false;
 		if (ImGui::BeginPopupContextItem())
 		{
@@ -101,21 +113,24 @@ namespace Overlook {
 
 			ImGui::EndPopup();
 		}
+		float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
+		ImGui::SameLine();
+		ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(1.0f, 1.0f, 1.0f, 0.0f));
+		ImGui::Image((ImTextureID)IconManager::GetInstance().Get("EntityIcon")->GetRendererID(), ImVec2{ lineHeight - 5.0f, lineHeight - 5.0f }, { 0, 1 }, { 1, 0 });
+		ImGui::PopStyleColor(1);
+		ImGui::SameLine();
+		ImGui::Text(name);
 
 		if (opened)
 		{
-			ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
-			bool opened = ImGui::TreeNodeEx((void*)9817239, flags, tag.c_str());
-			if (opened)
-				ImGui::TreePop();
 			ImGui::TreePop();
 		}
 
 		if (entityDeleted)
 		{
-			m_Context->DestroyEntity(entity);
-			if (m_SelectionContext == entity)
-				m_SelectionContext = {};
+			mContext->DestroyEntity(entity);
+			if (mSelectionContext == entity)
+				mSelectionContext = {};
 		}
 	}
 
@@ -124,14 +139,16 @@ namespace Overlook {
 		ImGuiIO& io = ImGui::GetIO();
 		auto boldFont = io.Fonts->Fonts[0];
 
-		ImGui::PushID(label.c_str());
-
-		ImGui::Columns(2);
+		ImGui::Columns(2, nullptr, false);
 		ImGui::SetColumnWidth(0, columnWidth);
 		ImGui::Text(label.c_str());
 		ImGui::NextColumn();
 
-		ImGui::PushMultiItemsWidths(3, ImGui::CalcItemWidth());
+		ImGui::BeginTable("table_padding", 3, ImGuiTableFlags_NoBordersInBody | ImGuiTableFlags_NoPadInnerX);
+
+		ImGui::TableNextRow();
+		ImGui::TableSetColumnIndex(0);
+
 		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ 0, 0 });
 
 		float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
@@ -148,8 +165,10 @@ namespace Overlook {
 
 		ImGui::SameLine();
 		ImGui::DragFloat("##X", &values.x, 0.1f, 0.0f, 0.0f, "%.2f");
-		ImGui::PopItemWidth();
 		ImGui::SameLine();
+
+
+		ImGui::TableSetColumnIndex(1);
 
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.2f, 0.7f, 0.2f, 1.0f });
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.3f, 0.8f, 0.3f, 1.0f });
@@ -162,8 +181,9 @@ namespace Overlook {
 
 		ImGui::SameLine();
 		ImGui::DragFloat("##Y", &values.y, 0.1f, 0.0f, 0.0f, "%.2f");
-		ImGui::PopItemWidth();
 		ImGui::SameLine();
+
+		ImGui::TableSetColumnIndex(2);
 
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.1f, 0.25f, 0.8f, 1.0f });
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.2f, 0.35f, 0.9f, 1.0f });
@@ -176,32 +196,29 @@ namespace Overlook {
 
 		ImGui::SameLine();
 		ImGui::DragFloat("##Z", &values.z, 0.1f, 0.0f, 0.0f, "%.2f");
-		ImGui::PopItemWidth();
 
 		ImGui::PopStyleVar();
 
-		ImGui::Columns(1);
+		ImGui::EndTable();
 
-		ImGui::PopID();
+		ImGui::EndColumns();
 	}
 
-	template<typename T, typename UIFunction>
+	template <typename T, typename UIFunction>
 	static void DrawComponent(const std::string& name, Entity entity, UIFunction uiFunction)
 	{
 		const ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_FramePadding;
+
 		if (entity.HasComponent<T>())
 		{
 			auto& component = entity.GetComponent<T>();
 			ImVec2 contentRegionAvailable = ImGui::GetContentRegionAvail();
 
-			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{ 4, 4 });
 			float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
-			ImGui::Separator();
-			bool open = ImGui::TreeNodeEx((void*)typeid(T).hash_code(), treeNodeFlags, name.c_str());
-			ImGui::PopStyleVar(
-			);
+			bool open = ImGuiWrapper::TreeNodeExStyle1((void*)typeid(T).hash_code(), name, treeNodeFlags);
 			ImGui::SameLine(contentRegionAvailable.x - lineHeight * 0.5f);
-			if (ImGui::Button("+", ImVec2{ lineHeight, lineHeight }))
+
+			if (ImGui::ImageButton((ImTextureID)IconManager::GetInstance().GetSettingIcon()->GetRendererID(), ImVec2{ lineHeight - 7.0f, lineHeight - 7.0f }))
 			{
 				ImGui::OpenPopup("ComponentSettings");
 			}
@@ -223,6 +240,23 @@ namespace Overlook {
 
 			if (removeComponent)
 				entity.RemoveComponent<T>();
+		}
+	}
+
+	template <typename componentType>
+	void SceneHierarchyPanel::MenuAddComponent(const char* menuName, const char* menuItemName)
+	{
+		if (!mSelectionContext.HasComponent<componentType>())
+		{
+			if (ImGui::BeginMenu(menuName))
+			{
+				if (ImGui::MenuItem(menuItemName))
+				{
+					mSelectionContext.AddComponent<componentType>();
+					ImGui::CloseCurrentPopup();
+				}
+				ImGui::EndMenu();
+			}
 		}
 	}
 
@@ -249,12 +283,23 @@ namespace Overlook {
 
 		if (ImGui::BeginPopup("AddComponent"))
 		{
-			DisplayAddComponentEntry<CameraComponent>("Camera");
-			DisplayAddComponentEntry<ScriptComponent>("Script");
-			DisplayAddComponentEntry<SpriteRendererComponent>("Sprite Renderer");
-			DisplayAddComponentEntry<ModelRendererComponent>("Model Renderer");
-			DisplayAddComponentEntry<Rigidbody3DComponent>("Rigidbody 3D");
-			DisplayAddComponentEntry<BoxCollider3DComponent>("Box Collider 3D");
+			MenuAddComponent<CameraComponent>("Camera", "Camera");
+
+			if (ModeManager::b3DMode)
+			{
+				MenuAddComponent<ModelRendererComponent>("Mesh", "Mesh Renderer");
+
+				if (mSelectionContext.HasComponent<ModelRendererComponent>())
+					MenuAddComponent<Rigidbody3DComponent>("Physic", "Rigidbody");
+
+
+				MenuAddComponent<DirectionalLightComponent>("Light", "Directional Light");
+			}
+			else
+			{
+				MenuAddComponent<SpriteRendererComponent>("Renderer", "Sprite Renderer");
+			}
+
 			ImGui::EndPopup();
 		}
 
@@ -281,7 +326,7 @@ namespace Overlook {
 				{
 					for (int i = 0; i < 2; i++)
 					{
-						bool isSelected = currentProjectionTypeString == projectionTypeStrings[i];
+						bool isSelected = (currentProjectionTypeString == projectionTypeStrings[i]);
 						if (ImGui::Selectable(projectionTypeStrings[i], isSelected))
 						{
 							currentProjectionTypeString = projectionTypeStrings[i];
@@ -328,7 +373,7 @@ namespace Overlook {
 				}
 			});
 
-		DrawComponent<SpriteRendererComponent>("Sprite Renderer", entity, [](auto& component)
+		DrawComponent<SpriteRendererComponent>("Sprite Render", entity, [](auto& component)
 			{
 				ImGui::ColorEdit4("Color", glm::value_ptr(component.Color));
 
@@ -338,7 +383,7 @@ namespace Overlook {
 					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 					{
 						const wchar_t* path = (const wchar_t*)payload->Data;
-						std::filesystem::path texturePath = std::filesystem::path(g_AssetPath) / path;
+						std::filesystem::path texturePath = std::filesystem::path(ConfigManager::GetInstance().GetAssetsFolder()) / path;
 						Ref<Texture2D> texture = Texture2D::Create(texturePath.string());
 						if (texture->IsLoaded())
 							component.Texture = texture;
@@ -351,36 +396,49 @@ namespace Overlook {
 				ImGui::DragFloat("Tiling Factor", &component.TilingFactor, 0.1f, 0.0f, 100.0f);
 			});
 
-		DrawComponent<ModelRendererComponent>("Model Renderer", entity, [](auto& component)
+
+		DrawComponent<ModelRendererComponent>("Mesh Renderer", entity, [](ModelRendererComponent& component)
 			{
 				ImGui::Columns(2, nullptr, false);
 				ImGui::SetColumnWidth(0, 100.0f);
 				ImGui::Text("Mesh Path");
 				ImGui::NextColumn();
 
-				ImGui::Text(component.Path.c_str());
+				std::string standardPath = std::regex_replace(component.Path, std::regex("\\\\"), "/");
+				ImGui::Text(std::string_view(standardPath.c_str() + standardPath.find_last_of("/") + 1, standardPath.length()).data());
+				if (ImGui::BeginDragDropTarget())
+				{
+					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+					{
+						auto path = (const wchar_t*)payload->Data;
+						component.Path = (std::filesystem::path("assets") / path).string();
+						component.mMesh = CreateRef<Mesh>(component.Path);
+					}
+					ImGui::EndDragDropTarget();
+				}
 
 				ImGui::SameLine();
 				if (ImGui::Button("..."))
 				{
-					std::string filepath = FileDialogs::OpenFile("Model (*.obj *.fbx)\0*.obj;*.fbx\0");
+					std::string filepath = FileDialogs::OpenFile("Model (*.obj *.fbx *.dae *.gltf)\0");
 					if (filepath.find("assets") != std::string::npos)
 					{
 						filepath = filepath.substr(filepath.find("assets"), filepath.length());
 					}
 					else
 					{
-						// TODO: Import Model
-						OL_CORE_ASSERT(false, "Overlook Now Only support the model from Assets!");
+						// TODO: Import Mesh
+						//OL_CORE_ASSERT(false, "HEngine Now Only support the model from assets!");
+						//filepath = "";
 					}
 					if (!filepath.empty())
 					{
 						component.mMesh = CreateRef<Mesh>(filepath);
 						component.Path = filepath;
-
 					}
 				}
 				ImGui::EndColumns();
+
 				if (ImGuiWrapper::TreeNodeExStyle2((void*)"Material", "Material"))
 				{
 					uint32_t matIndex = 0;
@@ -443,6 +501,66 @@ namespace Overlook {
 								ImGui::Checkbox("Use", &mat->bUseNormalMap);
 								});
 
+							materialNode("Metallic", material, material->mMetallicMap, [](Ref<Material>& mat) {
+								ImGui::SameLine();
+
+								if (ImGui::BeginTable("Metallic", 1))
+								{
+									ImGui::TableNextRow();
+									ImGui::TableNextColumn();
+
+									ImGui::Checkbox("Use", &mat->bUseMetallicMap);
+
+									ImGui::TableNextRow();
+									ImGui::TableNextColumn();
+									if (ImGui::SliderFloat("##Metallic", &mat->metallic, 0.0f, 1.0f))
+									{
+										if (!mat->bUseMetallicMap)
+										{
+											unsigned char data[4];
+											for (size_t i = 0; i < 3; i++)
+											{
+												data[i] = (unsigned char)(mat->metallic * 255.0f);
+											}
+											data[3] = (unsigned char)255.0f;
+											mat->metallicRGBA->SetData(data, sizeof(unsigned char) * 4);
+										}
+									}
+
+									ImGui::EndTable();
+								}
+								});
+
+							materialNode("Roughness", material, material->mRoughnessMap, [](Ref<Material>& mat) {
+								ImGui::SameLine();
+
+								if (ImGui::BeginTable("Roughness", 1))
+								{
+									ImGui::TableNextRow();
+									ImGui::TableNextColumn();
+
+									ImGui::Checkbox("Use", &mat->bUseRoughnessMap);
+
+									ImGui::TableNextRow();
+									ImGui::TableNextColumn();
+									if (ImGui::SliderFloat("##Roughness", &mat->roughness, 0.0f, 1.0f))
+									{
+										if (!mat->bUseRoughnessMap)
+										{
+											unsigned char data[4];
+											for (size_t i = 0; i < 3; i++)
+											{
+												data[i] = (unsigned char)(mat->roughness * 255.0f);
+											}
+											data[3] = (unsigned char)255.0f;
+											mat->roughnessRGBA->SetData(data, sizeof(unsigned char) * 4);
+										}
+									}
+
+									ImGui::EndTable();
+								}
+								});
+
 							ImGui::TreePop();
 						}
 
@@ -453,25 +571,7 @@ namespace Overlook {
 
 					ImGui::TreePop();
 				}
-
-			});
-
-		DrawComponent<ScriptComponent>("Script", entity, [](auto& component)
-			{
-				bool scriptClassExists = ScriptEngine::EntityClassExists(component.ClassName);
-
-				static char buffer[64];
-				strcpy(buffer, component.ClassName.c_str());
-
-				if (!scriptClassExists)
-					ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.9f, 0.2f, 0.3f, 1.0f));
-
-				if (ImGui::InputText("Class", buffer, sizeof(buffer)))
-					component.ClassName = buffer;
-
-				if (!scriptClassExists)
-					ImGui::PopStyleColor();
-			});
+				});
 
 		DrawComponent<Rigidbody3DComponent>("Rigidbody 3D", entity, [](auto& component)
 			{
@@ -542,23 +642,20 @@ namespace Overlook {
 					floatValueUI("friction", component.friction);
 				}
 
-// 				ImGuiWrapper::DrawTwoUI(
-// 					[]() { ImGui::Text("mass"); },
-// 					[&component = component]() { ImGui::SliderFloat("##masas", &component.mass, 0.0f, 10.0f, "%.2f"); },
-// 					150.0f
-// 				);
+				ImGuiWrapper::DrawTwoUI(
+					[]() { ImGui::Text("mass"); },
+					[&component = component]() { ImGui::SliderFloat("##masas", &component.mass, 0.0f, 10.0f, "%.2f"); },
+					150.0f
+				);
 			});
-	}
 
-	template<typename T>
-	void SceneHierarchyPanel::DisplayAddComponentEntry(const std::string& entryName) {
-		if (!m_SelectionContext.HasComponent<T>())
-		{
-			if (ImGui::MenuItem(entryName.c_str()))
+		DrawComponent<DirectionalLightComponent>("Directional Light", entity, [](auto& component)
 			{
-				m_SelectionContext.AddComponent<T>();
-				ImGui::CloseCurrentPopup();
-			}
-		}
+				ImGuiWrapper::DrawTwoUI(
+					[]() { ImGui::Text("Light Intensity"); },
+					[&component = component]() { ImGui::SliderFloat("##Light Intensity", &component.Intensity, 0.0f, 10.0f, "%.2f"); }
+				);
+			});
+
 	}
 }

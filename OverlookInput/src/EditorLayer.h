@@ -3,8 +3,11 @@
 #include "Overlook.h"
 #include "Panels/SceneHierarchyPanel.h"
 #include "Panels/ContentBrowserPanel.h"
+#include "Panels/SceneSettingsPanel.h"
 
 #include "Overlook/Renderer/EditorCamera.h"
+#include "Overlook/Renderer/RenderPass.h"
+
 namespace Overlook
 {
 	class EditorLayer : public Layer
@@ -16,9 +19,9 @@ namespace Overlook
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;
 
-		virtual void OnUpdate(Timestep ts) override;
+		void OnUpdate(Timestep ts) override;
 		virtual void OnImGuiRender() override;
-		virtual void OnEvent(Event& e) override;
+		void OnEvent(Event& e) override;
 	private:
 		bool OnKeyPressed(KeyPressedEvent& e);
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
@@ -31,47 +34,48 @@ namespace Overlook
 
 		void SerializeScene(Ref<Scene> scene, const std::filesystem::path& path);
 
-
 		void OnScenePlay();
 		void OnSceneStop();
+
 		void OnDuplicateEntity();
 
 		// UI Panels
 		void UI_Toolbar();
 
+		void LoadDefaultEditorConfig();
 	private:
+		// Temp
+		Ref<VertexArray> mSquareVA;
+		Ref<Shader> mFlatColorShader;
+		Ref<Framebuffer> mFramebuffer;
 
-		Ref<Framebuffer> m_Framebuffer;
-		
-		EditorCamera m_EditorCamera;
+		Ref<RenderPass> mRenderPass;
 
-		Ref<Scene> m_ActiveScene;
-		Ref<Scene> m_EditorScene;
-		std::filesystem::path m_EditorScenePath;
+		Ref<Scene> mActiveScene;
+		Ref<Scene> mEditorScene;
+		std::filesystem::path mEditorScenePath;
+		Entity mSquareEntity;
+		Entity mCameraEntity;
+		Entity mSecondCamera;
 
-		Entity m_BagEntity;
-		Entity m_SpriteEntity;
-		Entity m_CameraEntity;
-		Entity m_HoveredEntity;
+		Entity mHoveredEntity;
 
-		bool m_ViewportFocused = false, m_ViewportHovered = false;
-		glm::vec2 m_ViewportSize = { 0.0f, 0.0f };
-		glm::vec2 m_ViewportBounds[2];
-		int m_GizmoType = -1;
+		bool mPrimaryCamera = true;
 
+		EditorCamera mEditorCamera;
 
-		enum class SceneState
-		{
-			Edit = 0, Play = 1
-		};
-		SceneState m_SceneState = SceneState::Edit;
+		bool mViewportFocused = false, mViewportHovered = false;
+
+		glm::vec2 mViewportBounds[2];
+
+		glm::vec4 mSquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
+
+		int mGizmoType = -1;
 
 		// Panels
-		SceneHierarchyPanel m_SceneHierarchyPanel;
-		ContentBrowserPanel m_ContentBrowserPanel;
-
-		// Editor resources
-		Ref<Texture2D> m_IconPlay, m_IconStop, m_CheckerboardTexture;
+		SceneHierarchyPanel mSceneHierarchyPanel;
+		ContentBrowserPanel mContentBrowserPanel;
+		SceneSettingsPanel mSceneSettingsPanel;
 	};
 }
 

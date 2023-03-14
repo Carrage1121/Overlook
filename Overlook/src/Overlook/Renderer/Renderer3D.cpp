@@ -8,6 +8,7 @@
 
 namespace Overlook
 {
+	Ref<Framebuffer> Renderer3D::lightFBO = nullptr;
 	struct Renderer3DData
 	{
 		Ref<Shader> mShader;
@@ -49,6 +50,12 @@ namespace Overlook
 		RenderCommand::Test();
 		m3_data.CameraUniformBuffer = UniformBuffer::Create(sizeof(Renderer3DData::CameraData), 1);
 
+		FramebufferSpecification fbSpec;
+		fbSpec.Attachments = { FramebufferTextureFormat::DEPTH32F_TEX3D };
+		// light depth texture uses high resolution
+		fbSpec.Width = 4096;
+		fbSpec.Height = 4096;
+		lightFBO = Framebuffer::Create(fbSpec);
 	}
 
 	void Renderer3D::Shutdown()
@@ -109,17 +116,6 @@ namespace Overlook
 			modelComponent.mMesh->Draw(transform, m3_data.mShader, entityid);
 		}
 
-	}
-
-	Ref<CubeMapTexture> Renderer3D::GetSkyBox()
-	{
-		return sSkyBox;
-	}
-
-	Ref<CubeMapTexture> Renderer3D::GetDefaultSkyBox()
-	{
-		sSkyBox = CubeMapTexture::Create(sPaths);
-		return sSkyBox;
 	}
 
 	void Renderer3D::DrawSkyBox(const EditorCamera& camera)

@@ -45,6 +45,7 @@ project "Overlook"
 		"%{IncludeDir.ImGuizmo}",
 		"%{IncludeDir.mono}",
 		"%{IncludeDir.bullet3}",
+		"%{wks.location}/OverlookInput/src"
 	}
 
 	links
@@ -73,7 +74,10 @@ project "Overlook"
 		{
 			"BulletCollision_Debug",
 			"BulletDynamics_Debug",
-			"LinearMath_Debug" 
+			"LinearMath_Debug" ,
+			"Bullet3Common_Debug.lib",
+			"Bullet3Collision_Debug",
+			"Bullet3Dynamics_Debug",
 		}
 
 	filter "configurations:Debug"

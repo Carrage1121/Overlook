@@ -7,6 +7,7 @@
 #include "ScriptableEntity.h"
 #include "Overlook/Scripting/ScriptEngine.h"
 #include "Overlook/Scene/System/SystemGroup.h"
+#include "Overlook/Resource/ModeManager/ModeManager.h"
 
 #include <glm/glm.hpp>
 #include "Overlook/Core/UUID.h"
@@ -19,6 +20,7 @@ namespace Overlook {
 		mSystems.emplace_back(CreateScope<RenderSystem3D>(this));
 		mSystems.emplace_back(CreateScope<NativeScriptSystem>(this));
 		mSystems.emplace_back(CreateScope<PhysicSystem3D>(this));
+		mSystems.emplace_back(CreateScope<EnvironmentSystem>(this));
 		//mSystems.emplace_back(CreateScope<RenderSystem2D>(this));
 	}
 
@@ -179,6 +181,26 @@ namespace Overlook {
 
 		CopyComponentIfExists(AllComponents{}, newEntity, entity);
 	}
+
+	void Scene::ChangeDimMode()
+	{
+		int nowDimMode = ModeManager::b3DMode;
+		if (nowDimMode)
+		{
+			mSystems.clear();
+			mSystems.emplace_back(CreateScope<RenderSystem3D>(this));
+			mSystems.emplace_back(CreateScope<PhysicSystem3D>(this));
+			mSystems.emplace_back(CreateScope<EnvironmentSystem>(this));
+		}
+		else
+		{
+			mSystems.clear();
+			mSystems.emplace_back(CreateScope<NativeScriptSystem>(this));
+			mSystems.emplace_back(CreateScope<RenderSystem2D>(this));
+			mSystems.emplace_back(CreateScope<EnvironmentSystem>(this));
+		}
+	}
+
 
 	Entity Scene::GetPrimaryCameraEntity()
 	{

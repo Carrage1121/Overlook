@@ -15,6 +15,7 @@
 #include "Overlook/Core/MouseButtonCodes.h"
 
 #include "Overlook/ImGui/ImGuiLayer.h"
+#include "Overlook/ImGui/ImGuiWrapper.h"
 
 #include "Overlook/Scene/Scene.h"
 #include "Overlook/Scene/Components.h"
@@ -33,6 +34,10 @@
 #include "Overlook/Renderer/Renderer2D.h"
 #include "Overlook/Renderer/Renderer3D.h"
 
+// ---Resource---------------------
+#include "Overlook/Resource/IconManager/IconManager.h"
+#include "Overlook/Resource/ConfigManager/ConfigManager.h"
+#include "Overlook/Resource/ModeManager/ModeManager.h"
 
 // --ModelLoader
 #include "Overlook/ModelLoader/Mesh/Mesh.h"

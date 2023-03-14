@@ -168,6 +168,17 @@ namespace Overlook {
 		Rigidbody3DComponent(const Rigidbody3DComponent&) = default;
 	};
 
+	class DirectionalLightComponent
+	{
+	public:
+		DirectionalLightComponent() = default;
+		DirectionalLightComponent(const DirectionalLightComponent&) = default;
+		DirectionalLightComponent(float intensity)
+			: Intensity(intensity) {}
+
+		float Intensity = 1.0f;
+	};
+
 	template<typename... Component>
 	struct ComponentGroup
 	{
@@ -176,5 +187,6 @@ namespace Overlook {
 	using AllComponents =
 		ComponentGroup<TransformComponent, SpriteRendererComponent,
 		CameraComponent, ScriptComponent,
-		NativeScriptComponent, ModelRendererComponent, BoxCollider3DComponent, Rigidbody3DComponent>;
+		NativeScriptComponent, ModelRendererComponent, BoxCollider3DComponent, Rigidbody3DComponent,
+		DirectionalLightComponent>;
 }

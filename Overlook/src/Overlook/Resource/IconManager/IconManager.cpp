@@ -6,8 +6,8 @@ namespace Overlook
 {
 	IconManager::IconManager()
 	{
-		Add("EntityIcon", Texture2D::Create(AssetManager::GetAssetsPath("Resources/Icons/Entity.png")));
-		Add("NullTextrue", Texture2D::Create(AssetManager::GetAssetsPath("Assets/Textures/DefaultTexture.png")));
+		Add("EntityIcon", Texture2D::Create(std::string("Resources/Icons/Entity.png")));
+		Add("NullTextrue", Texture2D::Create(std::string("assets/Texture/DefaultTexture.png")));
 		Add("SettingIcon", Texture2D::Create(std::string(("Resources/Icons/Setting.png"))));
 		Add("DirectoryIcon", Texture2D::Create(std::string(("Resources/Icons/ContentBrowser/DirectoryIcon.png"))));
 		Add("FileIcon", Texture2D::Create(std::string(("Resources/Icons/ContentBrowser/FileIcon.png"))));

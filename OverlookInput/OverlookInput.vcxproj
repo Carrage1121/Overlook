@@ -79,7 +79,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>OL_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Overlook\vendor\spdlog\include;..\Overlook\src;..\Overlook\vendor\glm;..\Overlook\vendor\entt\include;..\Overlook\vendor\assimp\include;..\Overlook\vendor;..\Overlook\vendor\Glad\include;..\Overlook\vendor\ImGuizmo;..\Overlook\vendor\magic_enum\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Overlook\vendor\spdlog\include;..\Overlook\src;..\Overlook\vendor\glm;..\Overlook\vendor\entt\include;..\Overlook\vendor\assimp\include;..\Overlook\vendor;..\Overlook\vendor\Glad\include;..\Overlook\vendor\ImGuizmo;..\Overlook\vendor\magic_enum\include;..\Overlook\vendor\bullet3\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -100,7 +100,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>OL_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Overlook\vendor\spdlog\include;..\Overlook\src;..\Overlook\vendor\glm;..\Overlook\vendor\entt\include;..\Overlook\vendor\assimp\include;..\Overlook\vendor;..\Overlook\vendor\Glad\include;..\Overlook\vendor\ImGuizmo;..\Overlook\vendor\magic_enum\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Overlook\vendor\spdlog\include;..\Overlook\src;..\Overlook\vendor\glm;..\Overlook\vendor\entt\include;..\Overlook\vendor\assimp\include;..\Overlook\vendor;..\Overlook\vendor\Glad\include;..\Overlook\vendor\ImGuizmo;..\Overlook\vendor\magic_enum\include;..\Overlook\vendor\bullet3\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -124,7 +124,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>OL_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Overlook\vendor\spdlog\include;..\Overlook\src;..\Overlook\vendor\glm;..\Overlook\vendor\entt\include;..\Overlook\vendor\assimp\include;..\Overlook\vendor;..\Overlook\vendor\Glad\include;..\Overlook\vendor\ImGuizmo;..\Overlook\vendor\magic_enum\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Overlook\vendor\spdlog\include;..\Overlook\src;..\Overlook\vendor\glm;..\Overlook\vendor\entt\include;..\Overlook\vendor\assimp\include;..\Overlook\vendor;..\Overlook\vendor\Glad\include;..\Overlook\vendor\ImGuizmo;..\Overlook\vendor\magic_enum\include;..\Overlook\vendor\bullet3\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -145,15 +145,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\EditorLayer.h" />
-    <ClInclude Include="src\ExampleLayer.h" />
     <ClInclude Include="src\Panels\ContentBrowserPanel.h" />
     <ClInclude Include="src\Panels\SceneHierarchyPanel.h" />
+    <ClInclude Include="src\Panels\SceneSettingsPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EditorLayer.cpp" />
     <ClCompile Include="src\OverlookEditorApp.cpp" />
     <ClCompile Include="src\Panels\ContentBrowserPanel.cpp" />
     <ClCompile Include="src\Panels\SceneHierarchyPanel.cpp" />
+    <ClCompile Include="src\Panels\SceneSettingsPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Overlook\Overlook.vcxproj">
@@ -163,4 +164,4 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-</Project>
+</Project> 

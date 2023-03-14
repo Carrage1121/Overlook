@@ -347,4 +347,21 @@ namespace Overlook
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + slot, GL_TEXTURE_CUBE_MAP_POSITIVE_X + cubemapIndex, cubemapID, 0);
 	}
 
+	Ref<Texture3D> OpenGLFramebuffer::GetDepthTex3D() const
+	{
+		return CreateRef<OpenGLTexture3D>(mDepthAttachment, mSpecification.Width, mSpecification.Height);
+	}
+
+	void OpenGLFramebuffer::BindDepthTex3D(uint32_t slot)
+	{
+		glActiveTexture(GL_TEXTURE0 + slot);
+		glBindTexture(GL_TEXTURE_2D_ARRAY, mDepthAttachment);
+	}
+
+	void OpenGLFramebuffer::UnBindDepthTex3D(uint32_t slot)
+	{
+		glActiveTexture(GL_TEXTURE0 + slot);
+		glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
+	}
+
 }

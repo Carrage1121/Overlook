@@ -2,13 +2,10 @@
 
 #include "Overlook/Renderer/Texture.h"
 #include "Overlook/Renderer/Shader.h"
-
 #include "Overlook/Library/ShaderLibrary.h"
 #include "Overlook/Library/TextureLibrary.h"
 
-
 #include <unordered_map>
-#include <vector>
 
 namespace Overlook
 {
@@ -24,51 +21,20 @@ namespace Overlook
 
 	enum class TextureType
 	{
-		aiTextureType_NONE = 0,
-		aiTextureType_DIFFUSE = 1,
-		aiTextureType_SPECULAR = 2,
-		aiTextureType_AMBIENT = 3,
-		aiTextureType_EMISSIVE = 4,
-		aiTextureType_HEIGHT = 5,
-		aiTextureType_NORMALS = 6,
-		aiTextureType_SHININESS = 7,
+		Albedo = 0,
+		Normal,
+		Metalness,
+		Roughness,
+		AmbientOcclusion,
+		Specular,
+		Height,
+		Emission,
 	};
-	//
-	template <typename Enumeration>
-	auto as_integer(Enumeration const value)
-		-> typename std::underlying_type<Enumeration>::type
-	{
-		return static_cast<typename std::underlying_type<Enumeration>::type>(value);
-	}
-
-	const static std::string TypeTostring(TextureType tt)
-	{
-		static std::unordered_map<TextureType, const std::string>hs = {
-			{TextureType::aiTextureType_NONE, "aiTextureType_NONE"},
-			{TextureType::aiTextureType_DIFFUSE, "aiTextureType_DIFFUSE"},
-			{TextureType::aiTextureType_SPECULAR, "aiTextureType_SPECULAR"},
-			{TextureType::aiTextureType_AMBIENT, "aiTextureType_AMBIENT"},
-			{TextureType::aiTextureType_EMISSIVE, "aiTextureType_EMISSIVE"},
-			{TextureType::aiTextureType_HEIGHT, "aiTextureType_HEIGHT"},
-			{TextureType::aiTextureType_NORMALS, "aiTextureType_NORMALS"},
-			{TextureType::aiTextureType_SHININESS, "aiTextureType_SHININESS"}
-		};
-
-		return hs[tt];
-	}
-
 
 	struct MaterialTexture
 	{
-		unsigned int id;
 		Ref<Texture2D> texture2d = nullptr;
 		TextureType type;
-		std::string path;
-	};
-
-	struct _Texture {
-		unsigned int id;
-		std::string type;
 		std::string path;
 	};
 
@@ -79,7 +45,7 @@ namespace Overlook
 		Material(Ref<Shader> shader) : mShader(shader) { Initialize(); };
 	public:
 		void SetShader(Ref<Shader> shader) { mShader = shader; }
-		Ref<Shader> GetShader() { return mShader; }
+		[[nodiscard]] Ref<Shader> GetShader() { return mShader; }
 
 		void AddTexture(TextureType type, Ref<Texture2D> texture)
 		{
@@ -87,7 +53,7 @@ namespace Overlook
 			mTexMap[type] = texture;
 		}
 
-		Ref<Texture2D> GetTexture(TextureType type) { return mTexMap[type]; }
+		[[nodiscard]] Ref<Texture2D> GetTexture(TextureType type) { return mTexMap[type]; }
 	private:
 		void Initialize();
 	public:
@@ -116,7 +82,6 @@ namespace Overlook
 	private:
 		Ref<Shader> mShader;
 		std::unordered_map<TextureType, Ref<Texture2D>, EnumClassHash> mTexMap;
-
 	};
 
 }

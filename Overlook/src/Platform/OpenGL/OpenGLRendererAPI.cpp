@@ -136,13 +136,13 @@ namespace Overlook {
 		glClear(GL_STENCIL_BUFFER_BIT);
 	}
 
-	void OpenGLRendererAPI::DepthMask(int32_t MaskBit)
+	void OpenGLRendererAPI::DepthMask(bool MaskBit)
 	{
 		if (MaskBit) glDepthMask(GL_TRUE);
 		else glDepthMask(GL_FALSE);
 	}
 
-	void OpenGLRendererAPI::DepthTest(int32_t Bit)
+	void OpenGLRendererAPI::DepthTest(bool Bit)
 	{
 		if (Bit) glEnable(GL_DEPTH_TEST);
 		else glDisable(GL_DEPTH_TEST);
@@ -174,15 +174,23 @@ namespace Overlook {
 		else glDisable(GL_CULL_FACE);
 	}
 
-	void OpenGLRendererAPI::CullFrontOrBack(int32_t Bit)
+	void OpenGLRendererAPI::CullFrontOrBack(bool bFront)
 	{
-		if (Bit) glCullFace(GL_FRONT);
+		if (bFront) glCullFace(GL_FRONT);
 		else glCullFace(GL_BACK);
 	}
 
 	void OpenGLRendererAPI::SetStencilFunc(StencilFunc stencilFunc, int32_t ref, int32_t mask)
 	{
 		glStencilFunc(Utils::StencilFuncToOpenGLStencilFunc(stencilFunc), ref, mask);
+	}
+
+
+	void OpenGLRendererAPI::StencilMask(uint32_t mask)
+	{
+		// glStencilMask(0x00): forbidden to write in stencil
+		// glStencilMask(0xFF): allow to write in stencil
+		glStencilMask(mask);
 	}
 
 	void OpenGLRendererAPI::SetFrontOrBackStencilOp(int32_t FrontOrBack, StencilOp stencilFail, StencilOp depthFail, StencilOp depthSuccess)
@@ -207,6 +215,18 @@ namespace Overlook {
 	{
 		glActiveTexture(GL_TEXTURE0 + slot);
 		glBindTexture(GL_TEXTURE_2D, textureID);
+	}
+
+	int OpenGLRendererAPI::GetDrawFrameBuffer()
+	{
+		int framebufferID = 0;
+		glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &framebufferID);
+		return framebufferID;
+	}
+
+	void OpenGLRendererAPI::BindFrameBuffer(uint32_t framebufferID)
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, framebufferID);
 	}
 
 }

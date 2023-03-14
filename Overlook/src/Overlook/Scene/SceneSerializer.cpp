@@ -171,6 +171,35 @@ namespace Overlook {
 			out << YAML::EndMap;
 		}
 
+		if (entity.HasComponent<Rigidbody3DComponent>())
+		{
+			out << YAML::Key << "Rigidbody3DComponent";
+			out << YAML::BeginMap;
+
+			auto& rb3dComponent = entity.GetComponent<Rigidbody3DComponent>();
+			out << YAML::Key << "mass" << YAML::Value << rb3dComponent.mass;
+			out << YAML::Key << "type" << YAML::Value << (uint32_t)rb3dComponent.Type;
+			out << YAML::Key << "shape" << YAML::Value << (uint32_t)rb3dComponent.Shape;
+			out << YAML::Key << "linearDamping" << YAML::Value << rb3dComponent.linearDamping;
+			out << YAML::Key << "angularDamping" << YAML::Value << rb3dComponent.angularDamping;
+			out << YAML::Key << "restitution" << YAML::Value << rb3dComponent.restitution;
+			out << YAML::Key << "friction" << YAML::Value << rb3dComponent.friction;
+
+			out << YAML::EndMap;
+		}
+
+		if (entity.HasComponent<DirectionalLightComponent>())
+		{
+			out << YAML::Key << "DirectionalLightComponent";
+			out << YAML::BeginMap;
+
+			auto& lightComponent = entity.GetComponent<DirectionalLightComponent>();
+			out << YAML::Key << "dirIntensity" << YAML::Value << lightComponent.Intensity;
+
+			out << YAML::EndMap;
+		}
+
+
 		out << YAML::EndMap; // Entity
 	}
 
@@ -285,6 +314,26 @@ namespace Overlook {
 				{
 					std::string str = modelRendererComponent["Path"].as<std::string>();
 					auto& src = deserializedEntity.AddComponent<ModelRendererComponent>(str);
+				}
+
+				auto rigidbody3DComponent = entity["Rigidbody3DComponent"];
+				if (rigidbody3DComponent)
+				{
+					auto& rb3d = deserializedEntity.AddComponent<Rigidbody3DComponent>();
+					rb3d.mass = rigidbody3DComponent["mass"].as<float>();
+					rb3d.Type = (Rigidbody3DComponent::Body3DType)rigidbody3DComponent["type"].as<uint32_t>();
+					rb3d.Shape = (CollisionShape)rigidbody3DComponent["shape"].as<uint32_t>();
+					rb3d.linearDamping = rigidbody3DComponent["linearDamping"].as<float>();
+					rb3d.angularDamping = rigidbody3DComponent["angularDamping"].as<float>();
+					rb3d.restitution = rigidbody3DComponent["restitution"].as<float>();
+					rb3d.friction = rigidbody3DComponent["friction"].as<float>();
+				}
+
+				auto directionalLightComponent = entity["DirectionalLightComponent"];
+				if (directionalLightComponent)
+				{
+					float intensity = directionalLightComponent["dirIntensity"].as<float>();
+					auto& src = deserializedEntity.AddComponent<DirectionalLightComponent>(intensity);
 				}
 			}
 		}

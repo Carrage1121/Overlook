@@ -30,7 +30,7 @@ namespace Overlook {
 		Entity GetEntityByUUID(UUID uuid);
 		Entity GetPrimaryCameraEntity();
 		void DuplicateEntity(Entity entity);
-
+		void ChangeDimMode();
 		entt::registry m_Registry;
 	private:
 		template<typename T>
