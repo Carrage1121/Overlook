@@ -1,76 +1,60 @@
 #include "olpch.h"
-#include "Overlook/Renderer/Shader.h"
 
+#include "Overlook/Renderer/Shader.h"
 #include "Overlook/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 
-namespace Overlook {
-
+namespace Overlook
+{
 	Ref<Shader> Shader::Create(const std::filesystem::path& filepath)
 	{
 		return Create(filepath.string());
 	}
-	
+
 	Ref<Shader> Shader::Create(const std::string& filepath)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:    OL_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:  return CreateRef<OpenGLShader>(filepath);
+		case RendererAPI::API::OpenGL:  return std::make_shared<OpenGLShader>(filepath);
 		}
 
 		OL_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
-
 
 	Ref<Shader> Shader::Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:    OL_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:  return CreateRef<OpenGLShader>(name, vertexSrc, fragmentSrc);
+		case RendererAPI::API::OpenGL:  return std::make_shared<OpenGLShader>(name, vertexSrc, fragmentSrc);
 		}
 
 		OL_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
-	void ShaderLibrary::Add(const std::string& name, const Ref<Shader>& shader)
+	ShaderUniform::ShaderUniform(const std::string& name, ShaderUniformType type, uint32_t size, uint32_t offset)
+		: mName(name), mType(type), mSize(size), mOffset(offset)
 	{
-		OL_CORE_ASSERT(!Exists(name), "Shader already exists!");
-		m_Shaders[name] = shader;
 	}
 
-	void ShaderLibrary::Add(const Ref<Shader>& shader)
+	const std::string& ShaderUniform::UniformTypeToString(ShaderUniformType type)
 	{
-		auto& name = shader->GetName();
-		Add(name, shader);
-	}
+		if (type == ShaderUniformType::Bool)
+		{
+			return "Boolean";
+		}
+		else if (type == ShaderUniformType::Int)
+		{
+			return "Int";
+		}
+		else if (type == ShaderUniformType::Float)
+		{
+			return "Float";
+		}
 
-	Ref<Shader> ShaderLibrary::Load(const std::string& filepath)
-	{
-		auto shader = Shader::Create(filepath);
-		Add(shader);
-		return shader;
+		return "None";
 	}
-
-	Ref<Shader> ShaderLibrary::Load(const std::string& name, const std::string& filepath)
-	{
-		auto shader = Shader::Create(filepath);
-		Add(name, shader);
-		return shader;
-	}
-
-	Ref<Shader> ShaderLibrary::Get(const std::string& name)
-	{
-		OL_CORE_ASSERT(Exists(name), "Shader not found!");
-		return m_Shaders[name];
-	}
-
-	bool ShaderLibrary::Exists(const std::string& name) const
-	{
-		return m_Shaders.find(name) != m_Shaders.end();
-	}
-
 }

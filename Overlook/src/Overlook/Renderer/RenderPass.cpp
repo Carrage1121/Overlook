@@ -8,7 +8,7 @@ namespace Overlook
 {
 	void RenderPass::AddPostProcessing(PostProcessingType type)
 	{
-		switch (RendererAPI::API())
+		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:    OL_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return;
 		case RendererAPI::API::OpenGL:  mPostProcessings.emplace_back(CreateScope<OpenGLPostProcessing>(type)); return;

@@ -2,6 +2,7 @@
 #include "Renderer.h"
 #include "Overlook/Renderer/Renderer2D.h"
 #include "Overlook/Renderer/Renderer3D.h"
+#include "Overlook/Renderer/PostProcessing.h"
 
 #include "Platform/OpenGL/OpenGLShader.h"
 #include "Overlook/Renderer/PerspectiveCamera.h"
@@ -17,6 +18,7 @@ namespace Overlook {
 		RenderCommand::Init();
 		Renderer2D::Init();
 		Renderer3D::Init();
+		PostProcessing::Init();
 	}
 
 	void Renderer::Shutdown()

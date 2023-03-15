@@ -17,11 +17,21 @@ namespace Overlook {
 
 	Scene::Scene()
 	{
-		mSystems.emplace_back(CreateScope<RenderSystem3D>(this));
-		mSystems.emplace_back(CreateScope<NativeScriptSystem>(this));
-		mSystems.emplace_back(CreateScope<PhysicSystem3D>(this));
-		mSystems.emplace_back(CreateScope<EnvironmentSystem>(this));
-		//mSystems.emplace_back(CreateScope<RenderSystem2D>(this));
+		int nowDimMode = ModeManager::b3DMode;
+		if (nowDimMode)
+		{
+			mSystems.emplace_back(CreateScope<RenderSystem3D>(this));
+			mSystems.emplace_back(CreateScope<NativeScriptSystem>(this));
+			mSystems.emplace_back(CreateScope<PhysicSystem3D>(this));
+			mSystems.emplace_back(CreateScope<EnvironmentSystem>(this));
+		}
+		else
+		{
+			mSystems.emplace_back(CreateScope<RenderSystem2D>(this));
+			mSystems.emplace_back(CreateScope<NativeScriptSystem>(this));
+			mSystems.emplace_back(CreateScope<PhysicSystem3D>(this));
+			mSystems.emplace_back(CreateScope<EnvironmentSystem>(this));
+		}
 	}
 
 	Scene::~Scene()

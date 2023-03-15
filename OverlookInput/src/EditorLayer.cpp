@@ -622,8 +622,8 @@ namespace Overlook
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(buttonActive.x, buttonActive.y, buttonActive.z, 0.5f));
 
 		ImGui::Begin("##toolbar", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
-		ImGuiDockNode* node = ImGui::GetWindowDockNode();
-		node->LocalFlags |= ImGuiDockNodeFlags_NoTabBar;
+// 		ImGuiDockNode* node = ImGui::GetWindowDockNode();
+// 		node->LocalFlags |= ImGuiDockNodeFlags_NoTabBar;
 
 		float size = ImGui::GetWindowHeight() - 4.0f;
 		Ref<Texture2D> icon = ModeManager::IsEditState() ? IconManager::GetInstance().GetPlayIcon() : IconManager::GetInstance().GetStopIcon();
@@ -765,7 +765,7 @@ namespace Overlook
 
 	void EditorLayer::OpenScene()
 	{
-		std::string filepath = FileDialogs::OpenFile("HEngine Scene (*.he)\0*.he\0");
+		std::string filepath = FileDialogs::OpenFile("Overlook Scene (*.ol)\0*.ol\0");
 		if (!filepath.empty())
 			OpenScene(filepath);
 	}
@@ -778,7 +778,7 @@ namespace Overlook
 			ModeManager::ChangeState();
 		}
 
-		if (path.extension().string() != ".he")
+		if (path.extension().string() != ".ol")
 		{
 			OL_WARN("Could not load {0} - not a scene file", path.filename().string());
 			return;
@@ -807,7 +807,7 @@ namespace Overlook
 
 	void EditorLayer::SaveSceneAs()
 	{
-		std::string filepath = FileDialogs::SaveFile("HEngine Scene (*.he)\0*.he\0");
+		std::string filepath = FileDialogs::SaveFile("Overlook Scene (*.ol)\0*.ol\0");
 		if (!filepath.empty())
 		{
 			SerializeScene(mActiveScene, filepath);

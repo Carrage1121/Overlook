@@ -6,40 +6,35 @@
 
 namespace Overlook
 {
-    class OpenGLTexture2D : public Texture2D
-    {
-    public:
-        OpenGLTexture2D(uint32_t width, uint32_t height);
-        OpenGLTexture2D(const std::string& path);
-        virtual ~OpenGLTexture2D();
+	class OpenGLTexture2D : public Texture2D
+	{
+	public:
+		OpenGLTexture2D(uint32_t width, uint32_t height);
+		OpenGLTexture2D(const std::filesystem::path& path);
+		virtual ~OpenGLTexture2D();
 
-        virtual uint32_t GetWidth() const override { return m_Width; }
-        virtual uint32_t GetHeight() const override { return m_Height; }
-        virtual uint32_t GetRendererID() const override { return m_RendererID; }
+		virtual uint32_t GetWidth() const override { return mWidth; };
+		virtual uint32_t GetHeight() const override { return mHeight; };
+		virtual uint32_t GetRendererID() const override { return mRendererID; }
 
-        virtual void SetData(void* data, uint32_t size) override;
+		virtual void SetData(void* data, uint32_t size) override;
 
-        virtual void Bind(uint32_t slot = 0) const override;
-        virtual bool IsLoaded() const override { return m_IsLoaded; }
-        virtual void UnBind() const override;
+		virtual void Bind(uint32_t slot = 0) const override;
+		virtual void UnBind() const override;
 
+		virtual bool IsLoaded() const override { return mIsLoaded; }
 
-        // always good practice to set everything back to defaults once configured.
-        void SetDefaultActive();
-
-        virtual bool operator==(const Texture& other) const override
-        {
-            return m_RendererID == ((OpenGLTexture2D&)other).m_RendererID;
-        }
-
-    private:
-        std::string m_Path;
-		bool m_IsLoaded = false;
-
-        uint32_t m_Width, m_Height;
-        uint32_t m_RendererID;
-        GLenum m_InternalFormat, m_DataFormat;
-    };
+		virtual bool operator==(const Texture& other) const override
+		{
+			return mRendererID == ((OpenGLTexture2D&)other).mRendererID;
+		}
+	private:
+		std::filesystem::path mPath;
+		bool mIsLoaded = false;
+		uint32_t mWidth, mHeight;
+		uint32_t mRendererID;
+		GLenum mInternalFormat, mDataFormat;
+	};
 
 	class OpenGLTexture3D : public Texture3D
 	{
@@ -64,7 +59,6 @@ namespace Overlook
 		uint32_t mRendererID;
 		//GLenum mInternalFormat, mDataFormat;
 	};
-
 
 	class OpenGLCubeMapTexture : public CubeMapTexture
 	{
@@ -97,3 +91,4 @@ namespace Overlook
 		std::vector<std::string> mPaths;
 	};
 }
+
