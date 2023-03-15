@@ -1,0 +1,10 @@
+^D:\STUDY\VS2022\OVERLOOK\OVERLOOK\VENDOR\ASSIMP\BUILD\CMAKEFILES\DF0C5DB02015C17425EAA1A6363C5F9F\GENERATE.STAMP.RULE
+setlocal
+D:\IDE\CMake\bin\cmake.exe -SD:/Study/VS2022/Overlook/Overlook/vendor/assimp -BD:/Study/VS2022/Overlook/Overlook/vendor/assimp/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/Study/VS2022/Overlook/Overlook/vendor/assimp/build/Assimp.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -96,16 +96,11 @@ static const aiImporterDesc desc = {
 };
 
 glTF2Importer::glTF2Importer() :
-        BaseImporter(),
-        meshOffsets(),
-        mEmbeddedTexIdxs(),
         mScene(nullptr) {
     // empty
 }
 
-glTF2Importer::~glTF2Importer() {
-    // empty
-}
+glTF2Importer::~glTF2Importer() = default;
 
 const aiImporterDesc *glTF2Importer::GetInfo() const {
     return &desc;
@@ -187,7 +182,6 @@ static void SetMaterialTextureProperty(std::vector<int> &embeddedTexIdxs, Asset 
             const ai_real rsin(sin(-transform.mRotation));
             transform.mTranslation.x = (static_cast<ai_real>(0.5) * transform.mScaling.x) * (-rcos + rsin + 1) + prop.TextureTransformExt_t.offset[0];
             transform.mTranslation.y = ((static_cast<ai_real>(0.5) * transform.mScaling.y) * (rsin + rcos - 1)) + 1 - transform.mScaling.y - prop.TextureTransformExt_t.offset[1];
-            ;
 
             mat->AddProperty(&transform, 1, _AI_MATKEY_UVTRANSFORM_BASE, texType, texSlot);
         }
@@ -357,6 +351,13 @@ static aiMaterial *ImportMaterial(std::vector<int> &embeddedTexIdxs, Asset &r, M
             MaterialIOR &ior = mat.materialIOR.value;
 
             aimat->AddProperty(&ior.ior, 1, AI_MATKEY_REFRACTI);
+        }
+
+        // KHR_materials_emissive_strength
+        if (mat.materialEmissiveStrength.isPresent) {
+            MaterialEmissiveStrength &emissiveStrength = mat.materialEmissiveStrength.value;
+
+            aimat->AddProperty(&emissiveStrength.emissiveStrength, 1, AI_MATKEY_EMISSIVE_INTENSITY);
         }
 
         return aimat;
@@ -848,7 +849,7 @@ void glTF2Importer::ImportCameras(glTF2::Asset &r) {
 
         if (cam.type == Camera::Perspective) {
             aicam->mAspect = cam.cameraProperties.perspective.aspectRatio;
-            aicam->mHorizontalFOV = cam.cameraProperties.perspective.yfov * ((aicam->mAspect == 0.f) ? 1.f : aicam->mAspect);
+            aicam->mHorizontalFOV = 2.0f * std::atan(std::tan(cam.cameraProperties.perspective.yfov * 0.5f) * ((aicam->mAspect == 0.f) ? 1.f : aicam->mAspect));
             aicam->mClipPlaneFar = cam.cameraProperties.perspective.zfar;
             aicam->mClipPlaneNear = cam.cameraProperties.perspective.znear;
         } else {
@@ -970,8 +971,10 @@ static void BuildVertexWeightMapping(Mesh::Primitive &primitive, std::vector<std
     struct Weights {
         float values[4];
     };
-    Weights *weights = nullptr;
-    attr.weight[0]->ExtractData(weights);
+    Weights **weights = new Weights*[attr.weight.size()];
+    for (size_t w = 0; w < attr.weight.size(); ++w) {
+        attr.weight[w]->ExtractData(weights[w]);
+    }
 
     struct Indices8 {
         uint8_t values[4];
@@ -979,12 +982,18 @@ static void BuildVertexWeightMapping(Mesh::Primitive &primitive, std::vector<std
     struct Indices16 {
         uint16_t values[4];
     };
-    Indices8 *indices8 = nullptr;
-    Indices16 *indices16 = nullptr;
+    Indices8 **indices8 = nullptr;
+    Indices16 **indices16 = nullptr;
     if (attr.joint[0]->GetElementSize() == 4) {
-        attr.joint[0]->ExtractData(indices8);
+        indices8 = new Indices8*[attr.joint.size()];
+        for (size_t j = 0; j < attr.joint.size(); ++j) {
+            attr.joint[j]->ExtractData(indices8[j]);
+        }
     } else {
-        attr.joint[0]->ExtractData(indices16);
+        indices16 = new Indices16 *[attr.joint.size()];
+        for (size_t j = 0; j < attr.joint.size(); ++j) {
+            attr.joint[j]->ExtractData(indices16[j]);
+        }
     }
     //
     if (nullptr == indices8 && nullptr == indices16) {
@@ -993,17 +1002,26 @@ static void BuildVertexWeightMapping(Mesh::Primitive &primitive, std::vector<std
         return;
     }
 
-    for (size_t i = 0; i < num_vertices; ++i) {
-        for (int j = 0; j < 4; ++j) {
-            const unsigned int bone = (indices8 != nullptr) ? indices8[i].values[j] : indices16[i].values[j];
-            const float weight = weights[i].values[j];
-            if (weight > 0 && bone < map.size()) {
-                map[bone].reserve(8);
-                map[bone].emplace_back(static_cast<unsigned int>(i), weight);
+    for (size_t w = 0; w < attr.weight.size(); ++w) {
+        for (size_t i = 0; i < num_vertices; ++i) {
+            for (int j = 0; j < 4; ++j) {
+                const unsigned int bone = (indices8 != nullptr) ? indices8[w][i].values[j] : indices16[w][i].values[j];
+                const float weight = weights[w][i].values[j];
+                if (weight > 0 && bone < map.size()) {
+                    map[bone].reserve(8);
+                    map[bone].emplace_back(static_cast<unsigned int>(i), weight);
+                }
             }
         }
     }
 
+    for (size_t w = 0; w < attr.weight.size(); ++w) {
+        delete[] weights[w];
+        if(indices8)
+            delete[] indices8[w];
+        if (indices16)
+            delete[] indices16[w];
+    }
     delete[] weights;
     delete[] indices8;
     delete[] indices16;

@@ -164,11 +164,11 @@ class NodeAttribute : public Object {
 public:
     NodeAttribute(uint64_t id, const Element& element, const Document& doc, const std::string& name);
 
-    virtual ~NodeAttribute();
+    virtual ~NodeAttribute() = default;
 
     const PropertyTable& Props() const {
         ai_assert(props.get());
-        return *props.get();
+        return *props;
     }
 
 private:
@@ -180,7 +180,7 @@ class CameraSwitcher : public NodeAttribute {
 public:
     CameraSwitcher(uint64_t id, const Element& element, const Document& doc, const std::string& name);
 
-    virtual ~CameraSwitcher();
+    virtual ~CameraSwitcher() = default;
 
     int CameraID() const {
         return cameraId;
@@ -225,7 +225,7 @@ class Camera : public NodeAttribute {
 public:
     Camera(uint64_t id, const Element& element, const Document& doc, const std::string& name);
 
-    virtual  ~Camera();
+    virtual  ~Camera() = default;
 
     fbx_simple_property(Position, aiVector3D, aiVector3D(0,0,0))
     fbx_simple_property(UpVector, aiVector3D, aiVector3D(0,1,0))
@@ -250,21 +250,21 @@ public:
 class Null : public NodeAttribute {
 public:
     Null(uint64_t id, const Element& element, const Document& doc, const std::string& name);
-    virtual ~Null();
+    virtual ~Null() = default;
 };
 
 /** DOM base class for FBX limb node markers attached to a node */
 class LimbNode : public NodeAttribute {
 public:
     LimbNode(uint64_t id, const Element& element, const Document& doc, const std::string& name);
-    virtual ~LimbNode();
+    virtual ~LimbNode() = default;
 };
 
 /** DOM base class for FBX lights attached to a node */
 class Light : public NodeAttribute {
 public:
     Light(uint64_t id, const Element& element, const Document& doc, const std::string& name);
-    virtual ~Light();
+    virtual ~Light() = default;
 
     enum Type {
         Type_Point,
@@ -432,7 +432,7 @@ public:
 
     const PropertyTable& Props() const {
         ai_assert(props.get());
-        return *props.get();
+        return *props;
     }
 
     /** Get material links */
@@ -503,7 +503,7 @@ public:
 
     const PropertyTable& Props() const {
         ai_assert(props.get());
-        return *props.get();
+        return *props;
     }
 
     // return a 4-tuple
@@ -618,7 +618,7 @@ public:
 
     const PropertyTable& Props() const {
         ai_assert(props.get());
-        return *props.get();
+        return *props;
     }
 
     const uint8_t* Content() const {
@@ -632,7 +632,7 @@ public:
 
     uint8_t* RelinquishContent() {
         uint8_t* ptr = content;
-        content = 0;
+        content = nullptr;
         return ptr;
     }
 
@@ -663,7 +663,7 @@ public:
 
     const PropertyTable& Props() const {
         ai_assert(props.get());
-        return *props.get();
+        return *props;
     }
 
     const TextureMap& Textures() const {
@@ -690,7 +690,7 @@ using KeyValueList = std::vector<float>;
 class AnimationCurve : public Object {
 public:
     AnimationCurve(uint64_t id, const Element& element, const std::string& name, const Document& doc);
-    virtual ~AnimationCurve();
+    virtual ~AnimationCurve() = default;
 
     /** get list of keyframe positions (time).
      *  Invariant: |GetKeys()| > 0 */
@@ -731,11 +731,11 @@ public:
     AnimationCurveNode(uint64_t id, const Element& element, const std::string& name, const Document& doc,
             const char *const *target_prop_whitelist = nullptr, size_t whitelist_size = 0);
 
-    virtual ~AnimationCurveNode();
+    virtual ~AnimationCurveNode() = default;
 
     const PropertyTable& Props() const {
         ai_assert(props.get());
-        return *props.get();
+        return *props;
     }
 
 
@@ -776,11 +776,11 @@ using AnimationCurveNodeList = std::vector<const AnimationCurveNode*>;
 class AnimationLayer : public Object {
 public:
     AnimationLayer(uint64_t id, const Element& element, const std::string& name, const Document& doc);
-    virtual ~AnimationLayer();
+    virtual ~AnimationLayer() = default;
 
     const PropertyTable& Props() const {
         ai_assert(props.get());
-        return *props.get();
+        return *props;
     }
 
     /* the optional white list specifies a list of property names for which the caller
@@ -799,7 +799,7 @@ using AnimationLayerList = std::vector<const AnimationLayer*>;
 class AnimationStack : public Object {
 public:
     AnimationStack(uint64_t id, const Element& element, const std::string& name, const Document& doc);
-    virtual ~AnimationStack();
+    virtual ~AnimationStack() = default;
 
     fbx_simple_property(LocalStart, int64_t, 0L)
     fbx_simple_property(LocalStop, int64_t, 0L)
@@ -808,7 +808,7 @@ public:
 
     const PropertyTable& Props() const {
         ai_assert(props.get());
-        return *props.get();
+        return *props;
     }
 
     const AnimationLayerList& Layers() const {
@@ -829,7 +829,7 @@ public:
 
     const PropertyTable& Props() const {
         ai_assert(props.get());
-        return *props.get();
+        return *props;
     }
 
 private:
@@ -1018,7 +1018,7 @@ public:
 
     const PropertyTable& Props() const {
         ai_assert(props.get());
-        return *props.get();
+        return *props;
     }
 
     const Document& GetDocument() const {
@@ -1097,7 +1097,7 @@ public:
 
     const FileGlobalSettings& GlobalSettings() const {
         ai_assert(globals.get());
-        return *globals.get();
+        return *globals;
     }
 
     const PropertyTemplateMap& Templates() const {

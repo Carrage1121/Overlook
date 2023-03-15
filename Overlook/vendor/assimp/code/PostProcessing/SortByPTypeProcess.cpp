@@ -60,12 +60,6 @@ SortByPTypeProcess::SortByPTypeProcess() :
 }
 
 // ------------------------------------------------------------------------------------------------
-// Destructor, private as well
-SortByPTypeProcess::~SortByPTypeProcess() {
-    // nothing to do here
-}
-
-// ------------------------------------------------------------------------------------------------
 // Returns whether the processing step is present in the given flag field.
 bool SortByPTypeProcess::IsActive(unsigned int pFlags) const {
     return (pFlags & aiProcess_SortByPType) != 0;
@@ -311,7 +305,7 @@ void SortByPTypeProcess::Execute(aiScene *pScene) {
                         VertexWeightTable &tbl = avw[idx];
                         for (VertexWeightTable::const_iterator it = tbl.begin(), end = tbl.end();
                                 it != end; ++it) {
-                            tempBones[(*it).first].push_back(aiVertexWeight(outIdx, (*it).second));
+                            tempBones[(*it).first].emplace_back(outIdx, (*it).second);
                         }
                     }
 

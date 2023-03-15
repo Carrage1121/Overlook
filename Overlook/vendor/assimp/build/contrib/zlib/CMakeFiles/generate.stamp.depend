@@ -1,0 +1,10 @@
+# CMake generation dependency list for this directory.
+D:/IDE/CMake/share/cmake-3.26/Modules/CheckCSourceCompiles.cmake
+D:/IDE/CMake/share/cmake-3.26/Modules/CheckFunctionExists.cmake
+D:/IDE/CMake/share/cmake-3.26/Modules/CheckIncludeFile.cmake
+D:/IDE/CMake/share/cmake-3.26/Modules/CheckIncludeFileCXX.cmake
+D:/IDE/CMake/share/cmake-3.26/Modules/CheckTypeSize.cmake
+D:/IDE/CMake/share/cmake-3.26/Modules/Internal/CheckSourceCompiles.cmake
+D:/Study/VS2022/Overlook/Overlook/vendor/assimp/contrib/zlib/CMakeLists.txt
+D:/Study/VS2022/Overlook/Overlook/vendor/assimp/contrib/zlib/zconf.h.cmakein
+D:/Study/VS2022/Overlook/Overlook/vendor/assimp/contrib/zlib/zlib.pc.cmakein
