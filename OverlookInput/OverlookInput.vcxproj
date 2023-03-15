@@ -92,7 +92,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST $(SolutionDir)\Overlook\vendor\mono\bin\Debug\mono-2.0-sgen.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\Overlook\vendor\mono\bin\Debug\mono-2.0-sgen.dll  ..\bin\Debug-windows-x86_64\OverlookInput &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\Overlook\vendor\mono\bin\Debug\mono-2.0-sgen.dll  ..\bin\Debug-windows-x86_64\OverlookInput &gt; nul)</Command>
+      <Command>IF EXIST $(SolutionDir)\Overlook\vendor\mono\bin\Debug\mono-2.0-sgen.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\Overlook\vendor\mono\bin\Debug\mono-2.0-sgen.dll  ..\bin\Debug-windows-x86_64\OverlookInput &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\Overlook\vendor\mono\bin\Debug\mono-2.0-sgen.dll  ..\bin\Debug-windows-x86_64\OverlookInput &gt; nul)
+IF EXIST $(SolutionDir)\Overlook\vendor\assimp\build\bin\Debug\assimp-vc143-mtd.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\Overlook\vendor\assimp\build\bin\Debug\assimp-vc143-mtd.dll  ..\bin\Debug-windows-x86_64\OverlookInput &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\Overlook\vendor\assimp\build\bin\Debug\assimp-vc143-mtd.dll  ..\bin\Debug-windows-x86_64\OverlookInput &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -116,7 +117,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST $(SolutionDir)\Overlook\vendor\mono\bin\Release\mono-2.0-sgen.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\Overlook\vendor\mono\bin\Release\mono-2.0-sgen.dll  ..\bin\Release-windows-x86_64\OverlookInput &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\Overlook\vendor\mono\bin\Release\mono-2.0-sgen.dll  ..\bin\Release-windows-x86_64\OverlookInput &gt; nul)</Command>
+      <Command>IF EXIST $(SolutionDir)\Overlook\vendor\mono\bin\Release\mono-2.0-sgen.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\Overlook\vendor\mono\bin\Release\mono-2.0-sgen.dll  ..\bin\Release-windows-x86_64\OverlookInput &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\Overlook\vendor\mono\bin\Release\mono-2.0-sgen.dll  ..\bin\Release-windows-x86_64\OverlookInput &gt; nul)
+IF EXIST $(SolutionDir)\Overlook\vendor\assimp\build\bin\Release\assimp-vc143-mtd.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\Overlook\vendor\assimp\build\bin\Release\assimp-vc143-mtd.dll  ..\bin\Release-windows-x86_64\OverlookInput &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\Overlook\vendor\assimp\build\bin\Release\assimp-vc143-mtd.dll  ..\bin\Release-windows-x86_64\OverlookInput &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -140,7 +142,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST $(SolutionDir)\Overlook\vendor\mono\bin\Dist\mono-2.0-sgen.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\Overlook\vendor\mono\bin\Dist\mono-2.0-sgen.dll  ..\bin\Dist-windows-x86_64\OverlookInput &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\Overlook\vendor\mono\bin\Dist\mono-2.0-sgen.dll  ..\bin\Dist-windows-x86_64\OverlookInput &gt; nul)</Command>
+      <Command>IF EXIST $(SolutionDir)\Overlook\vendor\mono\bin\Dist\mono-2.0-sgen.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\Overlook\vendor\mono\bin\Dist\mono-2.0-sgen.dll  ..\bin\Dist-windows-x86_64\OverlookInput &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\Overlook\vendor\mono\bin\Dist\mono-2.0-sgen.dll  ..\bin\Dist-windows-x86_64\OverlookInput &gt; nul)
+IF EXIST $(SolutionDir)\Overlook\vendor\assimp\build\bin\Dist\assimp-vc143-mtd.dll\ (xcopy /Q /E /Y /I $(SolutionDir)\Overlook\vendor\assimp\build\bin\Dist\assimp-vc143-mtd.dll  ..\bin\Dist-windows-x86_64\OverlookInput &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)\Overlook\vendor\assimp\build\bin\Dist\assimp-vc143-mtd.dll  ..\bin\Dist-windows-x86_64\OverlookInput &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -164,4 +167,4 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-</Project> 
+</Project>

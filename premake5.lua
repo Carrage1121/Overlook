@@ -27,7 +27,6 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 group "Dependencies"
 	include "vendor/premake"
-	include "Overlook/vendor/assimp"
 	include "Overlook/vendor/GLFW"
 	include "Overlook/vendor/Glad"
 	include "Overlook/vendor/imgui"

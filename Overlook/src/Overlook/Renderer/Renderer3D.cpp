@@ -42,12 +42,6 @@ namespace Overlook
 		m3_data.mShader = Shader::Create(std::string("assets/Shader/modelRenderer-old.glsl"));
 		//m3_data.mShader = Shader::Create(std::string("assets/Shader/Texture.glsl"));
 
-		// TODO : abstruct skybox
-		sSkyBoxShader = Shader::Create(std::string("assets/Shader/SkyBox.glsl"));
-		sSkyBox = CubeMapTexture::Create(sPaths);
-		sBox = Mesh(std::string("assets/Model/Base/Box.obj"));
-
-		RenderCommand::Test();
 		m3_data.CameraUniformBuffer = UniformBuffer::Create(sizeof(Renderer3DData::CameraData), 1);
 
 		FramebufferSpecification fbSpec;
@@ -106,16 +100,6 @@ namespace Overlook
 		defaultShader->Bind();
 
 		MeshComponent.mMesh->Draw(transform, cameraPos, Library<Shader>::GetInstance().GetDefaultShader(), EntityID);
-	}
-
-	void Renderer3D::DrawModel(const glm::mat4& transform, ModelRendererComponent modelComponent, int entityid)
-	{
-		m3_data.mShader->Bind();
-		if (!modelComponent.Path.empty())
-		{
-			modelComponent.mMesh->Draw(transform, m3_data.mShader, entityid);
-		}
-
 	}
 
 	void Renderer3D::DrawSkyBox(const EditorCamera& camera)

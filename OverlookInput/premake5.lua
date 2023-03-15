@@ -35,7 +35,8 @@ project "OverlookInput"
 
 	postbuildcommands
 	{
-		"{COPY} %{Binary.mono}  %{cfg.targetdir}"
+		"{COPY} %{Binary.mono}  %{cfg.targetdir}",
+		"{COPY} %{Binary.assimp}  %{cfg.targetdir}"
 	}
 
 	filter "system:windows"

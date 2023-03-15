@@ -90,7 +90,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;vendor\mono\lib\Debug\mono-2.0-sgen.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;Bullet3Common_Debug.lib;Bullet3Collision_Debug.lib;Bullet3Dynamics_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;vendor\mono\lib\Debug\mono-2.0-sgen.lib;vendor\assimp\build\lib\Debug\assimp-vc143-mtd.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;Bullet3Common_Debug.lib;Bullet3Collision_Debug.lib;Bullet3Dynamics_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>vendor\bullet3\build\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -116,7 +116,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;vendor\mono\lib\Release\mono-2.0-sgen.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;Bullet3Common_Debug.lib;Bullet3Collision_Debug.lib;Bullet3Dynamics_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;vendor\mono\lib\Release\mono-2.0-sgen.lib;vendor\assimp\build\lib\Release\assimp-vc143-mtd.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;Bullet3Common_Debug.lib;Bullet3Collision_Debug.lib;Bullet3Dynamics_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>vendor\bullet3\build\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -142,7 +142,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;vendor\mono\lib\Dist\mono-2.0-sgen.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;Bullet3Common_Debug.lib;Bullet3Collision_Debug.lib;Bullet3Dynamics_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;vendor\mono\lib\Dist\mono-2.0-sgen.lib;vendor\assimp\build\lib\Dist\assimp-vc143-mtd.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;Bullet3Common_Debug.lib;Bullet3Collision_Debug.lib;Bullet3Dynamics_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>vendor\bullet3\build\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -174,10 +174,6 @@
     <ClInclude Include="src\Overlook\Library\ShaderLibrary.h" />
     <ClInclude Include="src\Overlook\Library\TextureLibrary.h" />
     <ClInclude Include="src\Overlook\Library\UniformBufferLibrary.h" />
-    <ClInclude Include="src\Overlook\ModelLoader\Animation\animation.h" />
-    <ClInclude Include="src\Overlook\ModelLoader\Animation\animator.h" />
-    <ClInclude Include="src\Overlook\ModelLoader\Animation\animdata.h" />
-    <ClInclude Include="src\Overlook\ModelLoader\Animation\bone.h" />
     <ClInclude Include="src\Overlook\ModelLoader\Mesh\Mesh.h" />
     <ClInclude Include="src\Overlook\ModelLoader\Mesh\subMesh.h" />
     <ClInclude Include="src\Overlook\ModelLoader\ModelLoadBuild.h" />
@@ -669,7 +665,6 @@
     <ClCompile Include="src\Overlook\Library\ShaderLibrary.cpp" />
     <ClCompile Include="src\Overlook\Library\TextureLibrary.cpp" />
     <ClCompile Include="src\Overlook\Library\UniformBufferLibrary.cpp" />
-    <ClCompile Include="src\Overlook\ModelLoader\Animation\animation.cpp" />
     <ClCompile Include="src\Overlook\ModelLoader\Mesh\Mesh.cpp" />
     <ClCompile Include="src\Overlook\ModelLoader\Mesh\subMesh.cpp" />
     <ClCompile Include="src\Overlook\ModelLoader\stbBuild.cpp" />
@@ -740,9 +735,6 @@
     </ProjectReference>
     <ProjectReference Include="vendor\yaml-cpp\yaml-cpp.vcxproj">
       <Project>{88F1A057-74BE-FB62-9DD7-E90A890331F1}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\assimp\assimp.vcxproj">
-      <Project>{724885F2-5EEA-AFC8-47A5-C31C33E63619}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

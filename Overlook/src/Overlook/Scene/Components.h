@@ -99,15 +99,19 @@ namespace Overlook {
 	class ModelRendererComponent
 	{
 	public:
-		ModelRendererComponent() = default;
+		ModelRendererComponent() { mMesh = CreateRef<Mesh>(); };
 		ModelRendererComponent(const ModelRendererComponent&) = default;
 		ModelRendererComponent(const std::string& path)
 			: Path(path), mMesh(CreateRef<Mesh>(path))
 		{
 		}
+		//MeshComponent(const std::filesystem::path& path)
+		//	: Path(path)
+		//{
+		//}
 
+		std::string Path = "None";
 		Ref<Mesh> mMesh;
-		std::string Path;
 	};
 
 	struct CameraComponent

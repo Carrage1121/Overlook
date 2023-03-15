@@ -58,8 +58,6 @@ namespace Overlook
 	static bool bShowSRT = true;
 
 	// Help
-	static bool bShowTutorial = false;
-	static bool bShowAboutMe = false;
 	static bool bShowDemoImGui = false;
 
 	EditorLayer::EditorLayer()
@@ -299,8 +297,6 @@ namespace Overlook
 			}
 			if (ImGui::BeginMenu("Help"))
 			{
-				ImGui::MenuItem("Tutorial", NULL, &bShowTutorial);
-				ImGui::MenuItem("About Me", NULL, &bShowAboutMe);
 				ImGui::MenuItem("Demo ImGui", NULL, &bShowDemoImGui);
 
 				ImGui::EndMenu();
@@ -571,27 +567,6 @@ namespace Overlook
 		// ----Help Begin----
 		// TODO
 		ImGuiWindowFlags helpMenuFlags = ImGuiWindowFlags_NoDocking;
-		if (bShowTutorial)
-		{
-			ImGui::Begin("Tutorial", &bShowTutorial, helpMenuFlags);
-			ImGui::Text("Hello!");
-			ImGui::Text("Hello!");
-			ImGui::Text("Hello!");
-			ImGui::Text("Hello!");
-			ImGui::Text("Hello!");
-			ImGui::Text("Hello!");
-			ImGui::Text("Hello!");
-			ImGui::Text("Hello!");
-			ImGui::Text("Hello!");
-			ImGui::Text("Hello!");
-			ImGui::End();
-		}
-		if (bShowAboutMe)
-		{
-			ImGui::Begin("About Me", &bShowAboutMe, helpMenuFlags);
-			ImGui::Text("My name is hbh!");
-			ImGui::End();
-		}
 		if (bShowDemoImGui)
 		{
 			ImGui::ShowDemoWindow(&bShowDemoImGui);
@@ -621,9 +596,8 @@ namespace Overlook
 		const auto& buttonActive = colors[ImGuiCol_ButtonActive];
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(buttonActive.x, buttonActive.y, buttonActive.z, 0.5f));
 
-		ImGui::Begin("##toolbar", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
-// 		ImGuiDockNode* node = ImGui::GetWindowDockNode();
-// 		node->LocalFlags |= ImGuiDockNodeFlags_NoTabBar;
+		bool show_button = true;
+		ImGui::Begin("##toolbar", &show_button, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiDockNodeFlags_NoTabBar | ImGuiWindowFlags_NoTitleBar);
 
 		float size = ImGui::GetWindowHeight() - 4.0f;
 		Ref<Texture2D> icon = ModeManager::IsEditState() ? IconManager::GetInstance().GetPlayIcon() : IconManager::GetInstance().GetStopIcon();
@@ -660,8 +634,6 @@ namespace Overlook
 		bShowSRT = true;
 
 		// Help
-		bShowTutorial = false;
-		bShowAboutMe = false;
 		bShowDemoImGui = false;
 
 		// seems imgui docking branch has some bugs with load ini file?

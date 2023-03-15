@@ -26,7 +26,7 @@ namespace Overlook
 		Add("NormalOutline_anim", Shader::Create(AssetManager::GetAssetsPath("Shader/NormalOutline_anim.glsl")));
 
 // 		Add("CSM_Depth", Shader::Create(AssetManager::GetAssetsPath("Shader/Shadow/CSM_Depth.glsl")));
-// 		Add("Debug_Depth", Shader::Create(AssetManager::GetAssetsPath("Shader/Shadow/Debug_Depth.glsl")));
+//  		Add("Debug_Depth", Shader::Create(AssetManager::GetAssetsPath("Shader/Shadow/Debug_Depth.glsl")));
 	}
 
 	Ref<Shader> Library<Shader>::GetDefaultShader()

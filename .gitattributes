@@ -1,0 +1,2 @@
+Overlook/vendor filter=lfs diff=lfs merge=lfs -text
+Overlook/vendor/assimp/* filter=lfs diff=lfs merge=lfs -text

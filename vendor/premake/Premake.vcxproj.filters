@@ -16,9 +16,6 @@
     <Filter Include="..\Overlook\vendor\Glad">
       <UniqueIdentifier>{C5287122-3160-B9B9-3A6A-1DDDA620E0B2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="..\Overlook\vendor\assimp">
-      <UniqueIdentifier>{7A3C8DC0-E6FE-C04A-2FAF-4FD79BB09928}</UniqueIdentifier>
-    </Filter>
     <Filter Include="..\Overlook\vendor\imgui">
       <UniqueIdentifier>{082BFE72-F44F-4DF3-1D9B-3283091F4C11}</UniqueIdentifier>
     </Filter>
@@ -47,9 +44,6 @@
     </None>
     <None Include="..\..\Overlook\vendor\Glad\premake5.lua">
       <Filter>..\Overlook\vendor\Glad</Filter>
-    </None>
-    <None Include="..\..\Overlook\vendor\assimp\premake5.lua">
-      <Filter>..\Overlook\vendor\assimp</Filter>
     </None>
     <None Include="..\..\Overlook\vendor\imgui\premake5.lua">
       <Filter>..\Overlook\vendor\imgui</Filter>

@@ -54,10 +54,10 @@ project "Overlook"
 		"Glad",
 		"ImGui",
 		"yaml-cpp",
-		"assimp",
 		"opengl32.lib",
 
 		"%{Library.mono}",
+		"%{Library.assimp}",
 	}
 
 	filter "files:vendor/ImGuizmo/**.cpp"

@@ -22,7 +22,6 @@ namespace Overlook
 		static void EndScene();
 		static void Flush();
 	
-		static void DrawModel(const glm::mat4& transform, ModelRendererComponent modelComponent, int entityid);
 		static void DrawModel(const glm::mat4& transform, const glm::vec3& cameraPos, ModelRendererComponent& MeshComponent, int EntityID);
 
 		// TODO: Move to Environment System

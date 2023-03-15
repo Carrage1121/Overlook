@@ -1,11 +1,10 @@
 #include "olpch.h"
 
-#include "Overlook/ModelLoader/Mesh/subMesh.h"
+#include "Overlook/ModelLoader/Mesh/SubMesh.h"
+#include "Overlook/Renderer/RenderCommand.h"
+#include "Overlook/Library/TextureLibrary.h"
 #include "Overlook/ModelLoader/Mesh/Mesh.h"
 #include "Overlook/Resource/ModeManager/ModeManager.h"
-#include "Overlook/Renderer/RenderCommand.h"
-
-#include "Glad/glad.h"
 
 namespace Overlook
 {
@@ -32,7 +31,7 @@ namespace Overlook
 	}
 
 	SubMesh::SubMesh(const std::vector<StaticVertex>& vertices, const std::vector<uint32_t> indices, const std::vector<MaterialTexture>& textures, uint32_t materialIndex)
-		: mStaticVertices(vertices), mIndices(indices), mMaterial(textures)
+		: mStaticVertices(vertices), mIndices(indices), mTextures(textures), mMaterialIndex(materialIndex)
 	{
 		mVertexArray = VertexArray::Create();
 
@@ -52,7 +51,6 @@ namespace Overlook
 
 		mVertexArray->SetIndexBuffer(mIB);
 	}
-
 
 	SubMesh::SubMesh(const std::vector<SkinnedVertex>& vertices, const std::vector<uint32_t> indices)
 		: mSkinnedVertices(vertices), mIndices(indices)
@@ -79,7 +77,7 @@ namespace Overlook
 	}
 
 	SubMesh::SubMesh(const std::vector<SkinnedVertex>& vertices, const std::vector<uint32_t> indices, const std::vector<MaterialTexture>& textures, uint32_t materialIndex)
-		: mSkinnedVertices(vertices), mIndices(indices), mMaterial(textures)
+		: mSkinnedVertices(vertices), mIndices(indices), mTextures(textures), mMaterialIndex(materialIndex)
 	{
 		mVertexArray = VertexArray::Create();
 
@@ -107,15 +105,6 @@ namespace Overlook
 		SetupMesh(entityID);
 
 		shader->Bind();
-// 		if (model->bPlayAnim)
-// 		{
-// 			if (!model->bStopAnim)
-// 				model->mAnimator.UpdateAnimation(0.01f * model->mAnimPlaySpeed);
-// 
-// 			auto transforms = model->mAnimator.GetFinalBoneMatrices();
-// 			for (int i = 0; i < transforms.size(); ++i)
-// 				shader->SetMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
-// 		}
 
 		shader->SetMat4("model", transform);
 		shader->SetFloat3("camPos", cameraPos);
@@ -167,16 +156,6 @@ namespace Overlook
 		shader->SetInt("roughnessMap", 6);
 		shader->SetInt("aoMap", 7);
 
-		RenderCommand::DrawIndexed(mVertexArray, mIB->GetCount());
-	}
-
-	void SubMesh::Draw(const glm::mat4& transform, const Ref<Shader>& shader, int entityID)
-	{
-
-		SetupMesh(entityID);
-		shader->Bind();
-		shader->SetMat4("u_Transform", (transform));
-		SetupTex(shader);
 		RenderCommand::DrawIndexed(mVertexArray, mIB->GetCount());
 	}
 
@@ -232,19 +211,6 @@ namespace Overlook
 			mIB->SetData(mIndices.data(), mIndices.size());
 
 			mVertexArray->Unbind();
-		}
-	}
-
-	void SubMesh::SetupTex(const Ref<Shader>& shader)
-	{
-
-		for (MaterialTexture& tex : mMaterial)
-		{
-			// 			int i = as_integer(tex.type);
-			// 			std::string str1 = TypeTostring(tex.type);
-			// 			shader->SetInt(str1, i);
-			// 
-			// 			tex.texture2d->Bind(i);
 		}
 	}
 }

@@ -36,35 +36,32 @@ namespace Overlook
 		float mWeights[MAX_BONE_INFLUENCE];
 	};
 
-
-
 	class SubMesh
 	{
 	public:
 		SubMesh(const std::vector<StaticVertex>& vertices, const std::vector<uint32_t> indices);
 		SubMesh(const std::vector<SkinnedVertex>& vertices, const std::vector<uint32_t> indices);
-		SubMesh(const std::vector<StaticVertex>& vertices, const std::vector<uint32_t> indices, const std::vector<MaterialTexture>& textures ,uint32_t materialIndex = 0);
-		SubMesh(const std::vector<SkinnedVertex>& vertices, const std::vector<uint32_t> indices, const std::vector<MaterialTexture>& textures,uint32_t materialIndex = 0);
+		SubMesh(const std::vector<StaticVertex>& vertices, const std::vector<uint32_t> indices, const std::vector<MaterialTexture>& textures, uint32_t materialIndex = 0);
+		SubMesh(const std::vector<SkinnedVertex>& vertices, const std::vector<uint32_t> indices, const std::vector<MaterialTexture>& textures, uint32_t materialIndex = 0);
 
 		void Draw(const glm::mat4& transform, const glm::vec3& cameraPos, const Ref<Shader>& shader, int entityID, Mesh* model);
-		void Draw(const glm::mat4& transform, const Ref<Shader>& shader, int entityID);
+
 		void Draw();
 	private:
 		void SetupMesh(int entityID);
-		void SetupTex(const Ref<Shader>& shader);
 	public:
 		uint32_t mMaterialIndex;
 
 		std::vector<StaticVertex> mStaticVertices;
 		std::vector<SkinnedVertex> mSkinnedVertices;
 	private:
-		std::vector<MaterialTexture> mMaterial;
+		std::vector<MaterialTexture> mTextures;
+
 		std::vector<uint32_t> mIndices;
 
 		Ref<VertexArray> mVertexArray;
 		Ref<VertexBuffer> mVB;
 		Ref<IndexBuffer> mIB;
-
 
 		int mEntityID = -1;
 	};

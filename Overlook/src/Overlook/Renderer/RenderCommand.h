@@ -17,11 +17,6 @@ namespace Overlook {
 			s_RendererAPI->SetViewport(x, y, width, height);
 		}
 
-		static void Test()
-		{
-			s_RendererAPI->Test();
-		}
-
 		static void SetClearColor(const glm::vec4& color)
 		{
 			s_RendererAPI->SetClearColor(color);

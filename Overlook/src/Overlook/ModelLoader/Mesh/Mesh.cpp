@@ -1,11 +1,11 @@
 #include "olpch.h"
-#include "Overlook/ModelLoader/Mesh/Mesh.h"
 
-//self
 #include "Overlook/Resource/AssetManager/AssetManager.h"
+#include "Mesh.h"
+#include "Overlook/ModelLoader/Mesh/SubMesh.h"
+
 #include <regex>
-#include <glad/glad.h>
-#include "stb/stb_image.h"
+
 namespace Overlook
 {
 	namespace Utils
@@ -32,12 +32,6 @@ namespace Overlook
 			mSubMeshes[i].Draw(transform, cameraPos, shader, entityID, this);
 	}
 
-	void Mesh::Draw(const glm::mat4& transform, const Ref<Shader>& shader, int entityID)
-	{
-		for (unsigned int i = 0; i < mSubMeshes.size(); ++i)
-			mSubMeshes[i].Draw(transform, shader, entityID);
-	}
-
 	void Mesh::Draw()
 	{
 		for (unsigned int i = 0; i < mSubMeshes.size(); ++i)
@@ -50,7 +44,7 @@ namespace Overlook
 
 		Assimp::Importer importer;
 		std::string standardPath = std::regex_replace(path, std::regex("\\\\"), "/");
-		std::string standardFullPath = AssetManager::GetFullPath(path);
+		std::string standardFullPath = std::regex_replace(AssetManager::GetFullPath(path), std::regex("\\\\"), "/");
 		const aiScene* scene = importer.ReadFile(standardFullPath, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_CalcTangentSpace);
 
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
@@ -62,18 +56,8 @@ namespace Overlook
 		mDirectory = standardPath.substr(0, standardPath.find_last_of('/'));
 
 		uint32_t subMeshIndex = 0;
-		if (scene->HasAnimations())
-		{
-			bAnimated = true;
-			ProcessNode(scene->mRootNode, scene, subMeshIndex);
-			//TODO add animation
-			/*mAnimation = Animation(standardFullPath, this);
-			mAnimator = Animator(&mAnimation);*/
-		}
-		else
-		{
-			ProcessNode(scene->mRootNode, scene, subMeshIndex);
-		}
+
+		ProcessNode(scene->mRootNode, scene, subMeshIndex);
 
 		mMaterial.resize(subMeshIndex);
 	}
@@ -84,10 +68,7 @@ namespace Overlook
 		{
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 
-			if (bAnimated)
-				mSubMeshes.push_back(ProcessMesh<SkinnedVertex>(mesh, scene, subMeshIndex));
-			else
-				mSubMeshes.push_back(ProcessMesh<StaticVertex>(mesh, scene, subMeshIndex));
+			mSubMeshes.push_back(ProcessMesh<StaticVertex>(mesh, scene, subMeshIndex));
 
 			subMeshIndex++;
 		}
@@ -108,25 +89,31 @@ namespace Overlook
 		for (uint32_t i = 0; i < mesh->mNumVertices; ++i)
 		{
 			Vertex vertex;
-			aiVector3D& aiVertex = mesh->mVertices[i];
 
-			if (bAnimated)
-			{
-				Utils::SetVertexBoneDataToDefault((*reinterpret_cast<SkinnedVertex*>(&vertex)));
-			}
 
 			//pos
-			vertex.Pos = { aiVertex.x, aiVertex.y, aiVertex.z };
+			glm::vec3 vector;
+			vector.x = mesh->mVertices[i].x;
+			vector.y = mesh->mVertices[i].y;
+			vector.z = mesh->mVertices[i].z;
+			vertex.Pos = vector;
 
 			//normal
-			aiVector3D& aiNormal = mesh->mNormals[i];
-			vertex.Normal = { aiNormal.x, aiNormal.y, aiNormal.z };
+			if (mesh->HasNormals())
+			{
+				vector.x = mesh->mNormals[i].x;
+				vector.y = mesh->mNormals[i].y;
+				vector.z = mesh->mNormals[i].z;
+				vertex.Normal = vector;
+			}
 
 			//tex coord
-			if (mesh->mTextureCoords[0])  // has tex coord?
+			if (mesh->mTextureCoords[0])
 			{
-				aiVector3D& aiTexCoord = mesh->mTextureCoords[0][i];
-				vertex.TexCoord = { aiTexCoord.x, aiTexCoord.y };
+				glm::vec2 vec;
+				vec.x = mesh->mTextureCoords[0][i].x;
+				vec.y = mesh->mTextureCoords[0][i].y;
+				vertex.TexCoord = vec;
 			}
 			else
 				vertex.TexCoord = glm::vec2(0.0f, 0.0f);
@@ -134,11 +121,15 @@ namespace Overlook
 			if (mesh->HasTangentsAndBitangents())
 			{
 				// tangent
-
-				vertex.Tangent = { mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z };
-
+				vector.x = mesh->mTangents[i].x;
+				vector.y = mesh->mTangents[i].y;
+				vector.z = mesh->mTangents[i].z;
+				vertex.Tangent = vector;
 				// bitangent
-				vertex.Bitangent = { mesh->mBitangents[i].x, mesh->mBitangents[i].y,mesh->mBitangents[i].z };
+				vector.x = mesh->mBitangents[i].x;
+				vector.y = mesh->mBitangents[i].y;
+				vector.z = mesh->mBitangents[i].z;
+				vertex.Bitangent = vector;
 			}
 			else
 			{
@@ -159,49 +150,6 @@ namespace Overlook
 				indices.push_back(face.mIndices[j]);
 			}
 		}
-
-		// Bones
-		if (bAnimated)
-		{
-			for (size_t boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex)
-			{
-				int boneID = -1;
-				std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
-				if (mBoneInfoMap.find(boneName) == mBoneInfoMap.end())
-				{
-					BoneInfo newBoneInfo;
-					newBoneInfo.id = mBoneCounter;
-					//newBoneInfo.offset = Utils::ConvertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
-					mBoneInfoMap[boneName] = newBoneInfo;
-					boneID = mBoneCounter;
-					mBoneCounter++;
-				}
-				else
-				{
-					boneID = mBoneInfoMap[boneName].id;
-				}
-				OL_CORE_ASSERT(boneID != -1);
-				auto weights = mesh->mBones[boneIndex]->mWeights;
-				int numWeights = mesh->mBones[boneIndex]->mNumWeights;
-
-				for (int weightIndex = 0; weightIndex < numWeights; ++weightIndex)
-				{
-					int vertexId = weights[weightIndex].mVertexId;
-					float weight = weights[weightIndex].mWeight;
-					OL_CORE_ASSERT(vertexId <= vertices.size());
-					for (int i = 0; i < MAX_BONE_INFLUENCE; ++i)
-					{
-						if ((*reinterpret_cast<SkinnedVertex*>(&vertices[vertexId])).mBoneIDs[i] < 0)
-						{
-							(*reinterpret_cast<SkinnedVertex*>(&vertices[vertexId])).mWeights[i] = weight;
-							(*reinterpret_cast<SkinnedVertex*>(&vertices[vertexId])).mBoneIDs[i] = boneID;
-							break;
-						}
-					}
-				}
-			}
-		}
-
 		// process materials
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 		// we assume a convention for sampler names in the shaders. Each diffuse texture should be named

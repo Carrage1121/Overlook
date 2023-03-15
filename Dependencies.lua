@@ -18,14 +18,18 @@ IncludeDir["magic_enum"] = "%{wks.location}/Overlook/vendor/magic_enum/include"
 
 LibraryDir = {}
 LibraryDir["mono"] = "%{wks.location}/Overlook/vendor/mono/lib/%{cfg.buildcfg}"
+LibraryDir["assimp"] = "%{wks.location}/Overlook/vendor/assimp/build/lib/%{cfg.buildcfg}"
 
 Library = {}
 --Library["mono"] = "%{LibraryDir.mono}/libmono-static-sgen.lib"
 Library["mono"] = "%{LibraryDir.mono}/mono-2.0-sgen.lib"
+Library["assimp"] = "%{LibraryDir.assimp}/assimp-vc143-mtd.lib"
 
 
 BinaryDir = {}
 BinaryDir["mono"] = "%{wks.location}/Overlook/vendor/mono/bin/%{cfg.buildcfg}"
+BinaryDir["assimp"] = "%{wks.location}/Overlook/vendor/assimp/build/bin/%{cfg.buildcfg}"
 
 Binary = {}
 Binary["mono"] = "%{BinaryDir.mono}/mono-2.0-sgen.dll"
+Binary["assimp"] = "%{BinaryDir.assimp}/assimp-vc143-mtd.dll"

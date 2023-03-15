@@ -16,7 +16,7 @@ namespace Overlook
     template<>
     Library<Mesh>::Library()
     {
-        Add("Box", CreateRef<Mesh>("Assets/Models/Box.obj"));
+        Add("Box", CreateRef<Mesh>("assets/Model/Base/Box.obj"));
     }
 
     template<>
@@ -33,12 +33,12 @@ namespace Overlook
         Add("SkyBoxTexture", CubeMapTexture::Create(Paths));
 
         std::vector<std::string> blackPaths{
-            "Assets/Textures/black.png",
-            "Assets/Textures/black.png",
-            "Assets/Textures/black.png",
-            "Assets/Textures/black.png",
-            "Assets/Textures/black.png",
-            "Assets/Textures/black.png",
+            "assets/Texture/black.png",
+            "assets/Texture/black.png",
+            "assets/Texture/black.png",
+            "assets/Texture/black.png",
+            "assets/Texture/black.png",
+            "assets/Texture/black.png",
         };
         Add("BlackCubeMap", CubeMapTexture::Create(blackPaths));
 

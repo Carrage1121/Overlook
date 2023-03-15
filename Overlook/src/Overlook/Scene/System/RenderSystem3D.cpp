@@ -1,6 +1,6 @@
 #include "olpch.h"
 #include "RenderSystem3D.h"
-
+#include "Overlook/Scene/System/EnvironmentSystem.h"
 //self
 #include "Overlook/Renderer/Renderer3D.h"
 #include "Overlook/Renderer/RendererAPI.h"
@@ -169,7 +169,6 @@ namespace Overlook
 					Renderer3D::DrawModel(transform.GetTransform(), cameraPos, mesh, (int)entity);
 				}
 			}
-			Renderer3D::DrawSkyBox(*mainCamera);
 			Renderer3D::EndScene();
 		}
 	}
@@ -181,8 +180,7 @@ namespace Overlook
 		Ref<Shader> defaultShader = Library<Shader>::GetInstance().GetDefaultShader();
 		if (ModeManager::bHdrUse)
 		{
-			//defaultShader->SetFloat("exposure", EnvironmentSystem::environmentSettings.exposure);
-			defaultShader->SetFloat("exposure", 1.0f);
+			defaultShader->SetFloat("exposure", EnvironmentSystem::environmentSettings.exposure);
 		}
 
 		else
@@ -255,14 +253,14 @@ namespace Overlook
 			auto& transform = entity.GetComponent<TransformComponent>();
 			auto& mesh = entity.GetComponent<ModelRendererComponent>();
 
-			Ref<Shader> csmShader = Library<Shader>::GetInstance().Get("CSM_Depth");
-			csmShader->Bind();
-			if (mesh.mMesh->bPlayAnim)
-				csmShader->SetBool("u_Animated", true);
-			else
-				csmShader->SetBool("u_Animated", false);
-
-			mesh.mMesh->Draw(transform.GetTransform(), camera.GetPosition(), csmShader, (int)e);
+			// 			Ref<Shader> csmShader = Library<Shader>::GetInstance().Get("CSM_Depth");
+			// 			csmShader->Bind();
+			// 			if (mesh.mMesh->bPlayAnim)
+			// 				csmShader->SetBool("u_Animated", true);
+			// 			else
+			// 				csmShader->SetBool("u_Animated", false);
+			// 
+			// 			mesh.mMesh->Draw(transform.GetTransform(), camera.GetPosition(), csmShader, (int)e);
 		}
 		RenderCommand::CullFrontOrBack(false);
 
@@ -284,10 +282,8 @@ namespace Overlook
 
 				RenderCommand::SetStencilFunc(StencilFunc::NOTEQUAL, 1, 0xFF);
 				RenderCommand::StencilMask(0x00);
-				if (mesh.mMesh->bPlayAnim)
-					mesh.mMesh->Draw(transform.GetTransform(), camera.GetPosition(), Library<Shader>::GetInstance().Get("NormalOutline_anim"), (int)e);
-				else
-					mesh.mMesh->Draw(transform.GetTransform(), camera.GetPosition(), Library<Shader>::GetInstance().Get("NormalOutline"), (int)e);
+
+				mesh.mMesh->Draw(transform.GetTransform(), camera.GetPosition(), Library<Shader>::GetInstance().Get("NormalOutline"), (int)e);
 				RenderCommand::StencilMask(0xFF);
 				RenderCommand::SetStencilFunc(StencilFunc::ALWAYS, 0, 0xFF);
 				RenderCommand::ClearStencil();
