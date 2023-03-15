@@ -42,7 +42,6 @@ namespace Overlook
 		// UI Panels
 		void UI_Toolbar();
 
-		void LoadDefaultEditorConfig();
 	private:
 		// Temp
 		Ref<VertexArray> mSquareVA;

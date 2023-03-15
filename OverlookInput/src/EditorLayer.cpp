@@ -290,9 +290,6 @@ namespace Overlook
 				ImGui::MenuItem("Engine Settings", NULL, &bShowEngineSettings);
 				ImGui::MenuItem("Environment Settings", NULL, &bShowSceneSettings);
 
-				if (ImGui::MenuItem("Load Default Layout"))
-					LoadDefaultEditorConfig();
-
 				ImGui::EndMenu();
 			}
 			if (ImGui::BeginMenu("Help"))
@@ -612,36 +609,6 @@ namespace Overlook
 		ImGui::PopStyleVar(2);
 		ImGui::PopStyleColor(3);
 		ImGui::End();
-	}
-
-	void EditorLayer::LoadDefaultEditorConfig()
-	{
-		const std::filesystem::path CurrentEditorConfigPath{ AssetManager::GetFullPath("imgui.ini") };
-		const std::filesystem::path DefaultEditorConfigPath{ AssetManager::GetFullPath("Config/imgui.ini") };
-		OL_CORE_ASSERT(std::filesystem::exists(DefaultEditorConfigPath));
-		if (std::filesystem::exists(CurrentEditorConfigPath))
-			std::filesystem::remove(CurrentEditorConfigPath);
-		std::filesystem::copy(DefaultEditorConfigPath, std::filesystem::current_path());
-
-		// Window
-		bShowViewport = true;
-		bShowContentBrowser = true;
-		bShowSceneHierachy = true;
-		bShowProperties = true;
-		bShowStats = false;
-		bShowEngineSettings = true;
-		bShowSceneSettings = true;
-		bShowSRT = true;
-
-		// Help
-		bShowDemoImGui = false;
-
-		// seems imgui docking branch has some bugs with load ini file?
-
-		//auto& io = ImGui::GetIO();
-		//io.IniFilename = DefaultEditorConfigPath.string().c_str();
-		//ImGui::LoadIniSettingsFromDisk(DefaultEditorConfigPath.string().c_str());
-		//ImGui::DockContextRebuildNodes(ImGui::GetCurrentContext());
 	}
 
 	void EditorLayer::OnEvent(Event& e)

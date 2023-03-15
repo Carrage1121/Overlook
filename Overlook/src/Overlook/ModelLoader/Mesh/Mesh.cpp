@@ -209,7 +209,7 @@ namespace Overlook
 				catch (...)
 				{
 					OL_CORE_WARN("Load Texture failed!");
-					texture.texture2d = Texture2D::Create(AssetManager::GetFullPath("Assets/Textures/DefaultTexture.png"));
+					texture.texture2d = Texture2D::Create(AssetManager::GetFullPath("assets/Texture/DefaultTexture.png"));
 				}
 
 				switch (type)
