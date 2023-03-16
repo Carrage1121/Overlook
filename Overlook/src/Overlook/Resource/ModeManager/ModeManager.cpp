@@ -9,5 +9,5 @@ namespace Overlook
     SceneMode ModeManager::mSceneMode = SceneMode::None;
     EditMode ModeManager::mEditMode = EditMode::Select;
     bool ModeManager::bShowPhysicsColliders = false;
-    PhysicsDebugDrawModeFlag ModeManager::mPhysicsDebugDrawModeFlag = PhysicsDebugDrawModeFlag::HEngine_DrawWireframe;
+    PhysicsDebugDrawModeFlag ModeManager::mPhysicsDebugDrawModeFlag = PhysicsDebugDrawModeFlag::Overlook_DrawWireframe;
 }

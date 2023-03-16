@@ -39,6 +39,8 @@ namespace Overlook
 		[[nodiscard]] Ref<Texture2D> GetSettingIcon() { return Get("SettingIcon"); }
 		[[nodiscard]] Ref<Texture2D> GetPlayIcon() { return Get("PlayIcon"); }
 		[[nodiscard]] Ref<Texture2D> GetStopIcon() { return Get("StopIcon"); }
+		[[nodiscard]] Ref<Texture2D> Get2DIcon() { return Get("2D"); }
+		[[nodiscard]] Ref<Texture2D> Get3DIcon() { return Get("3D"); }
 	private:
 		std::unordered_map<std::string, Ref<Texture2D>> iconLibrary;
 	};

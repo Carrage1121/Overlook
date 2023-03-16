@@ -334,21 +334,6 @@ namespace Overlook
 		{
 			ImGui::Begin("Engine Settings", &bShowEngineSettings);
 
-			const char* modes[] = { "2D", "3D" };
-			int lastMode = ModeManager::b3DMode;
-			ImGui::Columns(2, nullptr, false);
-			ImGui::SetColumnWidth(0, 100.0f);
-			ImGui::Text("Mode");
-			ImGui::NextColumn();
-			if (ImGui::Combo("##Mode", &ModeManager::b3DMode, modes, IM_ARRAYSIZE(modes)))
-			{
-				if (lastMode != ModeManager::b3DMode)
-				{
-					bChangeDim = true;
-				}
-			}
-			ImGui::EndColumns();
-
 			ImGui::Columns(2, nullptr, false);
 			ImGui::SetColumnWidth(0, 100.0f);
 			ImGui::Text("Camera Speed");
@@ -597,8 +582,21 @@ namespace Overlook
 		ImGui::Begin("##toolbar", &show_button, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiDockNodeFlags_NoTabBar | ImGuiWindowFlags_NoTitleBar);
 
 		float size = ImGui::GetWindowHeight() - 4.0f;
-		Ref<Texture2D> icon = ModeManager::IsEditState() ? IconManager::GetInstance().GetPlayIcon() : IconManager::GetInstance().GetStopIcon();
+
+		//switch 2D ~ 3D
+
+		Ref<Texture2D> icon2 = ModeManager::b3DMode ? IconManager::GetInstance().Get3DIcon() : IconManager::GetInstance().Get2DIcon();
 		ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
+		if (ImGui::ImageButton((ImTextureID)icon2->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, -1), 0))
+		{
+			ModeManager::b3DMode ^= 1;
+			mActiveScene->ChangeDimMode();
+		}
+
+		ImGui::SameLine();
+
+		//switch Play ~ Edit
+		Ref<Texture2D> icon = ModeManager::IsEditState() ? IconManager::GetInstance().GetPlayIcon() : IconManager::GetInstance().GetStopIcon();
 		if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), ImVec2(0, 0), ImVec2(1, 1), 0))
 		{
 			if (ModeManager::IsEditState())

@@ -17,5 +17,7 @@ namespace Overlook
 		Add("RotateIcon", Texture2D::Create(std::string(("Resources/Icons/Rotate.png"))));
 		Add("ScaleIcon", Texture2D::Create(std::string(("Resources/Icons/Scale.png"))));
 		Add("MusicIcon", Texture2D::Create(std::string(("Resources/Icons/Music.png"))));
+		Add("2D", Texture2D::Create(std::string(("Resources/Icons/2D.png"))));
+		Add("3D", Texture2D::Create(std::string(("Resources/Icons/3D.png"))));
 	}
 }

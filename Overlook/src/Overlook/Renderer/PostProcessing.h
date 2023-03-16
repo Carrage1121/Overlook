@@ -10,11 +10,11 @@ namespace Overlook
 	{
 		None = 0,
 		MSAA = 1,
-		Outline,
+		/*Outline,*/
 		Cartoon,
 		GrayScale,
-		GaussianBlur,
-		FxaaConsole,
+		// 		GaussianBlur,
+		// 		FxaaConsole,
 	};
 
 	class PostProcessing

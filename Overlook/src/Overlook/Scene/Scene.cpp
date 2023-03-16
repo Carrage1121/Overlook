@@ -34,6 +34,26 @@ namespace Overlook {
 		}
 	}
 
+	void Scene::ChangeDimMode()
+	{
+		int nowDimMode = ModeManager::b3DMode;
+		if (nowDimMode)
+		{
+			mSystems.clear();
+			mSystems.emplace_back(CreateScope<RenderSystem3D>(this));
+			mSystems.emplace_back(CreateScope<PhysicSystem3D>(this));
+			mSystems.emplace_back(CreateScope<NativeScriptSystem>(this));
+			mSystems.emplace_back(CreateScope<EnvironmentSystem>(this));
+		}
+		else
+		{
+			mSystems.clear();
+			mSystems.emplace_back(CreateScope<NativeScriptSystem>(this));
+			mSystems.emplace_back(CreateScope<RenderSystem2D>(this));
+			mSystems.emplace_back(CreateScope<EnvironmentSystem>(this));
+		}
+	}
+
 	Scene::~Scene()
 	{
 	}
@@ -190,25 +210,6 @@ namespace Overlook {
 		Entity newEntity = CreateEntity(entity.GetName());
 
 		CopyComponentIfExists(AllComponents{}, newEntity, entity);
-	}
-
-	void Scene::ChangeDimMode()
-	{
-		int nowDimMode = ModeManager::b3DMode;
-		if (nowDimMode)
-		{
-			mSystems.clear();
-			mSystems.emplace_back(CreateScope<RenderSystem3D>(this));
-			mSystems.emplace_back(CreateScope<PhysicSystem3D>(this));
-			mSystems.emplace_back(CreateScope<EnvironmentSystem>(this));
-		}
-		else
-		{
-			mSystems.clear();
-			mSystems.emplace_back(CreateScope<NativeScriptSystem>(this));
-			mSystems.emplace_back(CreateScope<RenderSystem2D>(this));
-			mSystems.emplace_back(CreateScope<EnvironmentSystem>(this));
-		}
 	}
 
 

@@ -24,24 +24,24 @@ namespace Overlook
 
     enum class PhysicsDebugDrawModeFlag
     {
-        HEngine_NoDebug = 0,
-        HEngine_DrawWireframe = 1,
-        HEngine_DrawAabb = 2,
-        HEngine_DrawFeaturesText = 4,
-        HEngine_DrawContactPoints = 8,
-        HEngine_NoDeactivation = 16,
-        HEngine_NoHelpText = 32,
-        HEngine_DrawText = 64,
-        HEngine_ProfileTimings = 128,
-        HEngine_EnableSatComparison = 256,
-        HEngine_DisableBulletLCP = 512,
-        HEngine_EnableCCD = 1024,
-        HEngine_DrawConstraints = (1 << 11),
-        HEngine_DrawConstraintLimits = (1 << 12),
-        HEngine_FastWireframe = (1 << 13),
-        HEngine_DrawNormals = (1 << 14),
-        HEngine_DrawFrames = (1 << 15),
-        HEngine_MAX_DEBUG_DRAW_MODE
+        Overlook_NoDebug = 0,
+        Overlook_DrawWireframe = 1,
+        Overlook_DrawAabb = 2,
+        Overlook_DrawFeaturesText = 4,
+        Overlook_DrawContactPoints = 8,
+        Overlook_NoDeactivation = 16,
+        Overlook_NoHelpText = 32,
+        Overlook_DrawText = 64,
+        Overlook_ProfileTimings = 128,
+        Overlook_EnableSatComparison = 256,
+        Overlook_DisableBulletLCP = 512,
+        Overlook_EnableCCD = 1024,
+        Overlook_DrawConstraints = (1 << 11),
+        Overlook_DrawConstraintLimits = (1 << 12),
+        Overlook_FastWireframe = (1 << 13),
+        Overlook_DrawNormals = (1 << 14),
+        Overlook_DrawFrames = (1 << 15),
+        Overlook_MAX_DEBUG_DRAW_MODE
     };
 
     class ModeManager final : public PublicSingleton<ModeManager>

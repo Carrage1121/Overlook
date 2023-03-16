@@ -53,21 +53,21 @@ namespace Overlook
 		case PostProcessingType::MSAA:
 			re = DoMSAA(fb);
 			break;
-		case PostProcessingType::Outline:
-			re = DoPostWithShader(fb, Library<Shader>::GetInstance().Get("Post_Outline"));
-			break;
+// 		case PostProcessingType::Outline:
+// 			re = DoPostWithShader(fb, Library<Shader>::GetInstance().Get("Post_Outline"));
+// 			break;
 		case PostProcessingType::Cartoon:
 			re = DoPostWithShader(fb, Library<Shader>::GetInstance().Get("Post_Cartoon"));
 			break;
 		case PostProcessingType::GrayScale:
 			re = DoPostWithShader(fb, Library<Shader>::GetInstance().Get("Post_GrayScale"));
 			break;
-		case PostProcessingType::GaussianBlur:
-			re = DoPostWithShader(fb, Library<Shader>::GetInstance().Get("Post_GaussianBlur"));
-			break;
-		case PostProcessingType::FxaaConsole:
-			re = DoPostWithShader(fb, Library<Shader>::GetInstance().Get("Post_FxaaConsole"));
-			break;
+// 		case PostProcessingType::GaussianBlur:
+// 			re = DoPostWithShader(fb, Library<Shader>::GetInstance().Get("Post_GaussianBlur"));
+// 			break;
+// 		case PostProcessingType::FxaaConsole:
+// 			re = DoPostWithShader(fb, Library<Shader>::GetInstance().Get("Post_FxaaConsole"));
+// 			break;
 		default:
 			return 0;
 			break;
