@@ -28,6 +28,9 @@
     <Filter Include="src\Overlook\ModelLoader\Mesh">
       <UniqueIdentifier>{806C7448-EC84-5B72-B531-EB0B2109F00B}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Overlook\Physics">
+      <UniqueIdentifier>{9FF05A39-8B7F-E402-349E-F8FD200CF5A8}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Overlook\Renderer">
       <UniqueIdentifier>{73D6933B-DF42-4F36-A836-E7931462719E}</UniqueIdentifier>
     </Filter>
@@ -79,6 +82,9 @@
     <Filter Include="vendor\assimp">
       <UniqueIdentifier>{6F57A1F8-DB17-1D2F-A452-66AC10D2610B}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vendor\filewatch">
+      <UniqueIdentifier>{79235159-651C-70AB-8E4E-55307AA64FB7}</UniqueIdentifier>
+    </Filter>
     <Filter Include="vendor\glm">
       <UniqueIdentifier>{829FC5A8-6E57-07F6-D75E-E051C335A2E6}</UniqueIdentifier>
     </Filter>
@@ -120,7 +126,13 @@
     <ClInclude Include="src\Overlook\Core\Base.h">
       <Filter>src\Overlook\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Overlook\Core\Buffer.h">
+      <Filter>src\Overlook\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Overlook\Core\EntryPoint.h">
+      <Filter>src\Overlook\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Core\FileSystem.h">
       <Filter>src\Overlook\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Overlook\Core\Input.h">
@@ -145,6 +157,9 @@
       <Filter>src\Overlook\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Overlook\Core\PublicSingleton.h">
+      <Filter>src\Overlook\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Core\Timer.h">
       <Filter>src\Overlook\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Overlook\Core\Timestep.h">
@@ -197,6 +212,9 @@
     </ClInclude>
     <ClInclude Include="src\Overlook\ModelLoader\ModelLoadBuild.h">
       <Filter>src\Overlook\ModelLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Overlook\Physics\Physics3d.h">
+      <Filter>src\Overlook\Physics</Filter>
     </ClInclude>
     <ClInclude Include="src\Overlook\Renderer\Buffer.h">
       <Filter>src\Overlook\Renderer</Filter>
@@ -285,6 +303,9 @@
     <ClInclude Include="src\Overlook\Scene\ScriptableEntity.h">
       <Filter>src\Overlook\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\Overlook\Scene\System\CSharpScriptSystem.h">
+      <Filter>src\Overlook\Scene\System</Filter>
+    </ClInclude>
     <ClInclude Include="src\Overlook\Scene\System\EnvironmentSystem.h">
       <Filter>src\Overlook\Scene\System</Filter>
     </ClInclude>
@@ -353,6 +374,9 @@
     </ClInclude>
     <ClInclude Include="vendor\ImGuizmo\ImGuizmo.h">
       <Filter>vendor\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\filewatch\FileWatch.h">
+      <Filter>vendor\filewatch</Filter>
     </ClInclude>
     <ClInclude Include="vendor\glm\glm\common.hpp">
       <Filter>vendor\glm\glm</Filter>
@@ -1625,6 +1649,9 @@
     <ClCompile Include="src\Overlook\Core\Application.cpp">
       <Filter>src\Overlook\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Overlook\Core\FileSystem.cpp">
+      <Filter>src\Overlook\Core</Filter>
+    </ClCompile>
     <ClCompile Include="src\Overlook\Core\Layer.cpp">
       <Filter>src\Overlook\Core</Filter>
     </ClCompile>
@@ -1744,6 +1771,9 @@
     </ClCompile>
     <ClCompile Include="src\Overlook\Scene\SceneSerializer.cpp">
       <Filter>src\Overlook\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Overlook\Scene\System\CSharpScriptSystem.cpp">
+      <Filter>src\Overlook\Scene\System</Filter>
     </ClCompile>
     <ClCompile Include="src\Overlook\Scene\System\EnvironmentSystem.cpp">
       <Filter>src\Overlook\Scene\System</Filter>

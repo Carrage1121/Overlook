@@ -18,6 +18,7 @@ project "Overlook"
 		"vendor/stb/**.cpp",
 		"vendor/glm/glm/**.hpp",
 		"vendor/glm/glm/**.inl",
+		"vendor/filewatch/FileWatch.h",
 		"%{IncludeDir.assimp}",
 		"vendor/ImGuizmo/ImGuizmo.h",
 		"vendor/ImGuizmo/ImGuizmo.cpp",
@@ -45,6 +46,7 @@ project "Overlook"
 		"%{IncludeDir.ImGuizmo}",
 		"%{IncludeDir.mono}",
 		"%{IncludeDir.bullet3}",
+		"%{IncludeDir.filewatch}",
 		"%{wks.location}/OverlookInput/src"
 	}
 

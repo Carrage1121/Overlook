@@ -20,15 +20,18 @@ namespace Overlook {
 		int nowDimMode = ModeManager::b3DMode;
 		if (nowDimMode)
 		{
+			mSystems.emplace_back(CreateScope<CSharpScriptSystem>(this));
 			mSystems.emplace_back(CreateScope<RenderSystem3D>(this));
 			mSystems.emplace_back(CreateScope<NativeScriptSystem>(this));
 			mSystems.emplace_back(CreateScope<PhysicSystem3D>(this));
 			mSystems.emplace_back(CreateScope<EnvironmentSystem>(this));
+			
 		}
 		else
 		{
 			mSystems.emplace_back(CreateScope<RenderSystem2D>(this));
 			mSystems.emplace_back(CreateScope<NativeScriptSystem>(this));
+			mSystems.emplace_back(CreateScope<CSharpScriptSystem>(this));
 			mSystems.emplace_back(CreateScope<PhysicSystem3D>(this));
 			mSystems.emplace_back(CreateScope<EnvironmentSystem>(this));
 		}
@@ -43,6 +46,7 @@ namespace Overlook {
 			mSystems.emplace_back(CreateScope<RenderSystem3D>(this));
 			mSystems.emplace_back(CreateScope<PhysicSystem3D>(this));
 			mSystems.emplace_back(CreateScope<NativeScriptSystem>(this));
+			mSystems.emplace_back(CreateScope<CSharpScriptSystem>(this));
 			mSystems.emplace_back(CreateScope<EnvironmentSystem>(this));
 		}
 		else
@@ -142,35 +146,23 @@ namespace Overlook {
 
 	void Scene::DestroyEntity(Entity entity)
 	{
-		m_Registry.destroy(entity);
 		m_EntityMap.erase(entity.GetUUID());
+		m_Registry.destroy(entity);
 	}
 
 	void Scene::OnRuntimeStart()
 	{
-
-		// Scripting
-		{
-			ScriptEngine::OnRuntimeStart(this);
-			// Instantiate all script entities
-
-			auto view = m_Registry.view<ScriptComponent>();
-			for (auto e : view)
-			{
-				Entity entity = { e, this };
-				ScriptEngine::OnCreateEntity(entity);
-			}
-		}
+		m_IsRunning = true;
 
 		for (auto& system : mSystems)
 		{
-			system->OnRuntiemStart();
+			system->OnRuntimeStart();
 		}
 	}
 
 	void Scene::OnRuntimeStop()
 	{
-		ScriptEngine::OnRuntimeStop();
+		m_IsRunning = false;
 	}
 	void Scene::OnUpdateRuntime(Timestep ts)
 	{
@@ -205,6 +197,11 @@ namespace Overlook {
 
 	}
 
+	void Scene::Step(int frames)
+	{
+		m_StepFrames = frames;
+	}
+
 	void Scene::DuplicateEntity(Entity entity)
 	{
 		Entity newEntity = CreateEntity(entity.GetName());
@@ -212,6 +209,17 @@ namespace Overlook {
 		CopyComponentIfExists(AllComponents{}, newEntity, entity);
 	}
 
+	Entity Scene::FindEntityByName(std::string_view name)
+	{
+		auto view = m_Registry.view<TagComponent>();
+		for (auto entity : view)
+		{
+			const TagComponent& tc = view.get<TagComponent>(entity);
+			if (tc.Tag == name)
+				return Entity{ entity, this };
+		}
+		return {};
+	}
 
 	Entity Scene::GetPrimaryCameraEntity()
 	{

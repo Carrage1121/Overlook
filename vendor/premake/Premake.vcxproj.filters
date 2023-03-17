@@ -28,6 +28,15 @@
     <Filter Include="..\OverlookInput">
       <UniqueIdentifier>{F13E4C94-DD37-6BE6-066A-506BF2C14AF2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="..\OverlookInput\SandboxProject">
+      <UniqueIdentifier>{E669CC00-524D-DB40-5B50-097DC7B2A191}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\OverlookInput\SandboxProject\Assets">
+      <UniqueIdentifier>{08D2B3A8-F423-8B98-DD42-C8A8C933A481}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\OverlookInput\SandboxProject\Assets\Scripts">
+      <UniqueIdentifier>{3F41BAA8-2BBF-0A42-14B7-C8D900D44C6A}</UniqueIdentifier>
+    </Filter>
     <Filter Include="..\SandBox">
       <UniqueIdentifier>{1FF36A1D-0BAB-AC6A-74B2-85C66089475B}</UniqueIdentifier>
     </Filter>
@@ -50,6 +59,9 @@
     </None>
     <None Include="..\..\Overlook\vendor\yaml-cpp\premake5.lua">
       <Filter>..\Overlook\vendor\yaml-cpp</Filter>
+    </None>
+    <None Include="..\..\OverlookInput\SandboxProject\Assets\Scripts\premake5.lua">
+      <Filter>..\OverlookInput\SandboxProject\Assets\Scripts</Filter>
     </None>
     <None Include="..\..\OverlookInput\premake5.lua">
       <Filter>..\OverlookInput</Filter>

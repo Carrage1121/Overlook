@@ -15,7 +15,8 @@ namespace Overlook {
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application(const std::string& name)
-	{;
+	{
+		;
 
 		OL_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
@@ -23,8 +24,9 @@ namespace Overlook {
 		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps(name)));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
-		ScriptEngine::Init();
+
 		Renderer::Init();
+		ScriptEngine::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
@@ -68,6 +70,13 @@ namespace Overlook {
 			if (e.Handled)
 				break;
 		}
+	}
+
+	void Application::SubmitToMainThread(const std::function<void()>& function)
+	{
+		std::scoped_lock<std::mutex> lock(m_MainThreadQueueMutex);
+
+		m_MainThreadQueue.emplace_back(function);
 	}
 
 	void Application::Run()

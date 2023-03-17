@@ -10,7 +10,7 @@ namespace Overlook
 {
 	Utils::BulletDrawer PhysicSystem3D::mDebugDrawer;
 
-	void PhysicSystem3D::OnRuntiemStart()
+	void PhysicSystem3D::OnRuntimeStart()
 	{
 		mBroadphase = new btDbvtBroadphase();
 		mCollisionConfiguration = new btDefaultCollisionConfiguration();
@@ -192,7 +192,7 @@ namespace Overlook
 		if (ModeManager::bShowPhysicsColliders)
 		{
 			//if (initFlag)
-			OnRuntiemStart();
+			OnRuntimeStart();
 
 			Renderer2D::BeginScene(camera);
 

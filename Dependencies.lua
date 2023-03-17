@@ -1,5 +1,5 @@
 
--- Hazel Dependencies
+-- Overlook Dependencies
 
 
 IncludeDir = {}
@@ -15,6 +15,7 @@ IncludeDir["ImGuizmo"] = "%{wks.location}/Overlook/vendor/ImGuizmo"
 IncludeDir["mono"] = "%{wks.location}/Overlook/vendor/mono/include"
 IncludeDir["bullet3"] = "%{wks.location}/Overlook/vendor/bullet3/src"
 IncludeDir["magic_enum"] = "%{wks.location}/Overlook/vendor/magic_enum/include"
+IncludeDir["filewatch"] = "%{wks.location}/Overlook/vendor/filewatch"
 
 LibraryDir = {}
 LibraryDir["mono"] = "%{wks.location}/Overlook/vendor/mono/lib/%{cfg.buildcfg}"

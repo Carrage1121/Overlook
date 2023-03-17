@@ -74,8 +74,10 @@ namespace Overlook {
 	struct NativeScriptComponent
 	{
 		ScriptableEntity* Instance = nullptr;
+
 		ScriptableEntity* (*InstantiateScript)();
 		void (*DestroyScript)(NativeScriptComponent*);
+
 		template<typename T>
 		void Bind()
 		{
@@ -105,10 +107,6 @@ namespace Overlook {
 			: Path(path), mMesh(CreateRef<Mesh>(path))
 		{
 		}
-		//MeshComponent(const std::filesystem::path& path)
-		//	: Path(path)
-		//{
-		//}
 
 		std::string Path = "None";
 		Ref<Mesh> mMesh;

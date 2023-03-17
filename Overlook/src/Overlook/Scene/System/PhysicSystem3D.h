@@ -57,7 +57,7 @@ namespace Overlook
 		PhysicSystem3D(Scene* scene) : System(scene) {}
 		virtual ~PhysicSystem3D() = default;
 	public:
-		void OnRuntiemStart() override;
+		void OnRuntimeStart() override;
 		void OnUpdateRuntime(Timestep ts) override;
 		void OnRuntimeStop() override;
 		void OnUpdateEditor(Timestep ts, EditorCamera& camera) override;

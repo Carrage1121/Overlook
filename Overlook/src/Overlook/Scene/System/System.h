@@ -15,7 +15,7 @@ namespace Overlook
 	public:
 		virtual void OnUpdateEditor(Timestep ts, EditorCamera& camera) {}
 		virtual void OnUpdateRuntime(Timestep ts) {}
-		virtual void OnRuntiemStart() {}
+		virtual void OnRuntimeStart() {}
 		virtual void OnRuntimeStop() {}
 	protected:
 		Scene* mScene = nullptr;

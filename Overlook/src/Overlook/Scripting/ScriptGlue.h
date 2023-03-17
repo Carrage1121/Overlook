@@ -5,10 +5,7 @@ namespace Overlook {
 	class ScriptGlue
 	{
 	public:
-		static void RegisterFunctions();
 		static void RegisterComponents();
+		static void RegisterFunctions();
 	};
-
-
-
 }

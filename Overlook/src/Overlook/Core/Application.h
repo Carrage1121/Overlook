@@ -34,6 +34,9 @@ namespace Overlook {
 		inline static Application& Get() { return *s_Instance; }
 
 		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
+
+		void SubmitToMainThread(const std::function<void()>& function);
+
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
@@ -44,6 +47,9 @@ namespace Overlook {
 		LayerStack m_LayerStack;
 
 		float m_LastFrameTime = 0.0f;
+
+		std::vector<std::function<void()>> m_MainThreadQueue;
+		std::mutex m_MainThreadQueueMutex;
 
 	private:
 		static Application* s_Instance;

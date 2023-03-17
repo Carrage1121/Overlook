@@ -1,19 +1,6 @@
 Scene: Untitled
 Entities:
-  - Entity: 12837192831273
-    TagComponent:
-      Tag: Sprite
-    TransformComponent:
-      Translation: [0, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    ScriptComponent:
-      ClassName: Sandbox.Player
-      ScriptFields:
-        []
-    SpriteRendererComponent:
-      Color: [0.941176474, 0.221453279, 0.221453279, 1]
-  - Entity: 12837192831273
+  - Entity: 5064509501229496281
     TagComponent:
       Tag: Camera
     TransformComponent:
@@ -35,3 +22,16 @@ Entities:
       ClassName: Sandbox.Camera
       ScriptFields:
         []
+  - Entity: 7998278600884310929
+    TagComponent:
+      Tag: box
+    TransformComponent:
+      Translation: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    ScriptComponent:
+      ClassName: Sandbox.Player
+      ScriptFields:
+        []
+    ModelRendererComponent:
+      Path: assets\Model\Base\Box.obj

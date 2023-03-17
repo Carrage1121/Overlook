@@ -13,17 +13,6 @@ namespace Overlook
 {
 	void RenderSystem2D::OnUpdateRuntime(Timestep ts)
 	{
-		// Update scripts
-		{
-			// C# Entity OnUpdate
-			auto view = mScene->m_Registry.view<ScriptComponent>();
-			for (auto e : view)
-			{
-				Entity entity = { e, mScene };
-				ScriptEngine::OnUpdateEntity(entity, ts);
-			}
-		}
-
 		// Render 2D
 		Camera* mainCamera = nullptr;
 		glm::mat4 cameraTransform;
